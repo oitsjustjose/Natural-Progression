@@ -7,12 +7,15 @@ import com.oitsjustjose.realism.common.event.LogBreak;
 import com.oitsjustjose.realism.common.event.PlankBreak;
 import com.oitsjustjose.realism.common.items.RealismItems;
 import com.oitsjustjose.realism.common.utils.Constants;
+import com.oitsjustjose.realism.common.utils.PlankRecipe;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,6 +28,7 @@ public class Realism
     private static Realism instance;
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
     public Logger LOGGER = LogManager.getLogger();
+    public static final IRecipeSerializer<PlankRecipe> PLANK_SLICING = new PlankRecipe.Serializer();
 
     public Realism()
     {
@@ -65,6 +69,13 @@ public class Realism
         {
             RealismBlocks.registerBlockItems(itemRegistryEvent);
             RealismItems.registerItems(itemRegistryEvent);
+        }
+
+        @SubscribeEvent
+        public static void onRegisterSerializers(final RegistryEvent.Register<IRecipeSerializer<?>> event)
+        {
+            event.getRegistry()
+                    .register(PLANK_SLICING.setRegistryName(new ResourceLocation(Constants.MODID, "plank_sawing")));
         }
     }
 }
