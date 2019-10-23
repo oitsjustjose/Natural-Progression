@@ -1,6 +1,14 @@
 {
+    "_comment": "Block Locales",
     "block.geolosys-realism.stone_pebble": "Stone Pebble",
     "block.geolosys-realism.andesite_pebble": "Andesite Pebble",
     "block.geolosys-realism.diorite_pebble": "Diorite Pebble",
-    "block.geolosys-realism.granite_pebble": "Granite Pebble"
+    "block.geolosys-realism.granite_pebble": "Granite Pebble",
+    "_comment": "Item Locals",
+    "item.geolosys-realism.flint_hatchet": "Flint Hatchet",
+    "_comment": "Player Notifications",
+    "geolosys-realism.logs.warning": "§4You cannot break logs without an axe.§4",
+    "geolosys-realism.planks.warning": "§4You cannot break planks without an axe.§4",
+    "_comment": "Misc",
+    "itemGroup.geolosys-realism.name": "Geolosys Realism"
 }

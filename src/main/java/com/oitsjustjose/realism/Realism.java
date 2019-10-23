@@ -3,6 +3,9 @@ package com.oitsjustjose.realism;
 import com.oitsjustjose.realism.client.ClientProxy;
 import com.oitsjustjose.realism.common.CommonProxy;
 import com.oitsjustjose.realism.common.blocks.RealismBlocks;
+import com.oitsjustjose.realism.common.event.LogBreak;
+import com.oitsjustjose.realism.common.event.PlankBreak;
+import com.oitsjustjose.realism.common.items.RealismItems;
 import com.oitsjustjose.realism.common.utils.Constants;
 
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +32,8 @@ public class Realism
 
         // Register the setup method for modloading
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new LogBreak());
+        MinecraftForge.EVENT_BUS.register(new PlankBreak());
 
         this.configSetup();
     }
@@ -59,6 +64,7 @@ public class Realism
         public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent)
         {
             RealismBlocks.registerBlockItems(itemRegistryEvent);
+            RealismItems.registerItems(itemRegistryEvent);
         }
     }
 }
