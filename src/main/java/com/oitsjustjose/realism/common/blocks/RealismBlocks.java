@@ -2,6 +2,7 @@ package com.oitsjustjose.realism.common.blocks;
 
 import java.util.ArrayList;
 
+import com.oitsjustjose.realism.common.items.PebbleItem;
 import com.oitsjustjose.realism.common.utils.Constants;
 import com.oitsjustjose.realism.common.utils.RealismGroup;
 
@@ -44,9 +45,18 @@ public class RealismBlocks
     {
         for (Block block : modBlocks)
         {
-            Item iBlock = new BlockItem(block, new Item.Properties().group(RealismGroup.getInstance()))
-                    .setRegistryName(block.getRegistryName());
-            itemRegistryEvent.getRegistry().register(iBlock);
+            // Ignore pebble blocks - pebble item will represent them
+            if (block instanceof PebbleBlock)
+            {
+                Item iBlock = new PebbleItem(block).setRegistryName(block.getRegistryName());
+                itemRegistryEvent.getRegistry().register(iBlock);
+            }
+            else
+            {
+                Item iBlock = new BlockItem(block, new Item.Properties().group(RealismGroup.getInstance()))
+                        .setRegistryName(block.getRegistryName());
+                itemRegistryEvent.getRegistry().register(iBlock);
+            }
         }
     }
 
