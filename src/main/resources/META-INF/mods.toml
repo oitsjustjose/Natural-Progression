@@ -1,0 +1,28 @@
+modLoader="javafml" #mandatory
+loaderVersion="[28,)" #mandatory (28 is current forge version)
+issueTrackerURL="https://github.com/oitsjustjose/Geolosys-Realism/issues"
+[[mods]]
+modId="geolosys-realism"
+version="${version}"
+displayName="Geolosys Realism"
+displayURL=""
+credits="Contributors on GitHub"
+authors="oitsjustjose"
+description='''
+A highly configurable terrafirmacraft-style ore generation mod which permits users to configure almost everything, add their own entries, and many compatibility integrations for other mods.
+
+Support me on Patreon at https://patreon.com/oitsjustjose
+'''
+[[dependencies.geolosys-realism]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[28,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.geolosys-realism]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.14.4]"
+    ordering="NONE"
+    side="BOTH"

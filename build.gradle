@@ -1,0 +1,140 @@
+buildscript {
+    repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+    }
+    dependencies {
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+apply plugin: 'com.matthewprenger.cursegradle'
+
+group = 'com.oitsjustjose.realism' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "Geolosys-Realism-${game_version}"
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+
+minecraft {
+    mappings channel: "snapshot", version: "${mappings_version}-1.14.3"
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                "geolosys-realism" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                "geolosys-realism" {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${game_version}-${forge_version}"
+}
+
+// Example for how to get properties into the manifest for reading by the runtime..
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": "geolosys-realism",
+            "Specification-Vendor": "oitsjustjose.com",
+            "Specification-Version": "1", // We are version 1 of ourselves
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${mod_version}",
+            "Implementation-Vendor" :"oitsjustjose.com",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+def reobfFile = file("$buildDir/reobfJar/output.jar")
+def reobfArtifact = artifacts.add('default', reobfFile) {
+    type 'jar'
+    builtBy 'reobfJar'
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'Deobf'
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'Sources'
+    from sourceSets.main.allSource
+}
+
+processResources {
+    version = "${mod_version}"
+    from(sourceSets.main.resources) {
+        include '**/mods.toml'
+        expand 'version': version
+    }
+}
+
+build.dependsOn processResources
+
+artifacts {
+    archives deobfJar
+    archives sourcesJar
+}
+
+curseforge {
+  apiKey = project.hasProperty("CURSEFORGE_API_KEY") ? project.CURSEFORGE_API_KEY : ""
+  project {
+    id = '271856'
+    changelogType = 'markdown'
+    changelog = file("./changelog.md")
+    releaseType = 'release'
+    addGameVersion "${game_version}"
+
+    mainArtifact(jar) {
+        displayName = "Geolosys-Realism ${game_version} ${mod_version}"
+    }
+
+
+    addArtifact(deobfJar) {
+        displayName = "Geolosys-Realism ${game_version} ${mod_version} Deobf"
+    }
+
+    addArtifact(sourcesJar){
+        displayName = "Geolosys-Realism ${game_version} ${mod_version} Sources"
+    }
+  }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact reobfArtifact
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
