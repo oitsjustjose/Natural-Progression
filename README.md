@@ -9,10 +9,10 @@ A modpack-friendly extension of Geolosys (though it doesn't require Geolosys!) t
 ## ToDo
 
 - [ ] Generate Pebbles
-- [ ] Remove wooden tool recipes
+- [x] Remove wooden tool recipes
 - [ ] Make Stone drop stone pebbles -[craft]-> cobblestone
-- [ ] Make Diorite/Andesite/Granite drop their respective pebbles
-- [ ] Make Stone Pebble knapping for flint (pebble in main and offhand)
+- [x] Make Diorite/Andesite/Granite drop their respective pebbles
+- [x] Make Stone Pebble knapping for flint (pebble in main and offhand)
 
 ## Progression Plan
 
