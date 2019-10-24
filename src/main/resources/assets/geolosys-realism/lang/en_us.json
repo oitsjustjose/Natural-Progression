@@ -6,6 +6,8 @@
     "block.geolosys-realism.granite_pebble": "Granite Pebble",
     "_comment": "Item Locals",
     "item.geolosys-realism.flint_hatchet": "Flint Hatchet",
+    "item.geolosys-realism.basic_saw":"Basic Saw",
+    "item.geolosys-realism.improved_saw": "Improved Saw",
     "_comment": "Player Notifications",
     "geolosys-realism.logs.warning": "§4You cannot break logs without an axe.§r",
     "geolosys-realism.planks.warning": "§4You cannot break planks without an axe.§r",

@@ -8,6 +8,7 @@ package com.oitsjustjose.realism.common.utils;
 
 import com.google.gson.JsonObject;
 import com.oitsjustjose.realism.Realism;
+import com.oitsjustjose.realism.common.items.SawItem;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -40,6 +41,7 @@ public class PlankRecipe extends ShapelessRecipe
     @Override
     public ItemStack getCraftingResult(CraftingInventory inv)
     {
+        ItemStack saw = null;
         ItemStack axe = null;
         ItemStack log = null;
 
@@ -49,12 +51,16 @@ public class PlankRecipe extends ShapelessRecipe
 
             if (!checkedItemStack.isEmpty())
             {
-                if (checkedItemStack.getToolTypes().contains(ToolType.AXE))
+                if (checkedItemStack.getItem() instanceof SawItem)
                 {
-                    if (axe == null)
+                    if (saw == null)
                     {
-                        axe = checkedItemStack.copy();
+                        saw = checkedItemStack.copy();
                     }
+                }
+                else if (checkedItemStack.getToolTypes().contains(ToolType.AXE))
+                {
+                    axe = checkedItemStack.copy();
                 }
                 else if (ItemTags.LOGS.contains(checkedItemStack.getItem()))
                 {
@@ -62,13 +68,13 @@ public class PlankRecipe extends ShapelessRecipe
                 }
             }
 
-            if (axe != null && log != null)
+            if ((saw != null && log != null) || (axe != null && log != null))
             {
                 break;
             }
         }
 
-        if (axe != null && log != null)
+        if (saw != null && log != null)
         {
             ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
                     log.getItem().getRegistryName().getPath().replace("log", "planks"));
@@ -78,6 +84,16 @@ public class PlankRecipe extends ShapelessRecipe
                 return new ItemStack(b, 4);
             }
         }
+        else if (axe != null && log != null)
+        {
+            ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
+                    log.getItem().getRegistryName().getPath().replace("log", "planks"));
+            Block b = ForgeRegistries.BLOCKS.getValue(plankLoc);
+            if (b != null && b != Blocks.AIR)
+            {
+                return new ItemStack(b, 1);
+            }
+        }
 
         return ItemStack.EMPTY;
     }
@@ -85,6 +101,7 @@ public class PlankRecipe extends ShapelessRecipe
     @Override
     public boolean matches(CraftingInventory inv, World world)
     {
+        ItemStack saw = null;
         ItemStack axe = null;
         ItemStack log = null;
 
@@ -94,12 +111,16 @@ public class PlankRecipe extends ShapelessRecipe
 
             if (!checkedItemStack.isEmpty())
             {
-                if (checkedItemStack.getToolTypes().contains(ToolType.AXE))
+                if (checkedItemStack.getItem() instanceof SawItem)
                 {
-                    if (axe == null)
+                    if (saw == null)
                     {
-                        axe = checkedItemStack.copy();
+                        saw = checkedItemStack.copy();
                     }
+                }
+                else if (checkedItemStack.getToolTypes().contains(ToolType.AXE))
+                {
+                    axe = checkedItemStack.copy();
                 }
                 else if (ItemTags.LOGS.contains(checkedItemStack.getItem()))
                 {
@@ -107,13 +128,24 @@ public class PlankRecipe extends ShapelessRecipe
                 }
             }
 
-            if (axe != null && log != null)
+            if ((saw != null && log != null) || (axe != null && log != null))
             {
                 break;
             }
         }
 
-        if (axe != null && log != null)
+        if (saw != null && log != null)
+        {
+            ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
+                    log.getItem().getRegistryName().getPath().replace("log", "planks"));
+            Block b = ForgeRegistries.BLOCKS.getValue(plankLoc);
+            if (b != null && b != Blocks.AIR)
+            {
+
+                return true;
+            }
+        }
+        else if (axe != null && log != null)
         {
             ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
                     log.getItem().getRegistryName().getPath().replace("log", "planks"));
@@ -139,28 +171,28 @@ public class PlankRecipe extends ShapelessRecipe
             {
                 continue;
             }
-            if (stack.getToolTypes().contains(ToolType.AXE))
+            if (stack.getItem() instanceof SawItem || stack.getToolTypes().contains(ToolType.AXE))
             {
-                ItemStack savedAxe = stack.copy();
+                ItemStack savedStack = stack.copy();
 
-                if (!savedAxe.hasTag())
+                if (!savedStack.hasTag())
                 {
-                    savedAxe.setTag(new CompoundNBT());
-                    savedAxe.getTag().putInt("Damage", 0);
+                    savedStack.setTag(new CompoundNBT());
+                    savedStack.getTag().putInt("Damage", 0);
                 }
-                
-                int damage = savedAxe.getTag().getInt("Damage");
-                if (damage < savedAxe.getMaxDamage())
+
+                int damage = savedStack.getTag().getInt("Damage");
+                if (damage < savedStack.getMaxDamage())
                 {
-                    savedAxe.getTag().putInt("Damage", damage + 1);
-                    nonnulllist.set(i, savedAxe);
+                    savedStack.getTag().putInt("Damage", damage + 1);
+                    nonnulllist.set(i, savedStack);
                 }
                 else
                 {
                     nonnulllist.set(i, ItemStack.EMPTY);
                 }
             }
-        }
+ e        }
 
         return nonnulllist;
     }

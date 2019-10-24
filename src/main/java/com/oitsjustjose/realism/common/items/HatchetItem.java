@@ -6,11 +6,10 @@ import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.ToolType;
 
-public class HatchetFlint extends AxeItem
+public class HatchetItem extends AxeItem
 {
-    public HatchetFlint()
+    public HatchetItem()
     {
-        // IItemTier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builder
         super(new FlintItemTier(), 1.8F, 0F, new Item.Properties().addToolType(ToolType.AXE, 0)
                 .group(RealismGroup.getInstance()).maxStackSize(1).maxDamage(16));
     }
