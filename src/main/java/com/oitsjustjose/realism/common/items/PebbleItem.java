@@ -30,7 +30,7 @@ public class PebbleItem extends BlockItem
 
     public PebbleItem(Block blockForm)
     {
-        super(blockForm, new Item.Properties().group(RealismGroup.getInstance()).maxStackSize(16));
+        super(blockForm, new Item.Properties().group(RealismGroup.getInstance()));
         this.asBlock = blockForm;
     }
 
