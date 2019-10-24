@@ -3,11 +3,13 @@ package com.oitsjustjose.realism;
 import com.oitsjustjose.realism.client.ClientProxy;
 import com.oitsjustjose.realism.common.CommonProxy;
 import com.oitsjustjose.realism.common.blocks.RealismBlocks;
+import com.oitsjustjose.realism.common.config.CommonConfig;
 import com.oitsjustjose.realism.common.event.LogBreak;
 import com.oitsjustjose.realism.common.event.PlankBreak;
 import com.oitsjustjose.realism.common.items.RealismItems;
 import com.oitsjustjose.realism.common.utils.Constants;
 import com.oitsjustjose.realism.common.utils.PlankRecipe;
+import com.oitsjustjose.realism.common.world.feature.PebbleFeature;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,11 +18,22 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.placement.NoPlacementConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig.Type;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod(Constants.MODID)
 public class Realism
@@ -33,6 +46,8 @@ public class Realism
     public Realism()
     {
         instance = this;
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
         // Register the setup method for modloading
         MinecraftForge.EVENT_BUS.register(this);
@@ -49,10 +64,19 @@ public class Realism
 
     private void configSetup()
     {
-        // TODO: setup configs
-        // ModLoadingContext.get().registerConfig(Type.CLIENT, ClientConfig.CLIENT_CONFIG);
-        // ModLoadingContext.get().registerConfig(Type.COMMON, CommonConfig.COMMON_CONFIG);
-        // CommonConfig.loadConfig(CommonConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("geolosys-common.toml"));
+        ModLoadingContext.get().registerConfig(Type.COMMON, CommonConfig.COMMON_CONFIG);
+        CommonConfig.loadConfig(CommonConfig.COMMON_CONFIG,
+                FMLPaths.CONFIGDIR.get().resolve("geolosys-realism-common.toml"));
+    }
+
+    public void setup(final FMLCommonSetupEvent event)
+    {
+        for (Biome biome : ForgeRegistries.BIOMES.getValues())
+        {
+            biome.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
+                    Biome.createDecoratedFeature(new PebbleFeature(NoFeatureConfig::deserialize), new NoFeatureConfig(),
+                            Placement.NOPE, new NoPlacementConfig()));
+        }
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
