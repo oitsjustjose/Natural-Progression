@@ -1,7 +1,5 @@
 package com.oitsjustjose.realism;
 
-import com.oitsjustjose.realism.client.ClientProxy;
-import com.oitsjustjose.realism.common.CommonProxy;
 import com.oitsjustjose.realism.common.blocks.RealismBlocks;
 import com.oitsjustjose.realism.common.config.CommonConfig;
 import com.oitsjustjose.realism.common.event.LogBreak;
@@ -26,7 +24,6 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig.Type;
@@ -39,7 +36,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class Realism
 {
     private static Realism instance;
-    public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
     public Logger LOGGER = LogManager.getLogger();
     public static final IRecipeSerializer<PlankRecipe> PLANK_SLICING = new PlankRecipe.Serializer();
 

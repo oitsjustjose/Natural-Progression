@@ -16,7 +16,6 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -30,12 +29,9 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class PlankRecipe extends ShapelessRecipe
 {
-    private RecipeManager recipes;
-
     public PlankRecipe(ResourceLocation id, String group, ItemStack output, NonNullList<Ingredient> inputs)
     {
         super(id, group, output, inputs);
-        this.recipes = new RecipeManager();
     }
 
     @Override
@@ -192,7 +188,7 @@ public class PlankRecipe extends ShapelessRecipe
                     nonnulllist.set(i, ItemStack.EMPTY);
                 }
             }
- e        }
+        }
 
         return nonnulllist;
     }
