@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "FF",
+        "S ",
+        "S "
+    ],
+    "key": {
+        "F": {
+            "tag": "forge:stones"
+        },
+        "S": {
+            "tag": "forge:rods/wooden"
+        }
+    },
+    "result": {
+        "item": "minecraft:stone_hoe"
+    }
+}
