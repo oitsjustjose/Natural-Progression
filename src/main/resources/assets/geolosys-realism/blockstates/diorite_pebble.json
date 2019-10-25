@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "geolosys-realism:block/diorite_pebble"
+      "model": "natural-progression:block/diorite_pebble"
     }
   }
 }

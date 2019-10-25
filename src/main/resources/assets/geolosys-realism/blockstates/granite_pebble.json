@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "geolosys-realism:block/granite_pebble"
+      "model": "natural-progression:block/granite_pebble"
     }
   }
 }

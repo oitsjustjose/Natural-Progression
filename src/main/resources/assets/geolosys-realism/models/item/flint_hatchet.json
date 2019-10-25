@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
     "textures": {
-        "layer0": "geolosys-realism:item/flint_hatchet"
+        "layer0": "natural-progression:item/flint_hatchet"
     }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "geolosys-realism:block/andesite_pebble"
+      "model": "natural-progression:block/andesite_pebble"
     }
   }
 }

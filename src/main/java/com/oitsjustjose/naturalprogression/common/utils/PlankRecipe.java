@@ -4,11 +4,11 @@
  * @author Credit to Integral for the Enchantment Transpose Recipe as a guide
 */
 
-package com.oitsjustjose.realism.common.utils;
+package com.oitsjustjose.naturalprogression.common.utils;
 
 import com.google.gson.JsonObject;
-import com.oitsjustjose.realism.Realism;
-import com.oitsjustjose.realism.common.items.SawItem;
+import com.oitsjustjose.naturalprogression.NaturalProgression;
+import com.oitsjustjose.naturalprogression.common.items.SawItem;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -208,7 +208,7 @@ public class PlankRecipe extends ShapelessRecipe
     @Override
     public IRecipeSerializer<?> getSerializer()
     {
-        return Realism.PLANK_SLICING;
+        return NaturalProgression.PLANK_SLICING;
     }
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>>

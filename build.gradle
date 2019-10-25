@@ -18,8 +18,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'com.matthewprenger.cursegradle'
 
-group = 'com.oitsjustjose.realism' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Geolosys-Realism-${game_version}"
+group = 'com.oitsjustjose.naturalprogression' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "NaturalProgression-${game_version}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
@@ -32,7 +32,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                "geolosys-realism" {
+                "natural-progression" {
                     source sourceSets.main
                 }
             }
@@ -44,7 +44,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                "geolosys-realism" {
+                "natural-progression" {
                     source sourceSets.main
                 }
             }
@@ -60,7 +60,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "geolosys-realism",
+            "Specification-Title": "natural-progression",
             "Specification-Vendor": "oitsjustjose.com",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
@@ -112,16 +112,16 @@ curseforge {
     addGameVersion "${game_version}"
 
     mainArtifact(jar) {
-        displayName = "Geolosys-Realism ${game_version} ${mod_version}"
+        displayName = "NaturalProgression ${game_version} ${mod_version}"
     }
 
 
     addArtifact(deobfJar) {
-        displayName = "Geolosys-Realism ${game_version} ${mod_version} Deobf"
+        displayName = "NaturalProgression ${game_version} ${mod_version} Deobf"
     }
 
     addArtifact(sourcesJar){
-        displayName = "Geolosys-Realism ${game_version} ${mod_version} Sources"
+        displayName = "NaturalProgression ${game_version} ${mod_version} Sources"
     }
   }
 }

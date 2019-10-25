@@ -1,4 +1,4 @@
-package com.oitsjustjose.realism.common.blocks;
+package com.oitsjustjose.naturalprogression.common.blocks;
 
 import java.util.Random;
 

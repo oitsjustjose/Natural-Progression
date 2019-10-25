@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
     "textures": {
-        "layer0": "geolosys-realism:item/improved_saw"
+        "layer0": "natural-progression:item/improved_saw"
     }
 }

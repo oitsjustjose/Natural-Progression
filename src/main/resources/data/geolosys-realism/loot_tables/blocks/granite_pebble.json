@@ -6,7 +6,7 @@
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "geolosys-realism:granite_pebble"
+                    "name": "natural-progression:granite_pebble"
                 }
             ],
             "conditions": [

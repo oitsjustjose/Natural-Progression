@@ -1,13 +1,13 @@
-package com.oitsjustjose.realism;
+package com.oitsjustjose.naturalprogression;
 
-import com.oitsjustjose.realism.common.blocks.RealismBlocks;
-import com.oitsjustjose.realism.common.config.CommonConfig;
-import com.oitsjustjose.realism.common.event.LogBreak;
-import com.oitsjustjose.realism.common.event.PlankBreak;
-import com.oitsjustjose.realism.common.items.RealismItems;
-import com.oitsjustjose.realism.common.utils.Constants;
-import com.oitsjustjose.realism.common.utils.PlankRecipe;
-import com.oitsjustjose.realism.common.world.feature.PebbleFeature;
+import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
+import com.oitsjustjose.naturalprogression.common.event.LogBreak;
+import com.oitsjustjose.naturalprogression.common.event.PlankBreak;
+import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
+import com.oitsjustjose.naturalprogression.common.utils.Constants;
+import com.oitsjustjose.naturalprogression.common.utils.PlankRecipe;
+import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,13 +33,13 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod(Constants.MODID)
-public class Realism
+public class NaturalProgression
 {
-    private static Realism instance;
+    private static NaturalProgression instance;
     public Logger LOGGER = LogManager.getLogger();
     public static final IRecipeSerializer<PlankRecipe> PLANK_SLICING = new PlankRecipe.Serializer();
 
-    public Realism()
+    public NaturalProgression()
     {
         instance = this;
 
@@ -53,7 +53,7 @@ public class Realism
         this.configSetup();
     }
 
-    public static Realism getInstance()
+    public static NaturalProgression getInstance()
     {
         return instance;
     }
@@ -62,7 +62,7 @@ public class Realism
     {
         ModLoadingContext.get().registerConfig(Type.COMMON, CommonConfig.COMMON_CONFIG);
         CommonConfig.loadConfig(CommonConfig.COMMON_CONFIG,
-                FMLPaths.CONFIGDIR.get().resolve("geolosys-realism-common.toml"));
+                FMLPaths.CONFIGDIR.get().resolve("natural-progression-common.toml"));
     }
 
     public void setup(final FMLCommonSetupEvent event)
@@ -81,14 +81,14 @@ public class Realism
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent)
         {
-            RealismBlocks.registerBlocks(blockRegistryEvent);
+            NaturalProgressionBlocks.registerBlocks(blockRegistryEvent);
         }
 
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent)
         {
-            RealismBlocks.registerBlockItems(itemRegistryEvent);
-            RealismItems.registerItems(itemRegistryEvent);
+            NaturalProgressionBlocks.registerBlockItems(itemRegistryEvent);
+            NaturalProgressionItems.registerItems(itemRegistryEvent);
         }
 
         @SubscribeEvent

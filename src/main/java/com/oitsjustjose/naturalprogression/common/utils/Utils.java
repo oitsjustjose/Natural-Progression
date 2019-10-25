@@ -1,4 +1,4 @@
-package com.oitsjustjose.realism.common.utils;
+package com.oitsjustjose.naturalprogression.common.utils;
 
 import java.util.Objects;
 import java.util.Random;

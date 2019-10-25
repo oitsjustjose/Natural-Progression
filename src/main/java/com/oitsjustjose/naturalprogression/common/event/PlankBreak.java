@@ -1,4 +1,4 @@
-package com.oitsjustjose.realism.common.event;
+package com.oitsjustjose.naturalprogression.common.event;
 
 import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
@@ -26,7 +26,7 @@ public class PlankBreak
             if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE))
             {
                 event.setNewSpeed(0F);
-                event.getPlayer().sendStatusMessage(new TranslationTextComponent("geolosys-realism.planks.warning"),
+                event.getPlayer().sendStatusMessage(new TranslationTextComponent("natural-progression.planks.warning"),
                         true);
             }
         }

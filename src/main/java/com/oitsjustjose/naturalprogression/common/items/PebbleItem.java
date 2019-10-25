@@ -1,10 +1,10 @@
-package com.oitsjustjose.realism.common.items;
+package com.oitsjustjose.naturalprogression.common.items;
 
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.oitsjustjose.realism.common.utils.RealismGroup;
+import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
@@ -30,7 +30,7 @@ public class PebbleItem extends BlockItem
 
     public PebbleItem(Block blockForm)
     {
-        super(blockForm, new Item.Properties().group(RealismGroup.getInstance()));
+        super(blockForm, new Item.Properties().group(NaturalProgressionGroup.getInstance()));
         this.asBlock = blockForm;
     }
 
@@ -43,7 +43,7 @@ public class PebbleItem extends BlockItem
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
             ITooltipFlag flagIn)
     {
-        tooltip.add(new TranslationTextComponent("geolosys-realism.hit.together"));
+        tooltip.add(new TranslationTextComponent("natural-progression.hit.together"));
     }
 
     @Override

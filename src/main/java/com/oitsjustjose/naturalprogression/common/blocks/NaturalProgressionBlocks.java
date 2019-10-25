@@ -1,10 +1,10 @@
-package com.oitsjustjose.realism.common.blocks;
+package com.oitsjustjose.naturalprogression.common.blocks;
 
 import java.util.ArrayList;
 
-import com.oitsjustjose.realism.common.items.PebbleItem;
-import com.oitsjustjose.realism.common.utils.Constants;
-import com.oitsjustjose.realism.common.utils.RealismGroup;
+import com.oitsjustjose.naturalprogression.common.items.PebbleItem;
+import com.oitsjustjose.naturalprogression.common.utils.Constants;
+import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 
-public class RealismBlocks
+public class NaturalProgressionBlocks
 {
     private static ArrayList<Block> modBlocks = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class RealismBlocks
             }
             else
             {
-                Item iBlock = new BlockItem(block, new Item.Properties().group(RealismGroup.getInstance()))
+                Item iBlock = new BlockItem(block, new Item.Properties().group(NaturalProgressionGroup.getInstance()))
                         .setRegistryName(block.getRegistryName());
                 itemRegistryEvent.getRegistry().register(iBlock);
             }

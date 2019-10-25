@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "geolosys-realism:item/stone_pebble"
+        "layer0": "natural-progression:item/stone_pebble"
     }
 }

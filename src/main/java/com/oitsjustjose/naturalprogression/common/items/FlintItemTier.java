@@ -1,4 +1,4 @@
-package com.oitsjustjose.realism.common.items;
+package com.oitsjustjose.naturalprogression.common.items;
 
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Items;

@@ -2,8 +2,8 @@
     "source": "[120, -38, 99, 98, 18, -56, -51, -52, 75, 77, 46, 74, 76, 43, 81, 53, 118, 76, -52, 44, -78, 103, -112, 71, 22, 41, 46, -55, -49, 75, -75, 47, 75, 44, -54, 76, -52, 43, -79, 5, -13, 24, 18, -98, 48, 50, 48, 48, 60, 96, -64, 11, 24, 63, -32, -105, 103, -2, -127, 95, -98, -99, -58, -14, -52, 4, -36, -57, -40, 0, 0, -98, 23, 26, -104]",
     "textures": {
         "1579526490": "minecraft:block/diorite",
-        "particle": "geolosys-realism:block/diorite_pebble",
-        "pebble": "geolosys-realism:block/diorite_pebble"
+        "particle": "natural-progression:block/diorite_pebble",
+        "pebble": "natural-progression:block/diorite_pebble"
     },
     "elements": [
         {

@@ -1,4 +1,4 @@
-package com.oitsjustjose.realism.common.config;
+package com.oitsjustjose.naturalprogression.common.config;
 
 import java.nio.file.Path;
 
@@ -16,7 +16,6 @@ public class CommonConfig
     private static final Builder COMMON_BUILDER = new Builder();
 
     public static ForgeConfigSpec.IntValue MAX_PEBBLES_PER_CHUNK;
-    public static ForgeConfigSpec.BooleanValue GEOLOSYS_GEN_PEBBLES;
 
     private static String CATEGORY_GENERAL = "general";
 

@@ -1,4 +1,4 @@
-package com.oitsjustjose.realism.common.world.feature;
+package com.oitsjustjose.naturalprogression.common.world.feature;
 
 import java.util.Random;
 import java.util.function.Function;
@@ -6,10 +6,10 @@ import java.util.function.Function;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.mojang.datafixers.Dynamic;
-import com.oitsjustjose.realism.common.blocks.PebbleBlock;
-import com.oitsjustjose.realism.common.blocks.RealismBlocks;
-import com.oitsjustjose.realism.common.config.CommonConfig;
-import com.oitsjustjose.realism.common.utils.Utils;
+import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
+import com.oitsjustjose.naturalprogression.common.blocks.PebbleBlock;
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
+import com.oitsjustjose.naturalprogression.common.utils.Utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,8 +25,8 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 public class PebbleFeature extends Feature<NoFeatureConfig>
 {
     private Block[] pebbles = new Block[]
-    { RealismBlocks.andesitePebble, RealismBlocks.granitePebble, RealismBlocks.dioritePebble,
-            RealismBlocks.stonePebble };
+    { NaturalProgressionBlocks.andesitePebble, NaturalProgressionBlocks.granitePebble,
+            NaturalProgressionBlocks.dioritePebble, NaturalProgressionBlocks.stonePebble };
 
     public PebbleFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn)
     {

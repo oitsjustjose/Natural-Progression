@@ -6,7 +6,7 @@
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "geolosys-realism:andesite_pebble"
+                    "name": "natural-progression:andesite_pebble"
                 }
             ],
             "conditions": [

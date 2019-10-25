@@ -1,6 +1,6 @@
-package com.oitsjustjose.realism.common.items;
+package com.oitsjustjose.naturalprogression.common.items;
 
-import com.oitsjustjose.realism.common.utils.RealismGroup;
+import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
 
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
@@ -11,6 +11,6 @@ public class HatchetItem extends AxeItem
     public HatchetItem()
     {
         super(new FlintItemTier(), 1.8F, 0F, new Item.Properties().addToolType(ToolType.AXE, 0)
-                .group(RealismGroup.getInstance()).maxStackSize(1).maxDamage(16));
+                .group(NaturalProgressionGroup.getInstance()).maxStackSize(1).maxDamage(16));
     }
 }
