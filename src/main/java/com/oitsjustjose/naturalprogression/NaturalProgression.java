@@ -5,8 +5,8 @@ import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.event.LogBreak;
 import com.oitsjustjose.naturalprogression.common.event.PlankBreak;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
+import com.oitsjustjose.naturalprogression.common.recipes.PlankRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
-import com.oitsjustjose.naturalprogression.common.utils.PlankRecipe;
 import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
 
 import org.apache.logging.log4j.LogManager;
