@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import com.google.common.collect.ImmutableMap;
 import com.oitsjustjose.naturalprogression.NaturalProgression;
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -41,18 +42,17 @@ public class RecipeRemover
     public static void onServerStart(final FMLServerStartedEvent event)
     {
         final RecipeManager mgr = event.getServer().getRecipeManager();
-        remove(mgr);
-    }
-
-    private static void remove(RecipeManager mgr)
-    {
-        final Item[] extrasToRemove = new Item[]
-        { Items.WOODEN_AXE, Items.WOODEN_HOE, Items.WOODEN_SHOVEL, Items.WOODEN_SWORD, Items.WOODEN_PICKAXE };
-        removeRecipes(mgr, ItemTags.PLANKS);
-
-        for (Item extra : extrasToRemove)
+        if (CommonConfig.REMOVE_WOODEN_TOOL_RECIPES.get())
         {
-            removeRecipes(mgr, new ItemStack(extra, 1));
+            removeRecipes(mgr, new ItemStack(Items.WOODEN_AXE, 1));
+            removeRecipes(mgr, new ItemStack(Items.WOODEN_HOE, 1));
+            removeRecipes(mgr, new ItemStack(Items.WOODEN_PICKAXE, 1));
+            removeRecipes(mgr, new ItemStack(Items.WOODEN_SHOVEL, 1));
+            removeRecipes(mgr, new ItemStack(Items.WOODEN_SWORD, 1));
+        }
+        if (CommonConfig.REMOVE_PLANK_RECIPES.get())
+        {
+            removeRecipes(mgr, ItemTags.PLANKS);
         }
     }
 
