@@ -14,8 +14,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
+import net.minecraft.item.ToolItem;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -73,7 +77,7 @@ public class PlankRecipe extends ShapelessRecipe
         if (saw != null && log != null)
         {
             ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
-                    log.getItem().getRegistryName().getPath().replace("log", "planks"));
+                    log.getItem().getRegistryName().getPath().replace("stripped_", "").replace("log", "planks"));
             Block b = ForgeRegistries.BLOCKS.getValue(plankLoc);
             if (b != null && b != Blocks.AIR)
             {
@@ -134,7 +138,12 @@ public class PlankRecipe extends ShapelessRecipe
         {
             return true;
         }
-        else if (axe != null && log != null)
+        if (axe != null && log != null)
+        {
+            return true;
+        }
+        // Return true that this recipe matches anyways because we want to cancel out the recipe
+        if (log != null)
         {
             return true;
         }
