@@ -67,13 +67,13 @@ public class PlankRecipe extends ShapelessRecipe
                     log = checkedItemStack;
                 }
             }
-
-            if ((saw != null && log != null) || (axe != null && log != null))
-            {
-                break;
-            }
         }
 
+        // If you have *both* in there, then we don't want a match.
+        if (axe != null && saw != null)
+        {
+            return ItemStack.EMPTY;
+        }
         if (saw != null && log != null)
         {
             ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
@@ -127,13 +127,13 @@ public class PlankRecipe extends ShapelessRecipe
                     log = checkedItemStack;
                 }
             }
-
-            if ((saw != null && log != null) || (axe != null && log != null))
-            {
-                break;
-            }
         }
 
+        // If you have *both* in there, then we don't want a match.
+        if (axe != null && saw != null)
+        {
+            return false;
+        }
         if (saw != null && log != null)
         {
             return true;
