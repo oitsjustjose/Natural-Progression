@@ -132,24 +132,11 @@ public class PlankRecipe extends ShapelessRecipe
 
         if (saw != null && log != null)
         {
-            ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
-                    log.getItem().getRegistryName().getPath().replace("log", "planks"));
-            Block b = ForgeRegistries.BLOCKS.getValue(plankLoc);
-            if (b != null && b != Blocks.AIR)
-            {
-
-                return true;
-            }
+            return true;
         }
         else if (axe != null && log != null)
         {
-            ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
-                    log.getItem().getRegistryName().getPath().replace("log", "planks"));
-            Block b = ForgeRegistries.BLOCKS.getValue(plankLoc);
-            if (b != null && b != Blocks.AIR)
-            {
-                return true;
-            }
+            return true;
         }
 
         return false;
