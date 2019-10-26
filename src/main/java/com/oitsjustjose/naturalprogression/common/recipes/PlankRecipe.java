@@ -93,6 +93,13 @@ public class PlankRecipe extends ShapelessRecipe
             int count = axe.isEmpty() ? 4 : 1;
             ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
                     log.getItem().getRegistryName().getPath().replace("stripped_", "").replace("log", "planks"));
+
+            // Prevent the recipe from crafting itself for dupe issues
+            if (!plankLoc.getPath().toLowerCase().contains("plank"))
+            {
+                return ItemStack.EMPTY;
+            }
+
             Block b = ForgeRegistries.BLOCKS.getValue(plankLoc);
             if (b != null && b != Blocks.AIR)
             {
@@ -116,9 +123,6 @@ public class PlankRecipe extends ShapelessRecipe
 
             if (!checkedItemStack.isEmpty())
             {
-
-                NaturalProgression.getInstance().LOGGER.info(checkedItemStack);
-
                 if (Utils.isLog(checkedItemStack))
                 {
                     if (log.isEmpty())
