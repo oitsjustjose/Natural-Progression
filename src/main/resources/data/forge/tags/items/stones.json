@@ -4,6 +4,7 @@
         "#forge:stones/stone",
         "#forge:stones/andesite",
         "#forge:stones/diorite",
-        "#forge:stones/granite"
+        "#forge:stones/granite",
+        "#forge:stones/cobblestone"
     ]
 }
