@@ -14,16 +14,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTier;
-import net.minecraft.item.ToolItem;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -41,9 +36,9 @@ public class PlankRecipe extends ShapelessRecipe
     @Override
     public ItemStack getCraftingResult(CraftingInventory inv)
     {
-        ItemStack saw = null;
-        ItemStack axe = null;
-        ItemStack log = null;
+        ItemStack saw = ItemStack.EMPTY;
+        ItemStack axe = ItemStack.EMPTY;
+        ItemStack log = ItemStack.EMPTY;
 
         for (int i = 0; i < inv.getSizeInventory(); i++)
         {
@@ -51,49 +46,63 @@ public class PlankRecipe extends ShapelessRecipe
 
             if (!checkedItemStack.isEmpty())
             {
-                if (checkedItemStack.getItem() instanceof SawItem)
+                if (Utils.isLog(checkedItemStack))
                 {
-                    if (saw == null)
+                    if (log.isEmpty())
+                    {
+                        log = checkedItemStack;
+                    }
+                    else
+                    {
+                        return ItemStack.EMPTY;
+                    }
+                }
+                else if (checkedItemStack.getItem() instanceof SawItem)
+                {
+                    if (saw.isEmpty())
                     {
                         saw = checkedItemStack.copy();
+                    }
+                    else
+                    {
+                        return ItemStack.EMPTY;
                     }
                 }
                 else if (checkedItemStack.getToolTypes().contains(ToolType.AXE))
                 {
-                    axe = checkedItemStack.copy();
-                }
-                else if (ItemTags.LOGS.contains(checkedItemStack.getItem()))
-                {
-                    log = checkedItemStack;
+                    if (axe.isEmpty())
+                    {
+
+                        axe = checkedItemStack.copy();
+                    }
+                    else
+                    {
+                        return ItemStack.EMPTY;
+                    }
                 }
             }
         }
-
-        // If you have *both* in there, then we don't want a match.
-        if (axe != null && saw != null)
+        if (!saw.isEmpty() && !axe.isEmpty())
         {
             return ItemStack.EMPTY;
         }
-        if (saw != null && log != null)
+
+        if ((!saw.isEmpty() && !log.isEmpty()) || (!axe.isEmpty() && !log.isEmpty()))
         {
+            int count = axe.isEmpty() ? 4 : 1;
             ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
                     log.getItem().getRegistryName().getPath().replace("stripped_", "").replace("log", "planks"));
             Block b = ForgeRegistries.BLOCKS.getValue(plankLoc);
             if (b != null && b != Blocks.AIR)
             {
-                return new ItemStack(b, 4);
+                return new ItemStack(b, count);
             }
         }
-        else if (axe != null && log != null)
-        {
-            ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
-                    log.getItem().getRegistryName().getPath().replace("log", "planks"));
-            Block b = ForgeRegistries.BLOCKS.getValue(plankLoc);
-            if (b != null && b != Blocks.AIR)
-            {
-                return new ItemStack(b, 1);
-            }
-        }
+        // Return true that this recipe matches anyways because we want to cancel out the recipe
+        // if (!log.isEmpty())
+        // {
+        //     return ItemStack.EMPTY;
+        // }
 
         return ItemStack.EMPTY;
     }
@@ -101,9 +110,9 @@ public class PlankRecipe extends ShapelessRecipe
     @Override
     public boolean matches(CraftingInventory inv, World world)
     {
-        ItemStack saw = null;
-        ItemStack axe = null;
-        ItemStack log = null;
+        ItemStack saw = ItemStack.EMPTY;
+        ItemStack axe = ItemStack.EMPTY;
+        ItemStack log = ItemStack.EMPTY;
 
         for (int i = 0; i < inv.getSizeInventory(); i++)
         {
@@ -111,43 +120,59 @@ public class PlankRecipe extends ShapelessRecipe
 
             if (!checkedItemStack.isEmpty())
             {
-                if (checkedItemStack.getItem() instanceof SawItem)
+
+                NaturalProgression.getInstance().LOGGER.info(checkedItemStack);
+
+                if (Utils.isLog(checkedItemStack))
                 {
-                    if (saw == null)
+                    if (log.isEmpty())
+                    {
+                        log = checkedItemStack;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else if (checkedItemStack.getItem() instanceof SawItem)
+                {
+                    if (saw.isEmpty())
                     {
                         saw = checkedItemStack.copy();
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
                 else if (checkedItemStack.getToolTypes().contains(ToolType.AXE))
                 {
-                    axe = checkedItemStack.copy();
-                }
-                else if (ItemTags.LOGS.contains(checkedItemStack.getItem()))
-                {
-                    log = checkedItemStack;
+                    if (axe.isEmpty())
+                    {
+                        axe = checkedItemStack.copy();
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
         }
 
-        // If you have *both* in there, then we don't want a match.
-        if (axe != null && saw != null)
-        {
-            return false;
-        }
-        if (saw != null && log != null)
+        if (!saw.isEmpty() && !log.isEmpty())
         {
             return true;
         }
-        if (axe != null && log != null)
+        if (!axe.isEmpty() && !log.isEmpty())
         {
             return true;
         }
-        // Return true that this recipe matches anyways because we want to cancel out the recipe
-        if (log != null)
+        if (!log.isEmpty())
         {
             return true;
         }
 
+        // Return true that this recipe matches anyways because we want to cancel out the recipe
         return false;
     }
 
