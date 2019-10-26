@@ -8,12 +8,12 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ILiquidContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Direction;
@@ -56,18 +56,27 @@ public class Utils
      */
     public static boolean isInWater(IWorld world, BlockPos pos)
     {
+        boolean isInWater = false;
+
         if (world.getBlockState(pos).getBlock() == Blocks.WATER)
         {
-            return true;
+            isInWater = true;
         }
-        if (world.getBlockState(pos).has(BlockStateProperties.WATERLOGGED))
+        if (world.getBlockState(pos) instanceof ILiquidContainer)
         {
-            if (world.getBlockState(pos).get(BlockStateProperties.WATERLOGGED))
-            {
-                return true;
-            }
+            isInWater = true;
         }
-        return false;
+        if (world.getBlockState(pos.up()) instanceof ILiquidContainer)
+        {
+            world.setBlockState(pos.up(), Blocks.WATER.getDefaultState(), 2 | 16);
+        }
+        if (world.getBlockState(pos.up()).getMaterial().isReplaceable()
+                || world.getBlockState(pos.up()).getMaterial() == Material.PLANTS)
+        {
+            world.setBlockState(pos.up(), Blocks.AIR.getDefaultState(), 2 | 16);
+        }
+
+        return isInWater;
     }
 
     /**
