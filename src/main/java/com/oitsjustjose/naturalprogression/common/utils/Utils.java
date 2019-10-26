@@ -10,9 +10,14 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
@@ -160,5 +165,43 @@ public class Utils
             retPos = retPos.down();
         }
         return retPos;
+    }
+
+    public static boolean hasTagFuzzy(Item item, String tag_fuzzy)
+    {
+        for (ResourceLocation resLoc : ItemTags.getCollection().getOwningTags(item))
+        {
+            if (resLoc.getPath().equalsIgnoreCase(tag_fuzzy))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasTagStrict(Item item, ResourceLocation tag)
+    {
+        for (ResourceLocation resLoc : ItemTags.getCollection().getOwningTags(item))
+        {
+            if (resLoc.getPath().equals(tag.getPath()) && resLoc.getNamespace().equals(tag.getNamespace()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isLog(ItemStack stack)
+    {
+        if (stack.getItem() instanceof BlockItem)
+        {
+            BlockItem asBlockItem = (BlockItem) stack.getItem();
+            if (BlockTags.LOGS.contains(asBlockItem.getBlock()))
+            {
+                return true;
+            }
+        }
+
+        return ItemTags.LOGS.contains(stack.getItem());
     }
 }
