@@ -8,6 +8,7 @@ package com.oitsjustjose.naturalprogression.common.recipes;
 
 import com.google.gson.JsonObject;
 import com.oitsjustjose.naturalprogression.NaturalProgression;
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.items.SawItem;
 import com.oitsjustjose.naturalprogression.common.utils.Utils;
 
@@ -91,11 +92,19 @@ public class PlankRecipe extends ShapelessRecipe
         if ((!saw.isEmpty() && !log.isEmpty()) || (!axe.isEmpty() && !log.isEmpty()))
         {
             int count = axe.isEmpty() ? 4 : 1;
+
             ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
                     log.getItem().getRegistryName().getPath().replace("stripped_", "").replace("log", "planks"));
 
             // Prevent the recipe from crafting itself for dupe issues
             if (!plankLoc.getPath().toLowerCase().contains("plank"))
+            {
+                return ItemStack.EMPTY;
+            }
+
+            // Require only stripped logs if the config is enabled
+            if (CommonConfig.REQUIRE_STRIPPED_LOG_FOR_PLANKS.get()
+                    && !log.getItem().getRegistryName().getPath().contains("stripped"))
             {
                 return ItemStack.EMPTY;
             }
