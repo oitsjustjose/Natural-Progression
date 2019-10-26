@@ -17,6 +17,8 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.resources.IReloadableResourceManager;
+import net.minecraft.resources.IResourceManagerReloadListener;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
@@ -39,9 +41,19 @@ public class RecipeRemover
             "field_199522_d" /* recipes */);
 
     @SubscribeEvent
+    @SuppressWarnings("deprecation")
     public static void onServerStart(final FMLServerStartedEvent event)
     {
         final RecipeManager mgr = event.getServer().getRecipeManager();
+        IReloadableResourceManager resourceMgr = event.getServer().getResourceManager();
+        remove(mgr);
+        resourceMgr.addReloadListener((IResourceManagerReloadListener) resourceManager -> {
+            remove(mgr);
+        });
+    }
+
+    private static void remove(RecipeManager mgr)
+    {
         if (CommonConfig.REMOVE_WOODEN_TOOL_RECIPES.get())
         {
             removeRecipes(mgr, new ItemStack(Items.WOODEN_AXE, 1));
