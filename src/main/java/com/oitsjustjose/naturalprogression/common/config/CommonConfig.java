@@ -1,9 +1,11 @@
 package com.oitsjustjose.naturalprogression.common.config;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
+import com.google.common.collect.Lists;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
@@ -18,6 +20,8 @@ public class CommonConfig
     public static ForgeConfigSpec.IntValue MAX_PEBBLES_PER_CHUNK;
     public static ForgeConfigSpec.BooleanValue REMOVE_PLANK_RECIPES;
     public static ForgeConfigSpec.BooleanValue REMOVE_WOODEN_TOOL_RECIPES;
+    public static ForgeConfigSpec.BooleanValue REQUIRE_STRIPPED_LOG_FOR_PLANKS;
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_BLACKLIST;
 
     private static String CATEGORY_GENERAL = "general";
 
@@ -47,6 +51,19 @@ public class CommonConfig
         REMOVE_WOODEN_TOOL_RECIPES = COMMON_BUILDER.comment(
                 "Setting this to true prevents the ability to craft wooden tools. This is totally unrealistic anyways.")
                 .define("removeWoodenToolRecipes", true);
+        REQUIRE_STRIPPED_LOG_FOR_PLANKS = COMMON_BUILDER
+                .comment("Setting this to true forces the player to strip a log before crafting it into planks")
+                .define("requireStrippedForPlanks", true);
+        DIMENSION_BLACKLIST = COMMON_BUILDER
+                .comment("A string of dimensions in which pebbles should NOT spawn. See the defaults for the format.")
+                .defineList("dimension  ", Lists.newArrayList("minecraft:the_nether", "minecraft:the_end"),
+                        (itemRaw) -> {
+                            if (itemRaw instanceof String)
+                            {
+                                return true;
+                            }
+                            return false;
+                        });
 
         COMMON_BUILDER.pop();
     }

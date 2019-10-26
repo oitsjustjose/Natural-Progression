@@ -52,6 +52,10 @@ public class PebbleFeature extends Feature<NoFeatureConfig>
                 {
                     continue;
                 }
+                if (CommonConfig.DIMENSION_BLACKLIST.get().contains(Utils.dimensionToString(world.getDimension())))
+                {
+                    return false;
+                }
                 if (world.getBlockState(pebblePos).getBlock() != pebble)
                 {
                     boolean isInWater = Utils.isInWater(world, pebblePos);
