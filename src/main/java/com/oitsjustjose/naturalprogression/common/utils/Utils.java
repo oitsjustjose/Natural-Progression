@@ -56,27 +56,16 @@ public class Utils
      */
     public static boolean isInWater(IWorld world, BlockPos pos)
     {
-        boolean isInWater = false;
-
         if (world.getBlockState(pos).getBlock() == Blocks.WATER)
         {
-            isInWater = true;
+            return true;
         }
         if (world.getBlockState(pos) instanceof ILiquidContainer)
         {
-            isInWater = true;
-        }
-        if (world.getBlockState(pos.up()) instanceof ILiquidContainer)
-        {
-            world.setBlockState(pos.up(), Blocks.WATER.getDefaultState(), 2 | 16);
-        }
-        if (world.getBlockState(pos.up()).getMaterial().isReplaceable()
-                || world.getBlockState(pos.up()).getMaterial() == Material.PLANTS)
-        {
-            world.setBlockState(pos.up(), Blocks.AIR.getDefaultState(), 2 | 16);
+            return true;
         }
 
-        return isInWater;
+        return false;
     }
 
     /**
