@@ -80,7 +80,7 @@ public class NaturalProgression
         }
     }
 
-    // Handles the sound for when planks are crafted
+    // Handles the sound for when planks or items are crafted
     @SubscribeEvent
     public void onItemCrafted(PlayerEvent.ItemCraftedEvent event)
     {
