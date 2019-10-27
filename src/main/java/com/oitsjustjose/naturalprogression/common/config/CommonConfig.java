@@ -21,6 +21,7 @@ public class CommonConfig
     public static ForgeConfigSpec.BooleanValue REMOVE_PLANK_RECIPES;
     public static ForgeConfigSpec.BooleanValue REMOVE_WOODEN_TOOL_RECIPES;
     public static ForgeConfigSpec.BooleanValue REQUIRE_STRIPPED_LOG_FOR_PLANKS;
+    public static ForgeConfigSpec.EnumValue<CraftingSounds> CRAFTING_SOUNDS;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_BLACKLIST;
 
     private static String CATEGORY_GENERAL = "general";
@@ -54,6 +55,9 @@ public class CommonConfig
         REQUIRE_STRIPPED_LOG_FOR_PLANKS = COMMON_BUILDER
                 .comment("Setting this to true forces the player to strip a log before crafting it into planks")
                 .define("requireStrippedForPlanks", true);
+        CRAFTING_SOUNDS = COMMON_BUILDER.comment(
+                "When to play sounds when crafting -- PLANKS will make it only play slicing sounds when crafting planks")
+                .defineEnum("craftingSounds", CraftingSounds.ALL);
         DIMENSION_BLACKLIST = COMMON_BUILDER
                 .comment("A string of dimensions in which pebbles should NOT spawn. See the defaults for the format.")
                 .defineList("dimension  ", Lists.newArrayList("minecraft:the_nether", "minecraft:the_end"),
@@ -66,5 +70,10 @@ public class CommonConfig
                         });
 
         COMMON_BUILDER.pop();
+    }
+
+    public enum CraftingSounds
+    {
+        ALL, PLANKS, NONE;
     }
 }
