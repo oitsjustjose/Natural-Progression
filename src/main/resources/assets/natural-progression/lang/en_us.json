@@ -9,5 +9,7 @@
     "natural-progression.logs.warning": "§4You cannot break logs without an axe.§r",
     "natural-progression.planks.warning": "§4You cannot break planks without an axe.§r",
     "natural-progression.hit.together": "§3I wonder what happens if you hit two together...§r",
-    "itemGroup.natural-progression.name": "Natural Progression"
+    "itemGroup.natural-progression.name": "Natural Progression",
+    "natural-progression.subtitle.craft_plank": "Planks Being Sliced",
+    "natural-progression.subtitle.craft_other": "Item Being Crafted"
 }
