@@ -6,6 +6,8 @@
 
 package com.oitsjustjose.naturalprogression.common.recipes;
 
+import java.util.Random;
+
 import com.google.gson.JsonObject;
 import com.oitsjustjose.naturalprogression.NaturalProgression;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
@@ -14,6 +16,8 @@ import com.oitsjustjose.naturalprogression.common.utils.Utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -194,6 +198,9 @@ public class PlankRecipe extends ShapelessRecipe
             if (stack.getItem() instanceof SawItem || stack.getToolTypes().contains(ToolType.AXE))
             {
                 ItemStack savedStack = stack.copy();
+                Random random = new Random();
+                int unbreakingLvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, savedStack);
+                boolean shouldAttemptDmg = random.nextInt(unbreakingLvl) == 0 ? true : false;
 
                 if (!savedStack.hasTag())
                 {
@@ -202,15 +209,20 @@ public class PlankRecipe extends ShapelessRecipe
                 }
 
                 int damage = savedStack.getTag().getInt("Damage");
+
                 if (damage < savedStack.getMaxDamage())
                 {
-                    savedStack.getTag().putInt("Damage", damage + 1);
+                    if (shouldAttemptDmg)
+                    {
+                        savedStack.getTag().putInt("Damage", damage + 1);
+                    }
                     nonnulllist.set(i, savedStack);
                 }
                 else
                 {
                     nonnulllist.set(i, ItemStack.EMPTY);
                 }
+
             }
         }
 
