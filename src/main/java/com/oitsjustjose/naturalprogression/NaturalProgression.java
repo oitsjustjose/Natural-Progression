@@ -14,8 +14,12 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -23,6 +27,7 @@ import net.minecraft.world.gen.placement.NoPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -73,6 +78,25 @@ public class NaturalProgression
                     Biome.createDecoratedFeature(new PebbleFeature(NoFeatureConfig::deserialize), new NoFeatureConfig(),
                             Placement.NOPE, new NoPlacementConfig()));
         }
+    }
+
+    // Handles the sound for when planks are crafted
+    @SubscribeEvent
+    public void onItemCrafted(PlayerEvent.ItemCraftedEvent event)
+    {
+
+        if (event.getPlayer() != null && !event.getPlayer().world.isRemote)
+        {
+            // if(ItemTags.PLANKS.contains(event.getCrafting().getItem()){
+            //     event.getpla
+            // }
+            // if (event.getInventory().count(EnigmaticLegacy.enchantmentTransposer) == 1
+            //         && event.getCrafting().getItem() == Items.ENCHANTED_BOOK)
+            //     event.getPlayer().world.playSound(null, event.getPlayer().getPosition(),
+            //             SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, 1.0F,
+            //             (float) (0.9F + (Math.random() * 0.1F)));
+        }
+
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
