@@ -200,7 +200,7 @@ public class PlankRecipe extends ShapelessRecipe
                 ItemStack savedStack = stack.copy();
                 Random random = new Random();
                 int unbreakingLvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, savedStack);
-                boolean shouldAttemptDmg = random.nextInt(unbreakingLvl) == 0 ? true : false;
+                boolean shouldAttemptDmg = unbreakingLvl == -1 ? true : random.nextInt(3) <= unbreakingLvl ? false : true;
 
                 if (!savedStack.hasTag())
                 {
