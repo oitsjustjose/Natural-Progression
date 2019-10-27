@@ -7,6 +7,7 @@ import com.oitsjustjose.naturalprogression.common.utils.Constants;
 import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -20,6 +21,10 @@ public class NaturalProgressionBlocks
     public static Block andesitePebble;
     public static Block dioritePebble;
     public static Block granitePebble;
+
+    public static Block cobbledAndesite;
+    public static Block cobbledDiorite;
+    public static Block cobbledGranite;
 
     public static void registerBlocks(final RegistryEvent.Register<Block> blockRegistryEvent)
     {
@@ -39,6 +44,19 @@ public class NaturalProgressionBlocks
         blockRegistryEvent.getRegistry().register(granitePebble);
         modBlocks.add(granitePebble);
 
+        Block.Properties cobbleProps = Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 6.0F);
+
+        cobbledAndesite = new Block(cobbleProps).setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_andesite"));
+        blockRegistryEvent.getRegistry().register(cobbledAndesite);
+        modBlocks.add(cobbledAndesite);
+
+        cobbledDiorite = new Block(cobbleProps).setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_diorite"));
+        blockRegistryEvent.getRegistry().register(cobbledDiorite);
+        modBlocks.add(cobbledDiorite);
+
+        cobbledGranite = new Block(cobbleProps).setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_granite"));
+        blockRegistryEvent.getRegistry().register(cobbledGranite);
+        modBlocks.add(cobbledGranite);
     }
 
     public static void registerBlockItems(final RegistryEvent.Register<Item> itemRegistryEvent)
