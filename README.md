@@ -1,10 +1,17 @@
 # Natural Progression
 
+<center>
+<img src="https://raw.githubusercontent.com/oitsjustjose/Natural-Progression/master/logo.png">
+</center>
+
 A modpack-friendly extension of Geolosys (though it doesn't require Geolosys!) that changes very early game progression by:
 
 - Disabling tree punching
-- Modifying wood crafting recipes
+- Modifying wood crafting recipes (mod compatible, may require DataPacks for full compatability)
+- Adds Cobbled Diorite, Andesite and Granite (smeltable into their vanilla non-cobbled variants)
+- Adds sounds (configurable) when crafting
 - Adding TFC-like progression such as flint and pebble collection
+- Works wonderfully with Geolosys for a fully immersive, mod compatible, TFC-like experience.
 
 ## Progression
 
@@ -16,8 +23,8 @@ A modpack-friendly extension of Geolosys (though it doesn't require Geolosys!) t
 6. Make Planks using Hatchet + Log in crafting grid. This will yield **only one plank**.
 7. Make workbench
 8. Using the 3x3 grid of the workbench, create a basic saw using flint and sticks. This will allow you to slice logs into **four planks**.
-9. Craft 3x3 of pebbles into cobblestone
-10. Craft stone tools and beyond - stone tools can be crafted with *any* stone variant (diorite, andesite, granite), not *just* cobble.
+9. Craft 3x3 of pebbles into their respective stones/cobblestones
+10. Craft stone tools and beyond - stone tools can be crafted with _any_ stone variant (diorite, andesite, granite), not _just_ cobble.
 
 ## Sounds
 
