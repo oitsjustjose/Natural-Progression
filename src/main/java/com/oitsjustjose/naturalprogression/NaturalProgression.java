@@ -2,24 +2,24 @@ package com.oitsjustjose.naturalprogression;
 
 import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig.CraftingSounds;
 import com.oitsjustjose.naturalprogression.common.event.LogBreak;
 import com.oitsjustjose.naturalprogression.common.event.PlankBreak;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
 import com.oitsjustjose.naturalprogression.common.recipes.PlankRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
+import com.oitsjustjose.naturalprogression.common.utils.Sounds;
 import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -84,19 +84,25 @@ public class NaturalProgression
     @SubscribeEvent
     public void onItemCrafted(PlayerEvent.ItemCraftedEvent event)
     {
-
-        if (event.getPlayer() != null && !event.getPlayer().world.isRemote)
+        if (CommonConfig.CRAFTING_SOUNDS.get() == CraftingSounds.NONE)
         {
-            // if(ItemTags.PLANKS.contains(event.getCrafting().getItem()){
-            //     event.getpla
-            // }
-            // if (event.getInventory().count(EnigmaticLegacy.enchantmentTransposer) == 1
-            //         && event.getCrafting().getItem() == Items.ENCHANTED_BOOK)
-            //     event.getPlayer().world.playSound(null, event.getPlayer().getPosition(),
-            //             SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, 1.0F,
-            //             (float) (0.9F + (Math.random() * 0.1F)));
+            return;
         }
 
+        if (event.getPlayer() != null)
+        {
+            PlayerEntity player = event.getPlayer();
+            float pitch = Math.min(1.0F, 0.5F + event.getPlayer().getRNG().nextFloat());
+
+            if (ItemTags.PLANKS.contains(event.getCrafting().getItem()))
+            {
+                player.playSound(Sounds.CRAFT_PLANK, 0.85F, pitch);
+            }
+            else if (CommonConfig.CRAFTING_SOUNDS.get() == CraftingSounds.ALL)
+            {
+                player.playSound(Sounds.CRAFT_OTHER, 0.85F, pitch);
+            }
+        }
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
