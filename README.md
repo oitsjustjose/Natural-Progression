@@ -19,3 +19,8 @@ A modpack-friendly extension of Geolosys (though it doesn't require Geolosys!) t
 9. Craft 3x3 of pebbles into cobblestone
 10. Craft stone tools and beyond - stone tools can be crafted with *any* stone variant (diorite, andesite, granite), not *just* cobble.
 
+## Sounds
+
+Although I didn't need to mention it, I wanted to give credit to Kenny for their RPG sounds kit that you can hear if you enable crafting sounds!
+
+You can find them [here](https://kenney.nl/assets/rpg-audio)
