@@ -13,7 +13,6 @@ import com.oitsjustjose.naturalprogression.common.utils.Utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ILiquidContainer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
@@ -63,20 +62,12 @@ public class PebbleFeature extends Feature<NoFeatureConfig>
                             ? pebble.getDefaultState().with(PebbleBlock.WATERLOGGED, Boolean.TRUE)
                             : pebble.getDefaultState();
 
-                    // Clean up the block *above* the pebble
-                    BlockState aboveState = world.getBlockState(pebblePos.up());
-                    BlockPos above = pebblePos.up();
-
-                    if (aboveState.isFoliage(world, above) || aboveState instanceof ILiquidContainer)
+                    if (world.setBlockState(pebblePos, stateToPlace, 2 | 16))
                     {
-                        world.destroyBlock(above, false);
-                    }
-
-                    if (world.setBlockState(pebblePos, stateToPlace, 1 | 2 | 16))
-                    {
+                        // Clean up the blocks *around* the pebble
+                        stateToPlace.updateNeighbors(world, pebblePos, 0);
                         placed = true;
                     }
-
                 }
             }
         }
