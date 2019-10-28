@@ -3,8 +3,7 @@ package com.oitsjustjose.naturalprogression;
 import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig.CraftingSounds;
-import com.oitsjustjose.naturalprogression.common.event.LogBreak;
-import com.oitsjustjose.naturalprogression.common.event.PlankBreak;
+import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
 import com.oitsjustjose.naturalprogression.common.recipes.PlankRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
@@ -52,8 +51,7 @@ public class NaturalProgression
 
         // Register the setup method for modloading
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new LogBreak());
-        MinecraftForge.EVENT_BUS.register(new PlankBreak());
+        MinecraftForge.EVENT_BUS.register(new WoodBreak());
 
         this.configSetup();
     }
