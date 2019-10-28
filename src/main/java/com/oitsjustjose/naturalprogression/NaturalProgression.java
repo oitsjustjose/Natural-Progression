@@ -1,5 +1,7 @@
 package com.oitsjustjose.naturalprogression;
 
+import com.oitsjustjose.naturalprogression.client.ClientProxy;
+import com.oitsjustjose.naturalprogression.common.CommonProxy;
 import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig.CraftingSounds;
@@ -28,6 +30,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig.Type;
@@ -40,7 +43,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class NaturalProgression
 {
     private static NaturalProgression instance;
+
     public Logger LOGGER = LogManager.getLogger();
+
+    public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+
     public static final IRecipeSerializer<PlankRecipe> PLANK_SLICING = new PlankRecipe.Serializer();
 
     public NaturalProgression()
