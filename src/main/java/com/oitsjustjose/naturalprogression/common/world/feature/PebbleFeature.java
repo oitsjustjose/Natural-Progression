@@ -66,6 +66,7 @@ public class PebbleFeature extends Feature<NoFeatureConfig>
                     {
                         // Clean up the blocks *around* the pebble
                         stateToPlace.updateNeighbors(world, pebblePos, 0);
+                        stateToPlace.updateNeighbors(world, pebblePos.up(), 0);
                         placed = true;
                     }
                 }
