@@ -1,5 +1,16 @@
 # Natural Progression Changelog
 
+## 1.0.3
+
+### Added
+
+- Tooltip to Axe / Saw Items to indicate how to craft planks
+- Config option for Pebbles to be replaceable with other blocks when building
+
+### Changed
+
+- Pebbles can be replaceable with other blocks when building
+
 ## 1.0.2
 
 ### Added
