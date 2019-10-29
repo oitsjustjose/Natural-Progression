@@ -12,6 +12,8 @@
     "natural-progression.wood.warning": "§4You cannot break wooden blocks without an axe.§r",
     "natural-progression.hit.together": "§3I wonder what happens if you hit two together...§r",
     "natural-progression.splintered.to.death": "%s was splintered to death",
+    "natural-progression.axe.tooltip": "§3Craft with any §lstripped log§r§3 to create 1 plank§r",
+    "natural-progression.saw.tooltip": "§3Craft with any §lstripped log§r§3 to create 4 planks§r",
     "itemGroup.natural-progression.name": "Natural Progression",
     "natural-progression.subtitle.craft_plank": "Planks Being Sliced",
     "natural-progression.subtitle.craft_other": "Item Being Crafted"
