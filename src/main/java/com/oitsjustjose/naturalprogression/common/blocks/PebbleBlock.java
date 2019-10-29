@@ -150,4 +150,11 @@ public class PebbleBlock extends Block implements IWaterLoggable
     {
         return this.getDefaultState().with(WATERLOGGED, Boolean.TRUE);
     }
+
+    @Override
+    @SuppressWarnings("deprecated")
+    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext)
+    {
+        return true;
+    }
 }
