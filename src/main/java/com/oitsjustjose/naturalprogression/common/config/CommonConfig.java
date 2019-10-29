@@ -22,6 +22,7 @@ public class CommonConfig
     public static ForgeConfigSpec.BooleanValue REMOVE_WOODEN_TOOL_RECIPES;
     public static ForgeConfigSpec.BooleanValue REQUIRE_STRIPPED_LOG_FOR_PLANKS;
     public static ForgeConfigSpec.EnumValue<CraftingSounds> CRAFTING_SOUNDS;
+    public static ForgeConfigSpec.BooleanValue ARE_PEBBLES_REPLACEABLE;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_BLACKLIST;
 
     private static String CATEGORY_GENERAL = "general";
@@ -58,6 +59,9 @@ public class CommonConfig
         CRAFTING_SOUNDS = COMMON_BUILDER.comment(
                 "When to play sounds when crafting -- PLANKS will make it only play slicing sounds when crafting planks")
                 .defineEnum("craftingSounds", CraftingSounds.ALL);
+        ARE_PEBBLES_REPLACEABLE = COMMON_BUILDER.comment(
+                "Setting this to true will allow you to replace pebbles like tall grass (more convenient for building, but loses the block forever")
+                .define("arePebblesReplaceable", true);
         DIMENSION_BLACKLIST = COMMON_BUILDER
                 .comment("A string of dimensions in which pebbles should NOT spawn. See the defaults for the format.")
                 .defineList("dimension  ", Lists.newArrayList("minecraft:the_nether", "minecraft:the_end"),

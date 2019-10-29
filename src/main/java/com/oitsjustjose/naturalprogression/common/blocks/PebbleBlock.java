@@ -4,6 +4,8 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -155,6 +157,6 @@ public class PebbleBlock extends Block implements IWaterLoggable
     @SuppressWarnings("deprecated")
     public boolean isReplaceable(BlockState state, BlockItemUseContext useContext)
     {
-        return true;
+        return CommonConfig.ARE_PEBBLES_REPLACEABLE.get();
     }
 }
