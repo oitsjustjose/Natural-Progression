@@ -33,7 +33,7 @@ public class StoneBreak
 
         if (hardMaterials.contains(event.getState().getMaterial()))
         {
-            // If the player **isn't** using an axe on a log, don't let them break it
+            // If the player **isn't** using a pickaxe on a hard block, don't let them break it
             if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE))
             {
                 event.setNewSpeed(0F);
@@ -43,7 +43,7 @@ public class StoneBreak
                 // Random chance to even perform the hurt anim if the player is empty-handed
                 if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1)
                 {
-                    // And when it's shown, random chance to actually hurt from "splintering"
+                    // And when it's shown, random chance to actually hurt from breaking bones
                     if (event.getPlayer().getRNG().nextInt(2) == 1)
                     {
                         event.getPlayer().attackEntityFrom(brokenHandSource, 1F);
