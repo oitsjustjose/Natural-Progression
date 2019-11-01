@@ -17,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
@@ -66,7 +67,7 @@ public class PebbleBlock extends Block implements IWaterLoggable
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
         Vec3d offset = state.getOffset(worldIn, pos);
-        return VoxelShapes.create(0.19D, 0.0D, 0.19D, 0.69D, 0.065D, 0.69D).withOffset(offset.x, offset.y, offset.z);
+        return VoxelShapes.create(0.37D, 0.0D, 0.37D, 0.69D, 0.065D, 0.69D).withOffset(offset.x, offset.y, offset.z);
     }
 
     @Override
@@ -157,6 +158,13 @@ public class PebbleBlock extends Block implements IWaterLoggable
     @SuppressWarnings("deprecated")
     public boolean isReplaceable(BlockState state, BlockItemUseContext useContext)
     {
+        if (useContext.getItem().getItem() instanceof BlockItem)
+        {
+            if (((BlockItem) useContext.getItem().getItem()).getBlock() instanceof PebbleBlock)
+            {
+                return false;
+            }
+        }
         return CommonConfig.ARE_PEBBLES_REPLACEABLE.get();
     }
 }
