@@ -5,6 +5,7 @@ import com.oitsjustjose.naturalprogression.common.CommonProxy;
 import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig.CraftingSounds;
+import com.oitsjustjose.naturalprogression.common.event.StoneBreak;
 import com.oitsjustjose.naturalprogression.common.event.ToolTips;
 import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
@@ -60,6 +61,7 @@ public class NaturalProgression
         // Register the setup method for modloading
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new WoodBreak());
+        MinecraftForge.EVENT_BUS.register(new StoneBreak());
         MinecraftForge.EVENT_BUS.register(new ToolTips());
 
         this.configSetup();
