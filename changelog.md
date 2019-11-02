@@ -1,5 +1,16 @@
 # Natural Progression Changelog
 
+## 1.0.4
+
+### Added
+
+- Inability to punch hard blocks (e.g. stone-like, anvil-like and metal-like blocks)
+
+### Changed
+
+- Texture and Model for Pebbles (they're much cuter now :blush:)
+- New Cobbled Diorite Texture (matches new diorite better)
+
 ## 1.0.3
 
 ### Added
