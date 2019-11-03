@@ -1,5 +1,11 @@
 # Natural Progression Changelog
 
+## 1.0.5
+
+### Fixed
+
+- Server crash due to tooltips
+
 ## 1.0.4
 
 ### Added
