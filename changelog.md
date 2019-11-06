@@ -1,5 +1,12 @@
 # Natural Progression Changelog
 
+## 1.0.6b
+
+### Fixed
+
+- Sandstone not dropping sandstone pebbles
+- Sandstone pebbles not dropping themselves
+
 ## 1.0.6
 
 ### Added
