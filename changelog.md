@@ -1,5 +1,17 @@
 # Natural Progression Changelog
 
+## 1.0.6
+
+### Added
+
+- Sandstone Pebbles and Cobbled Sandstone
+- Config option for notifying the player that they can't break `<x>` block without `<y>` tool
+
+### Changed
+
+- The pebble chosen to place on thet surface is now based on what stones are underneath
+- Hardened code for improved reliability 😊
+
 ## 1.0.5
 
 ### Fixed
