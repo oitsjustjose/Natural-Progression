@@ -28,8 +28,9 @@ public class Utils
     public static Block getPebbleForPos(IWorld world, BlockPos pos)
     {
         BlockPos search = getTopSolidBlock(world, pos);
-        for (int y = search.getY(); y > 1; y--)
+        for (int y = 1; y < search.getY(); y++)
         {
+            
             if (world.getBlockState(search.down(y)).getBlock() == Blocks.GRANITE)
             {
                 return NaturalProgressionBlocks.granitePebble;
