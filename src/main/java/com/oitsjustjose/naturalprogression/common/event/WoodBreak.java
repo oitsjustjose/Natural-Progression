@@ -3,6 +3,7 @@ package com.oitsjustjose.naturalprogression.common.event;
 import javax.annotation.Nullable;
 
 import com.oitsjustjose.naturalprogression.NaturalProgression;
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -33,8 +34,12 @@ public class WoodBreak
             {
                 event.setNewSpeed(0F);
 
-                event.getPlayer().sendStatusMessage(new TranslationTextComponent("natural-progression.wood.warning"),
-                        true);
+                if (CommonConfig.SHOW_BREAKING_HELP.get())
+                {
+                    event.getPlayer()
+                            .sendStatusMessage(new TranslationTextComponent("natural-progression.wood.warning"), true);
+                }
+
                 // Random chance to even perform the hurt anim if the player is empty-handed
                 if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1)
                 {

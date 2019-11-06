@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 import com.oitsjustjose.naturalprogression.NaturalProgression;
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -38,8 +39,11 @@ public class StoneBreak
             {
                 event.setNewSpeed(0F);
 
-                event.getPlayer().sendStatusMessage(new TranslationTextComponent("natural-progression.stone.warning"),
-                        true);
+                if (CommonConfig.SHOW_BREAKING_HELP.get())
+                {
+                    event.getPlayer()
+                            .sendStatusMessage(new TranslationTextComponent("natural-progression.stone.warning"), true);
+                }
                 // Random chance to even perform the hurt anim if the player is empty-handed
                 if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1)
                 {
