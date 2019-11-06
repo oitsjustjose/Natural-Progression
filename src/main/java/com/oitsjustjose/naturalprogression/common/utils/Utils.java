@@ -5,6 +5,8 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -12,12 +14,10 @@ import net.minecraft.block.ILiquidContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
@@ -25,6 +25,35 @@ import net.minecraft.world.dimension.Dimension;
 
 public class Utils
 {
+
+    public static Block getPebbleForPos(IWorld world, BlockPos pos)
+    {
+        BlockPos search = new BlockPos(pos.getX(), 0, pos.getZ());
+        for (int y = 1; y < getTopSolidBlock(world, pos).getY(); y++)
+        {
+            if (world.getBlockState(search.up(y)).getBlock() == Blocks.GRANITE)
+            {
+                return NaturalProgressionBlocks.granitePebble;
+            }
+            if (world.getBlockState(search.up(y)).getBlock() == Blocks.DIORITE)
+            {
+                return NaturalProgressionBlocks.dioritePebble;
+
+            }
+            if (world.getBlockState(search.up(y)).getBlock() == Blocks.ANDESITE)
+            {
+                return NaturalProgressionBlocks.andesitePebble;
+
+            }
+            if (world.getBlockState(search.up(y)).getBlock() == Blocks.SAND
+                    || world.getBlockState(search.up(y)).getBlock() == Blocks.SANDSTONE)
+            {
+                return NaturalProgressionBlocks.sandstonePebble;
+            }
+        }
+        return NaturalProgressionBlocks.stonePebble;
+    }
+
     /**
      * @param world an IWorld instance
      * @param pos   A BlockPos to check in and around
@@ -165,30 +194,6 @@ public class Utils
         return retPos;
     }
 
-    public static boolean hasTagFuzzy(Item item, String tag_fuzzy)
-    {
-        for (ResourceLocation resLoc : ItemTags.getCollection().getOwningTags(item))
-        {
-            if (resLoc.getPath().equalsIgnoreCase(tag_fuzzy))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean hasTagStrict(Item item, ResourceLocation tag)
-    {
-        for (ResourceLocation resLoc : ItemTags.getCollection().getOwningTags(item))
-        {
-            if (resLoc.getPath().equals(tag.getPath()) && resLoc.getNamespace().equals(tag.getNamespace()))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static boolean isLog(ItemStack stack)
     {
         if (stack.getItem() instanceof BlockItem)
@@ -202,4 +207,5 @@ public class Utils
 
         return ItemTags.LOGS.contains(stack.getItem());
     }
+
 }

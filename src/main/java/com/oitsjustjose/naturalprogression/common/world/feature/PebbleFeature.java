@@ -6,7 +6,6 @@ import java.util.function.Function;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.mojang.datafixers.Dynamic;
-import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
 import com.oitsjustjose.naturalprogression.common.blocks.PebbleBlock;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.Utils;
@@ -24,10 +23,6 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 public class PebbleFeature extends Feature<NoFeatureConfig>
 {
-    private Block[] pebbles = new Block[]
-    { NaturalProgressionBlocks.andesitePebble, NaturalProgressionBlocks.granitePebble,
-            NaturalProgressionBlocks.dioritePebble, NaturalProgressionBlocks.stonePebble };
-
     public PebbleFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn)
     {
         super(configFactoryIn, true);
@@ -40,21 +35,24 @@ public class PebbleFeature extends Feature<NoFeatureConfig>
     {
         boolean placed = false;
 
-        Block pebble = this.pebbles[rand.nextInt(this.pebbles.length)];
+        if (CommonConfig.DIMENSION_BLACKLIST.get().contains(Utils.dimensionToString(world.getDimension())))
+        {
+            return false;
+        }
 
         if (world.getWorld().getWorldType() != WorldType.FLAT)
         {
             for (int i = 0; i < CommonConfig.MAX_PEBBLES_PER_CHUNK.get(); i++)
             {
                 BlockPos pebblePos = Utils.getSamplePosition(world, new ChunkPos(pos));
+
                 if (pebblePos == null || Utils.inNonWaterFluid(world, pebblePos))
                 {
                     continue;
                 }
-                if (CommonConfig.DIMENSION_BLACKLIST.get().contains(Utils.dimensionToString(world.getDimension())))
-                {
-                    return false;
-                }
+
+                Block pebble = Utils.getPebbleForPos(world, pebblePos);
+                
                 if (world.getBlockState(pebblePos).getBlock() != pebble)
                 {
                     boolean isInWater = Utils.isInWater(world, pebblePos);
