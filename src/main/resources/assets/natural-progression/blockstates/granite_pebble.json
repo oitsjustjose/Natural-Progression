@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "natural-progression:block/granite_pebble"
+    "variants": {
+        "": {
+            "model": "natural-progression:block/granite_pebble"
+        }
     }
-  }
 }
