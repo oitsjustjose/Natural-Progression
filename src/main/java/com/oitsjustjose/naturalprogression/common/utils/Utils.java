@@ -28,25 +28,25 @@ public class Utils
 
     public static Block getPebbleForPos(IWorld world, BlockPos pos)
     {
-        BlockPos search = new BlockPos(pos.getX(), 0, pos.getZ());
-        for (int y = 1; y < getTopSolidBlock(world, pos).getY(); y++)
+        BlockPos search = getTopSolidBlock(world, pos);
+        for (int y = search.getY(); y > 1; y--)
         {
-            if (world.getBlockState(search.up(y)).getBlock() == Blocks.GRANITE)
+            if (world.getBlockState(search.down(y)).getBlock() == Blocks.GRANITE)
             {
                 return NaturalProgressionBlocks.granitePebble;
             }
-            if (world.getBlockState(search.up(y)).getBlock() == Blocks.DIORITE)
+            if (world.getBlockState(search.down(y)).getBlock() == Blocks.DIORITE)
             {
                 return NaturalProgressionBlocks.dioritePebble;
 
             }
-            if (world.getBlockState(search.up(y)).getBlock() == Blocks.ANDESITE)
+            if (world.getBlockState(search.down(y)).getBlock() == Blocks.ANDESITE)
             {
                 return NaturalProgressionBlocks.andesitePebble;
 
             }
-            if (world.getBlockState(search.up(y)).getBlock() == Blocks.SAND
-                    || world.getBlockState(search.up(y)).getBlock() == Blocks.SANDSTONE)
+            if (world.getBlockState(search.down(y)).getBlock() == Blocks.SAND
+                    || world.getBlockState(search.down(y)).getBlock() == Blocks.SANDSTONE)
             {
                 return NaturalProgressionBlocks.sandstonePebble;
             }
@@ -59,7 +59,7 @@ public class Utils
      * @param pos   A BlockPos to check in and around
      * @return true if the block at pos is replaceable
      */
-    public static boolean canReplace(IWorld world, BlockPos pos)
+    private static boolean canReplace(IWorld world, BlockPos pos)
     {
         BlockState state = world.getBlockState(pos);
         Material mat = state.getMaterial();
@@ -73,7 +73,7 @@ public class Utils
      * @param pos:   The current searching position that will be used to confirm
      * @return true if the block below is solid on top AND isn't in the blacklist
      */
-    public static boolean canPlaceOn(IWorld world, BlockPos pos)
+    private static boolean canPlaceOn(IWorld world, BlockPos pos)
     {
         return Block.func_220055_a(world, pos.down(), Direction.UP);
     }
@@ -89,12 +89,7 @@ public class Utils
         {
             return true;
         }
-        if (world.getBlockState(pos) instanceof ILiquidContainer)
-        {
-            return true;
-        }
-
-        return false;
+        return world.getBlockState(pos) instanceof ILiquidContainer;
     }
 
     /**
@@ -108,18 +103,18 @@ public class Utils
     }
 
     /**
-     * @param posA
-     * @param posB
+     * @param posA  The position to start at
+     * @param posB  The position to end at
      * @param range An integer representing how far is acceptable to be considered in range
      * @return true if within range
      */
-    public static boolean isWithinRange(int posA, int posB, int range)
+    private static boolean isWithinRange(int posA, int posB, int range)
     {
         return (Math.abs(posA - posB) <= range);
     }
 
     @Nullable
-    public static BlockPos getSamplePosition(IWorld world, ChunkPos chunkPos)
+    public static BlockPos getPebblePos(IWorld world, ChunkPos chunkPos)
     {
         Random random = new Random();
         int blockPosX = (chunkPos.x << 4) + random.nextInt(16);
@@ -148,7 +143,6 @@ public class Utils
                             // If not, it's gotta be at least 12 blocks away from it (i.e. below it) but at least above the deposit
                             else if (isWithinRange(world.getSeaLevel(), searchPos.getY(), 12))
                             {
-
                                 return searchPos;
                             }
                         }
@@ -160,27 +154,12 @@ public class Utils
         return null;
     }
 
-    public static String blockStateToName(BlockState state)
-    {
-        return I18n.format(state.getBlock().getTranslationKey());
-    }
-
-    public static ItemStack blockStateToStack(BlockState state)
-    {
-        return new ItemStack(state.getBlock().asItem(), 1);
-    }
-
-    public static boolean doStatesMatch(BlockState state1, BlockState state2)
-    {
-        return (state1.getBlock().getRegistryName() == state2.getBlock().getRegistryName());
-    }
-
     public static String dimensionToString(Dimension dim)
     {
-        return Objects.requireNonNull(dim.getType().getRegistryName().toString());
+        return Objects.requireNonNull(Objects.requireNonNull(dim.getType().getRegistryName()).toString());
     }
 
-    public static BlockPos getTopSolidBlock(IWorld world, BlockPos start)
+    private static BlockPos getTopSolidBlock(IWorld world, BlockPos start)
     {
         BlockPos retPos = new BlockPos(start.getX(), world.getHeight() - 1, start.getZ());
         while (retPos.getY() > 0)
