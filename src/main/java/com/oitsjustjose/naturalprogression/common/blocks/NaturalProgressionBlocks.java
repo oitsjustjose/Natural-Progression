@@ -21,6 +21,7 @@ public class NaturalProgressionBlocks
     public static Block andesitePebble;
     public static Block dioritePebble;
     public static Block granitePebble;
+    public static Block sandstonePebble;
 
     public static Block cobbledAndesite;
     public static Block cobbledDiorite;
@@ -44,17 +45,24 @@ public class NaturalProgressionBlocks
         blockRegistryEvent.getRegistry().register(granitePebble);
         modBlocks.add(granitePebble);
 
+        sandstonePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "sandstone_pebble"));
+        blockRegistryEvent.getRegistry().register(sandstonePebble);
+        modBlocks.add(sandstonePebble);
+
         Block.Properties cobbleProps = Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 6.0F);
 
-        cobbledAndesite = new Block(cobbleProps).setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_andesite"));
+        cobbledAndesite = new Block(cobbleProps)
+                .setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_andesite"));
         blockRegistryEvent.getRegistry().register(cobbledAndesite);
         modBlocks.add(cobbledAndesite);
 
-        cobbledDiorite = new Block(cobbleProps).setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_diorite"));
+        cobbledDiorite = new Block(cobbleProps)
+                .setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_diorite"));
         blockRegistryEvent.getRegistry().register(cobbledDiorite);
         modBlocks.add(cobbledDiorite);
 
-        cobbledGranite = new Block(cobbleProps).setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_granite"));
+        cobbledGranite = new Block(cobbleProps)
+                .setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_granite"));
         blockRegistryEvent.getRegistry().register(cobbledGranite);
         modBlocks.add(cobbledGranite);
     }
