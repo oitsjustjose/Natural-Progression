@@ -27,12 +27,9 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 public class PebbleItem extends BlockItem
 {
-    private Block asBlock;
-
     public PebbleItem(Block blockForm)
     {
         super(blockForm, new Item.Properties().group(NaturalProgressionGroup.getInstance()));
-        this.asBlock = blockForm;
     }
 
     @OnlyIn(Dist.CLIENT)
