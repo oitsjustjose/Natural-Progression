@@ -5,6 +5,8 @@ import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlock
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class NaturalProgressionGroup extends ItemGroup
 {
     private static NaturalProgressionGroup instance;
@@ -24,6 +26,7 @@ public class NaturalProgressionGroup extends ItemGroup
     }
 
     @Override
+    @Nonnull
     public ItemStack createIcon()
     {
         return new ItemStack(NaturalProgressionBlocks.stonePebble, 1);

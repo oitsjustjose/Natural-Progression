@@ -2,6 +2,7 @@ package com.oitsjustjose.naturalprogression.common.items;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
@@ -34,20 +35,16 @@ public class PebbleItem extends BlockItem
         this.asBlock = blockForm;
     }
 
-    public Block getAsBlock()
-    {
-        return this.asBlock;
-    }
-
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-            ITooltipFlag flagIn)
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+            @Nonnull ITooltipFlag flagIn)
     {
         tooltip.add(new TranslationTextComponent("natural-progression.hit.together"));
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
+    @Nonnull
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn)
     {
         ItemStack mainHand = playerIn.getHeldItemMainhand();
         ItemStack offHand = playerIn.getHeldItemOffhand();

@@ -1,11 +1,7 @@
-/**
- * Special recipe type for chopping logs into planks
- * 
- * @author Credit to Integral for the Enchantment Transpose Recipe as a guide
-*/
 
 package com.oitsjustjose.naturalprogression.common.recipes;
 
+import java.util.Objects;
 import java.util.Random;
 
 import com.google.gson.JsonObject;
@@ -32,14 +28,23 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Special recipe type for chopping logs into planks
+ *
+ * @author Credit to Integral for the Enchantment Transpose Recipe as a guide
+ */
+
 public class PlankRecipe extends ShapelessRecipe
 {
-    public PlankRecipe(ResourceLocation id, String group, ItemStack output, NonNullList<Ingredient> inputs)
+    private PlankRecipe(ResourceLocation id, String group, ItemStack output, NonNullList<Ingredient> inputs)
     {
         super(id, group, output, inputs);
     }
 
     @Override
+    @Nonnull
     public ItemStack getCraftingResult(CraftingInventory inv)
     {
         ItemStack saw = ItemStack.EMPTY;
@@ -97,7 +102,8 @@ public class PlankRecipe extends ShapelessRecipe
         {
             int count = axe.isEmpty() ? 4 : 1;
 
-            ResourceLocation plankLoc = new ResourceLocation(log.getItem().getRegistryName().getNamespace(),
+            ResourceLocation plankLoc = new ResourceLocation(
+                    Objects.requireNonNull(log.getItem().getRegistryName()).getNamespace(),
                     log.getItem().getRegistryName().getPath().replace("stripped_", "").replace("log", "planks"));
 
             // Prevent the recipe from crafting itself for dupe issues
@@ -176,14 +182,11 @@ public class PlankRecipe extends ShapelessRecipe
         {
             return true;
         }
-        if (!axe.isEmpty() && !log.isEmpty())
-        {
-            return true;
-        }
-        return false;
+        return !axe.isEmpty() && !log.isEmpty();
     }
 
     @Override
+    @Nonnull
     public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv)
     {
         NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
@@ -210,9 +213,11 @@ public class PlankRecipe extends ShapelessRecipe
                 if (!savedStack.hasTag())
                 {
                     savedStack.setTag(new CompoundNBT());
+                    assert savedStack.getTag() != null;
                     savedStack.getTag().putInt("Damage", 0);
                 }
 
+                assert savedStack.getTag() != null;
                 int damage = savedStack.getTag().getInt("Damage");
 
                 if (damage < savedStack.getMaxDamage())
@@ -235,6 +240,7 @@ public class PlankRecipe extends ShapelessRecipe
     }
 
     @Override
+    @Nonnull
     public ItemStack getRecipeOutput()
     {
         return ItemStack.EMPTY;
@@ -247,6 +253,7 @@ public class PlankRecipe extends ShapelessRecipe
     }
 
     @Override
+    @Nonnull
     public IRecipeSerializer<?> getSerializer()
     {
         return NaturalProgression.PLANK_SLICING;
@@ -256,19 +263,20 @@ public class PlankRecipe extends ShapelessRecipe
             implements IRecipeSerializer<PlankRecipe>
     {
         @Override
-        public PlankRecipe read(ResourceLocation recipeId, JsonObject json)
+        @Nonnull
+        public PlankRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json)
         {
             return new PlankRecipe(recipeId, "", ItemStack.EMPTY, NonNullList.create());
         }
 
         @Override
-        public PlankRecipe read(ResourceLocation recipeId, PacketBuffer buffer)
+        public PlankRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer)
         {
             return new PlankRecipe(recipeId, "", ItemStack.EMPTY, NonNullList.create());
         }
 
         @Override
-        public void write(PacketBuffer buffer, PlankRecipe recipe)
+        public void write(@Nonnull PacketBuffer buffer, @Nonnull PlankRecipe recipe)
         {
 
         }

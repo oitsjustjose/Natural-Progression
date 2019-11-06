@@ -34,41 +34,48 @@ public class PebbleFeature extends Feature<NoFeatureConfig>
             BlockPos pos, NoFeatureConfig config)
     {
         boolean placed = false;
-
-        if (CommonConfig.DIMENSION_BLACKLIST.get().contains(Utils.dimensionToString(world.getDimension())))
+        try
         {
-            return false;
-        }
 
-        if (world.getWorld().getWorldType() != WorldType.FLAT)
-        {
-            for (int i = 0; i < CommonConfig.MAX_PEBBLES_PER_CHUNK.get(); i++)
+            if (CommonConfig.DIMENSION_BLACKLIST.get().contains(Utils.dimensionToString(world.getDimension())))
             {
-                BlockPos pebblePos = Utils.getSamplePosition(world, new ChunkPos(pos));
+                return false;
+            }
 
-                if (pebblePos == null || Utils.inNonWaterFluid(world, pebblePos))
+            if (world.getWorld().getWorldType() != WorldType.FLAT)
+            {
+                for (int i = 0; i < CommonConfig.MAX_PEBBLES_PER_CHUNK.get(); i++)
                 {
-                    continue;
-                }
+                    BlockPos pebblePos = Utils.getPebblePos(world, new ChunkPos(pos));
 
-                Block pebble = Utils.getPebbleForPos(world, pebblePos);
-                
-                if (world.getBlockState(pebblePos).getBlock() != pebble)
-                {
-                    boolean isInWater = Utils.isInWater(world, pebblePos);
-                    BlockState stateToPlace = isInWater
-                            ? pebble.getDefaultState().with(PebbleBlock.WATERLOGGED, Boolean.TRUE)
-                            : pebble.getDefaultState();
-
-                    if (world.setBlockState(pebblePos, stateToPlace, 2 | 16))
+                    if (pebblePos == null || Utils.inNonWaterFluid(world, pebblePos))
                     {
-                        // Clean up the blocks *around* the pebble
-                        stateToPlace.updateNeighbors(world, pebblePos, 0);
-                        stateToPlace.updateNeighbors(world, pebblePos.up(), 0);
-                        placed = true;
+                        continue;
+                    }
+
+                    Block pebble = Utils.getPebbleForPos(world, pebblePos);
+
+                    if (world.getBlockState(pebblePos).getBlock() != pebble)
+                    {
+                        boolean isInWater = Utils.isInWater(world, pebblePos);
+                        BlockState stateToPlace = isInWater
+                                ? pebble.getDefaultState().with(PebbleBlock.WATERLOGGED, Boolean.TRUE)
+                                : pebble.getDefaultState();
+
+                        if (world.setBlockState(pebblePos, stateToPlace, 2 | 16))
+                        {
+                            // Clean up the blocks *around* the pebble
+                            stateToPlace.updateNeighbors(world, pebblePos, 0);
+                            stateToPlace.updateNeighbors(world, pebblePos.up(), 0);
+                            placed = true;
+                        }
                     }
                 }
             }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
 
         return placed;

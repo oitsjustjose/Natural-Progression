@@ -1,6 +1,7 @@
 package com.oitsjustjose.naturalprogression.common.blocks;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.oitsjustjose.naturalprogression.common.items.PebbleItem;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
@@ -80,13 +81,13 @@ public class NaturalProgressionBlocks
             // Ignore pebble blocks - pebble item will represent them
             if (block instanceof PebbleBlock)
             {
-                Item iBlock = new PebbleItem(block).setRegistryName(block.getRegistryName());
+                Item iBlock = new PebbleItem(block).setRegistryName(Objects.requireNonNull(block.getRegistryName()));
                 itemRegistryEvent.getRegistry().register(iBlock);
             }
             else
             {
                 Item iBlock = new BlockItem(block, new Item.Properties().group(NaturalProgressionGroup.getInstance()))
-                        .setRegistryName(block.getRegistryName());
+                        .setRegistryName(Objects.requireNonNull(block.getRegistryName()));
                 itemRegistryEvent.getRegistry().register(iBlock);
             }
         }

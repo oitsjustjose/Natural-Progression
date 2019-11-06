@@ -4,6 +4,8 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 
+import javax.annotation.Nonnull;
+
 public class FlintItemTier implements IItemTier
 {
     @Override
@@ -37,6 +39,7 @@ public class FlintItemTier implements IItemTier
     }
 
     @Override
+    @Nonnull
     public Ingredient getRepairMaterial()
     {
         return Ingredient.fromItems(Items.FLINT);

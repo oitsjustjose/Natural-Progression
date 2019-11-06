@@ -1,10 +1,12 @@
 package com.oitsjustjose.naturalprogression.common.event;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.oitsjustjose.naturalprogression.NaturalProgression;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -32,7 +34,7 @@ public class WoodBreak
             // If the player **isn't** using an axe on a log, don't let them break it
             if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE))
             {
-                event.setNewSpeed(0F);
+                event.setCanceled(true);
 
                 if (CommonConfig.SHOW_BREAKING_HELP.get())
                 {
@@ -59,7 +61,7 @@ public class WoodBreak
 
     public static class SplinterSource extends DamageSource
     {
-        public SplinterSource()
+        SplinterSource()
         {
             super("splintering");
         }
@@ -72,6 +74,7 @@ public class WoodBreak
         }
 
         @Override
+        @Nonnull
         public ITextComponent getDeathMessage(LivingEntity entityLivingBaseIn)
         {
             return new TranslationTextComponent("natural-progression.splintered.to.death",

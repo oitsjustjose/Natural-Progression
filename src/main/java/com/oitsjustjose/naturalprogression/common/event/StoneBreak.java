@@ -2,6 +2,7 @@ package com.oitsjustjose.naturalprogression.common.event;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
@@ -37,7 +38,7 @@ public class StoneBreak
             // If the player **isn't** using a pickaxe on a hard block, don't let them break it
             if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE))
             {
-                event.setNewSpeed(0F);
+                event.setCanceled(true);
 
                 if (CommonConfig.SHOW_BREAKING_HELP.get())
                 {
@@ -63,7 +64,7 @@ public class StoneBreak
 
     public static class BrokenHandSource extends DamageSource
     {
-        public BrokenHandSource()
+        BrokenHandSource()
         {
             super("broken hand");
         }
@@ -76,6 +77,7 @@ public class StoneBreak
         }
 
         @Override
+        @Nonnull
         public ITextComponent getDeathMessage(LivingEntity entityLivingBaseIn)
         {
             return new TranslationTextComponent("natural-progression.broken.bones",

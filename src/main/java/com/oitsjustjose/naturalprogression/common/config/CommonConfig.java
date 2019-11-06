@@ -26,8 +26,6 @@ public class CommonConfig
     public static ForgeConfigSpec.BooleanValue SHOW_BREAKING_HELP;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_BLACKLIST;
 
-    private static String CATEGORY_GENERAL = "general";
-
     static
     {
         init();
@@ -44,6 +42,7 @@ public class CommonConfig
 
     private static void init()
     {
+        String CATEGORY_GENERAL = "general";
         COMMON_BUILDER.comment("Miscellaneous").push(CATEGORY_GENERAL);
 
         MAX_PEBBLES_PER_CHUNK = COMMON_BUILDER.comment("The maximum number of pebbles that can be found in each chunk")
