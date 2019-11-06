@@ -26,6 +26,7 @@ public class NaturalProgressionBlocks
     public static Block cobbledAndesite;
     public static Block cobbledDiorite;
     public static Block cobbledGranite;
+    public static Block cobbledSandstone;
 
     public static void registerBlocks(final RegistryEvent.Register<Block> blockRegistryEvent)
     {
@@ -65,6 +66,11 @@ public class NaturalProgressionBlocks
                 .setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_granite"));
         blockRegistryEvent.getRegistry().register(cobbledGranite);
         modBlocks.add(cobbledGranite);
+
+        cobbledSandstone = new Block(cobbleProps)
+                .setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_sandstone"));
+        blockRegistryEvent.getRegistry().register(cobbledSandstone);
+        modBlocks.add(cobbledSandstone);
     }
 
     public static void registerBlockItems(final RegistryEvent.Register<Item> itemRegistryEvent)
