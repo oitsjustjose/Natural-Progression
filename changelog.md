@@ -1,5 +1,11 @@
 # Natural Progression Changelog
 
+## 1.0.7
+
+### Added
+
+- Stand-in Quark compatability (until Vazkii hopefully adds it)
+
 ## 1.0.6
 
 ### Added
