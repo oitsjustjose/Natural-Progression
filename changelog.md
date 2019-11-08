@@ -1,11 +1,19 @@
 # Natural Progression Changelog
 
+<<<<<<< HEAD
 ## 1.0.6b
 
 ### Fixed
 
 - Sandstone not dropping sandstone pebbles
 - Sandstone pebbles not dropping themselves
+=======
+## 1.0.7
+
+### Added
+
+- Stand-in Quark compatability (until Vazkii hopefully adds it)
+>>>>>>> fd45aab6d4868231406968ce39f2abc21a624108
 
 ## 1.0.6
 
