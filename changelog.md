@@ -1,11 +1,16 @@
 # Natural Progression Changelog
 
+## 1.0.7b
+
+### Fixed
+
+- Fixes implemented in 1.0.6b not carrying over in 1.0.7 (you guessed it, forgot to push on one computer before working on another one 😐)
+
 ## 1.0.7
 
 ### Added
 
 - Stand-in Quark compatability (until Vazkii hopefully adds it)
-
 
 ## 1.0.6
 
