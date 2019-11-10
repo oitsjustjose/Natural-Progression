@@ -24,7 +24,7 @@ public class CommonConfig
     public static ForgeConfigSpec.EnumValue<CraftingSounds> CRAFTING_SOUNDS;
     public static ForgeConfigSpec.BooleanValue ARE_PEBBLES_REPLACEABLE;
     public static ForgeConfigSpec.BooleanValue SHOW_BREAKING_HELP;
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_BLACKLIST;
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_WHITELIST;
 
     static
     {
@@ -65,9 +65,9 @@ public class CommonConfig
         SHOW_BREAKING_HELP = COMMON_BUILDER.comment(
                 "Setting this to true will let players know that they can't break certain blocks without a certain tool")
                 .define("showToolHelp", true);
-        DIMENSION_BLACKLIST = COMMON_BUILDER
-                .comment("A string of dimensions in which pebbles should NOT spawn. See the defaults for the format.")
-                .defineList("dimension  ", Lists.newArrayList("minecraft:the_nether", "minecraft:the_end"),
+        DIMENSION_WHITELIST = COMMON_BUILDER
+                .comment("A string of dimensions in which pebbles should spawn. See the defaults for the format.")
+                .defineList("dimensionWhitelist", Lists.newArrayList("minecraft:overworld"),
                         (itemRaw) -> {
                             if (itemRaw instanceof String)
                             {
