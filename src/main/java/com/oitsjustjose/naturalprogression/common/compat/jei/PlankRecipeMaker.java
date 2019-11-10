@@ -108,7 +108,7 @@ public class PlankRecipeMaker
                 NonNullList<Ingredient> inputs = NonNullList.from(Ingredient.EMPTY, input, axe);
                 ItemStack output = entry.getValue();
 
-                ResourceLocation id = new ResourceLocation(ModIds.MINECRAFT_ID,
+                ResourceLocation id = new ResourceLocation(Constants.MODID,
                         "naturalprogression.plank.axing." + output.getTranslationKey());
 
                 ShapelessRecipe recipe = new ShapelessRecipe(id, group, output, inputs);
