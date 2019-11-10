@@ -8,6 +8,7 @@ import com.oitsjustjose.naturalprogression.common.config.CommonConfig.CraftingSo
 import com.oitsjustjose.naturalprogression.common.event.StoneBreak;
 import com.oitsjustjose.naturalprogression.common.event.ToolTips;
 import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
+import com.oitsjustjose.naturalprogression.common.event.WoodenTools;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
 import com.oitsjustjose.naturalprogression.common.recipes.PlankRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
@@ -63,6 +64,7 @@ public class NaturalProgression
         MinecraftForge.EVENT_BUS.register(new WoodBreak());
         MinecraftForge.EVENT_BUS.register(new StoneBreak());
         MinecraftForge.EVENT_BUS.register(new ToolTips());
+        MinecraftForge.EVENT_BUS.register(new WoodenTools());
 
         this.configSetup();
     }
