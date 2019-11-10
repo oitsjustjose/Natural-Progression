@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
 import com.oitsjustjose.naturalprogression.common.items.SawItem;
+import com.oitsjustjose.naturalprogression.common.utils.Constants;
 
 import mezz.jei.api.constants.ModIds;
 import net.minecraft.item.AxeItem;

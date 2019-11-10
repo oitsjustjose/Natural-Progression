@@ -28,8 +28,10 @@ public class JeiCompat implements IModPlugin
     {
         registration.addRecipes(PlankRecipeMaker.getRecipes(), VanillaRecipeCategoryUid.CRAFTING);
 
+        registration.addRecipes(StrippedLogRecipeMaker.getRecipes(), VanillaRecipeCategoryUid.CRAFTING);
+
         ArrayList<ItemStack> pebbles = Lists.newArrayList();
-        
+
         pebbles.add(new ItemStack(NaturalProgressionBlocks.andesitePebble));
         pebbles.add(new ItemStack(NaturalProgressionBlocks.dioritePebble));
         pebbles.add(new ItemStack(NaturalProgressionBlocks.granitePebble));
