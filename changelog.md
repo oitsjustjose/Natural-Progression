@@ -1,5 +1,23 @@
 # Natural Progression Changelog
 
+## 1.0.8
+
+### Added
+
+- Ability to strip logs via crafting using a saw
+- JEI support for sawing and stripping
+- JEI description pages for pebbles and how to use them
+- Wood tool items and swords - even if craftable - are unusable
+
+### Changed
+
+- Dimension blacklist config setting to a dimension whitelist
+- You can now use stripped wood to craft planks if stripped woods are required for crafting them.
+
+### Fixed
+
+- JustEnoughResources saying pebbles are enchantable
+
 ## 1.0.7b
 
 ### Fixed
