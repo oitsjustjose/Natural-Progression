@@ -4,6 +4,8 @@ package com.oitsjustjose.naturalprogression.common.recipes;
 import java.util.Objects;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import com.google.gson.JsonObject;
 import com.oitsjustjose.naturalprogression.NaturalProgression;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
@@ -27,8 +29,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-
-import javax.annotation.Nonnull;
 
 /**
  * Special recipe type for chopping logs into planks
@@ -104,7 +104,8 @@ public class PlankRecipe extends ShapelessRecipe
 
             ResourceLocation plankLoc = new ResourceLocation(
                     Objects.requireNonNull(log.getItem().getRegistryName()).getNamespace(),
-                    log.getItem().getRegistryName().getPath().replace("stripped_", "").replace("log", "planks"));
+                    log.getItem().getRegistryName().getPath().replace("stripped_", "").replace("log", "planks")
+                            .replace("wood", "planks"));
 
             // Prevent the recipe from crafting itself for dupe issues
             if (!plankLoc.getPath().toLowerCase().contains("plank"))
@@ -132,57 +133,9 @@ public class PlankRecipe extends ShapelessRecipe
     @Override
     public boolean matches(CraftingInventory inv, World world)
     {
-        ItemStack saw = ItemStack.EMPTY;
-        ItemStack axe = ItemStack.EMPTY;
-        ItemStack log = ItemStack.EMPTY;
+        NaturalProgression.getInstance().LOGGER.info("Plank recipe returning {}", !getCraftingResult(inv).isEmpty());
 
-        for (int i = 0; i < inv.getSizeInventory(); i++)
-        {
-            ItemStack checkedItemStack = inv.getStackInSlot(i);
-
-            if (!checkedItemStack.isEmpty())
-            {
-                if (Utils.isLog(checkedItemStack))
-                {
-                    if (log.isEmpty())
-                    {
-                        log = checkedItemStack;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else if (checkedItemStack.getItem() instanceof SawItem)
-                {
-                    if (saw.isEmpty())
-                    {
-                        saw = checkedItemStack.copy();
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else if (checkedItemStack.getToolTypes().contains(ToolType.AXE))
-                {
-                    if (axe.isEmpty())
-                    {
-                        axe = checkedItemStack.copy();
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        if (!saw.isEmpty() && !log.isEmpty())
-        {
-            return true;
-        }
-        return !axe.isEmpty() && !log.isEmpty();
+        return !getCraftingResult(inv).isEmpty();
     }
 
     @Override

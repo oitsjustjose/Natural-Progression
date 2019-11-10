@@ -57,7 +57,8 @@ public class PlankRecipeMaker
         {
             ResourceLocation plankLoc = new ResourceLocation(
                     Objects.requireNonNull(wood.getItem().getRegistryName()).getNamespace(),
-                    wood.getItem().getRegistryName().getPath().replace("stripped_", "").replace("log", "planks"));
+                    wood.getItem().getRegistryName().getPath().replace("stripped_", "").replace("log", "planks")
+                            .replace("wood", "planks"));
 
             if (!plankLoc.getPath().contains("plank"))
             {
