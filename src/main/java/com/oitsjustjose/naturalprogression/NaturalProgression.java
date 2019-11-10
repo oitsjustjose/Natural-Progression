@@ -11,6 +11,7 @@ import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
 import com.oitsjustjose.naturalprogression.common.event.WoodenTools;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
 import com.oitsjustjose.naturalprogression.common.recipes.PlankRecipe;
+import com.oitsjustjose.naturalprogression.common.recipes.StripRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 import com.oitsjustjose.naturalprogression.common.utils.Sounds;
 import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
@@ -52,6 +53,7 @@ public class NaturalProgression
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public static final IRecipeSerializer<PlankRecipe> PLANK_SLICING = new PlankRecipe.Serializer();
+    public static final IRecipeSerializer<StripRecipe> LOG_STRIPPING = new StripRecipe.Serializer();
 
     public NaturalProgression()
     {
@@ -137,6 +139,9 @@ public class NaturalProgression
         {
             event.getRegistry()
                     .register(PLANK_SLICING.setRegistryName(new ResourceLocation(Constants.MODID, "plank_sawing")));
+            event.getRegistry()
+                    .register(LOG_STRIPPING.setRegistryName(new ResourceLocation(Constants.MODID, "stripping")));
+
         }
     }
 }

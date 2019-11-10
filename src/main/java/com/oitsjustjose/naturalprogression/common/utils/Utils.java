@@ -13,6 +13,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.ILiquidContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -30,7 +31,7 @@ public class Utils
         BlockPos search = getTopSolidBlock(world, pos);
         for (int y = 1; y < search.getY(); y++)
         {
-            
+
             if (world.getBlockState(search.down(y)).getBlock() == Blocks.GRANITE)
             {
                 return NaturalProgressionBlocks.granitePebble;
@@ -185,6 +186,23 @@ public class Utils
         }
 
         return ItemTags.LOGS.contains(stack.getItem());
+    }
+
+    public static ItemStack getStrippedLog(Item wood)
+    {
+        for (Item log : ItemTags.LOGS.getAllElements())
+        {
+            if (wood.getRegistryName() == log.getRegistryName())
+            {
+                continue;
+            }
+            if (log.getRegistryName().getPath().replace("stripped_", "")
+                    .equalsIgnoreCase(wood.getRegistryName().getPath()))
+            {
+                return new ItemStack(log);
+            }
+        }
+        return ItemStack.EMPTY;
     }
 
 }
