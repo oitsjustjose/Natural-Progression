@@ -20,5 +20,6 @@
     "natural-progression.saw.tooltip": "§3Craft with any §lstripped log§r§3 to create 4 planks§r",
     "itemGroup.natural-progression.name": "Natural Progression",
     "natural-progression.subtitle.craft_plank": "Planks Being Sliced",
-    "natural-progression.subtitle.craft_other": "Item Being Crafted"
+    "natural-progression.subtitle.craft_other": "Item Being Crafted",
+    "natural-progression.pebble.jei.info": "Hold pebbles in each hand (main and off-hand) and right click (while not looking at a block) to try knapping to create §nflint§r. This process has a random chance of working so be patient!"
 }
