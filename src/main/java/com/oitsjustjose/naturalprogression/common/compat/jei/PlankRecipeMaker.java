@@ -60,7 +60,7 @@ public class PlankRecipeMaker
                     wood.getItem().getRegistryName().getPath().replace("stripped_", "").replace("log", "planks")
                             .replace("wood", "planks"));
 
-            if (!plankLoc.getPath().contains("plank"))
+            if (!plankLoc.getPath().toLowerCase().contains("plank"))
             {
                 continue;
             }
@@ -80,11 +80,7 @@ public class PlankRecipeMaker
             }
             else
             {
-                if (wood.getRegistryName().getPath().endsWith("_log")
-                        && !wood.getRegistryName().getPath().toLowerCase().contains("stripped"))
-                {
-                    pairs.put(new ItemStack(wood), new ItemStack(plankItem));
-                }
+                pairs.put(new ItemStack(wood), new ItemStack(plankItem));
             }
         }
 

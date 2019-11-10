@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.google.common.collect.Lists;
 import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 
 import mezz.jei.api.IModPlugin;
@@ -28,7 +29,10 @@ public class JeiCompat implements IModPlugin
     {
         registration.addRecipes(PlankRecipeMaker.getRecipes(), VanillaRecipeCategoryUid.CRAFTING);
 
-        registration.addRecipes(StrippedLogRecipeMaker.getRecipes(), VanillaRecipeCategoryUid.CRAFTING);
+        if (CommonConfig.REQUIRE_STRIPPED_LOG_FOR_PLANKS.get())
+        {
+            registration.addRecipes(StrippedLogRecipeMaker.getRecipes(), VanillaRecipeCategoryUid.CRAFTING);
+        }
 
         ArrayList<ItemStack> pebbles = Lists.newArrayList();
 

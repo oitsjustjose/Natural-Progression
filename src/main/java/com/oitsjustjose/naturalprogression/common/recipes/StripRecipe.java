@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 
 import com.google.gson.JsonObject;
 import com.oitsjustjose.naturalprogression.NaturalProgression;
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.items.SawItem;
 import com.oitsjustjose.naturalprogression.common.utils.Utils;
 
@@ -86,9 +87,7 @@ public class StripRecipe extends ShapelessRecipe
     @Override
     public boolean matches(CraftingInventory inv, World world)
     {
-        NaturalProgression.getInstance().LOGGER.info("Stripping recipe returning {}", !getCraftingResult(inv).isEmpty());
-
-        return !getCraftingResult(inv).isEmpty();
+        return CommonConfig.REQUIRE_STRIPPED_LOG_FOR_PLANKS.get() && !getCraftingResult(inv).isEmpty();
     }
 
     @Override
