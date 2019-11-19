@@ -1,6 +1,7 @@
 package com.oitsjustjose.naturalprogression.common.blocks;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 import com.oitsjustjose.naturalprogression.common.items.PebbleItem;
@@ -8,6 +9,7 @@ import com.oitsjustjose.naturalprogression.common.utils.Constants;
 import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -31,6 +33,8 @@ public class NaturalProgressionBlocks
     public static Block cobbledSandstone;
     public static Block cobbledRedSandstone;
 
+    public static HashMap<Block, Block> pebbleToBlockMap;
+
     public static void registerBlocks(final RegistryEvent.Register<Block> blockRegistryEvent)
     {
         stonePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "stone_pebble"));
@@ -40,23 +44,28 @@ public class NaturalProgressionBlocks
         andesitePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "andesite_pebble"));
         blockRegistryEvent.getRegistry().register(andesitePebble);
         modBlocks.add(andesitePebble);
+        pebbleToBlockMap.put(Blocks.ANDESITE, andesitePebble);
 
         dioritePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "diorite_pebble"));
         blockRegistryEvent.getRegistry().register(dioritePebble);
         modBlocks.add(dioritePebble);
+        pebbleToBlockMap.put(Blocks.DIORITE, dioritePebble);
 
         granitePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "granite_pebble"));
         blockRegistryEvent.getRegistry().register(granitePebble);
         modBlocks.add(granitePebble);
+        pebbleToBlockMap.put(Blocks.GRANITE, granitePebble);
 
         sandstonePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "sandstone_pebble"));
         blockRegistryEvent.getRegistry().register(sandstonePebble);
         modBlocks.add(sandstonePebble);
+        pebbleToBlockMap.put(Blocks.SANDSTONE, sandstonePebble);
 
         redSandstonePebble = new PebbleBlock()
                 .setRegistryName(new ResourceLocation(Constants.MODID, "red_sandstone_pebble"));
         blockRegistryEvent.getRegistry().register(redSandstonePebble);
         modBlocks.add(redSandstonePebble);
+        pebbleToBlockMap.put(Blocks.RED_SANDSTONE, redSandstonePebble);
 
         Block.Properties cobbleProps = Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 6.0F);
 
