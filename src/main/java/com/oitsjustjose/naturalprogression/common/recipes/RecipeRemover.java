@@ -78,7 +78,8 @@ public class RecipeRemover
     {
         final int recipesRemoved = removeRecipes(recipeManager, recipe -> {
             final ItemStack recipeOutput = recipe.getRecipeOutput();
-            return recipeOutput.equals(stack, false);
+            return recipeOutput.equals(stack, false)
+                    && !(recipe.getSerializer() instanceof DamageItemRecipe.Serializer);
         });
 
         NaturalProgression.getInstance().LOGGER.info("Removed {} recipe(s) for {}", recipesRemoved,
@@ -95,7 +96,8 @@ public class RecipeRemover
     {
         final int recipesRemoved = removeRecipes(recipeManager, recipe -> {
             final ItemStack recipeOutput = recipe.getRecipeOutput();
-            return !recipeOutput.isEmpty() && recipeOutput.getItem().isIn(tag);
+            return !recipeOutput.isEmpty() && recipeOutput.getItem().isIn(tag)
+                    && !(recipe.getSerializer() instanceof DamageItemRecipe.Serializer);
         });
 
         NaturalProgression.getInstance().LOGGER.info("Removed {} recipe(s) for tag {}", recipesRemoved, tag.getId());
@@ -130,6 +132,7 @@ public class RecipeRemover
         // For each recipe type, create a new map that doesn't contain the recipes to be removed
         existingRecipes.forEach((recipeType, existingRecipesForType) -> {
             // noinspection UnstableApiUsage
+
             final ImmutableMap<ResourceLocation, IRecipe<?>> newRecipesForType = existingRecipesForType.entrySet()
                     .stream().filter(entry -> !predicate.test(entry.getValue()))
                     .collect(ImmutableMap.toImmutableMap(Map.Entry::getKey, Map.Entry::getValue));
