@@ -35,9 +35,9 @@ public class Utils
                 continue;
             }
 
-            if (NaturalProgressionBlocks.pebbleToBlockMap.containsKey(world.getBlockState(search.down(y)).getBlock()))
+            if (NaturalProgressionBlocks.blocksToPebbles.containsKey(world.getBlockState(search.down(y)).getBlock()))
             {
-                return NaturalProgressionBlocks.pebbleToBlockMap.get(world.getBlockState(search.down(y)).getBlock());
+                return NaturalProgressionBlocks.blocksToPebbles.get(world.getBlockState(search.down(y)).getBlock());
             }
         }
         return NaturalProgressionBlocks.stonePebble;
