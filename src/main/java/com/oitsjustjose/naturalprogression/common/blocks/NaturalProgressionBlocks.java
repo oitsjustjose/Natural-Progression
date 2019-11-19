@@ -60,12 +60,14 @@ public class NaturalProgressionBlocks
         blockRegistryEvent.getRegistry().register(sandstonePebble);
         modBlocks.add(sandstonePebble);
         blocksToPebbles.put(Blocks.SANDSTONE, sandstonePebble);
+        blocksToPebbles.put(Blocks.SAND, sandstonePebble);
 
         redSandstonePebble = new PebbleBlock()
                 .setRegistryName(new ResourceLocation(Constants.MODID, "red_sandstone_pebble"));
         blockRegistryEvent.getRegistry().register(redSandstonePebble);
         modBlocks.add(redSandstonePebble);
         blocksToPebbles.put(Blocks.RED_SANDSTONE, redSandstonePebble);
+        blocksToPebbles.put(Blocks.RED_SAND, redSandstonePebble);
 
         Block.Properties cobbleProps = Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 6.0F);
 
