@@ -10,8 +10,7 @@ import com.oitsjustjose.naturalprogression.common.event.ToolTips;
 import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
 import com.oitsjustjose.naturalprogression.common.event.WoodenTools;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
-import com.oitsjustjose.naturalprogression.common.recipes.PlankRecipe;
-import com.oitsjustjose.naturalprogression.common.recipes.StripRecipe;
+import com.oitsjustjose.naturalprogression.common.recipes.DamageItemRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 import com.oitsjustjose.naturalprogression.common.utils.Sounds;
 import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
@@ -52,8 +51,7 @@ public class NaturalProgression
 
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
-    public static final IRecipeSerializer<PlankRecipe> PLANK_SLICING = new PlankRecipe.Serializer();
-    public static final IRecipeSerializer<StripRecipe> LOG_STRIPPING = new StripRecipe.Serializer();
+    public static final IRecipeSerializer<DamageItemRecipe> DAMAGE_ITEM_RECIPE = new DamageItemRecipe.Serializer();
 
     public NaturalProgression()
     {
@@ -137,11 +135,8 @@ public class NaturalProgression
         @SubscribeEvent
         public static void onRegisterSerializers(final RegistryEvent.Register<IRecipeSerializer<?>> event)
         {
-            event.getRegistry()
-                    .register(PLANK_SLICING.setRegistryName(new ResourceLocation(Constants.MODID, "plank_sawing")));
-            event.getRegistry()
-                    .register(LOG_STRIPPING.setRegistryName(new ResourceLocation(Constants.MODID, "stripping")));
-
+            event.getRegistry().register(
+                    DAMAGE_ITEM_RECIPE.setRegistryName(new ResourceLocation(Constants.MODID, "damage_tools")));
         }
     }
 }
