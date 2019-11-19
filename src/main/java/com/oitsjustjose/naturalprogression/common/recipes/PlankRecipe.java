@@ -133,8 +133,6 @@ public class PlankRecipe extends ShapelessRecipe
     @Override
     public boolean matches(CraftingInventory inv, World world)
     {
-        NaturalProgression.getInstance().LOGGER.info("Plank recipe returning {}", !getCraftingResult(inv).isEmpty());
-
         return !getCraftingResult(inv).isEmpty();
     }
 
