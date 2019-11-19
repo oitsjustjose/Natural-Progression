@@ -33,7 +33,7 @@ public class NaturalProgressionBlocks
     public static Block cobbledSandstone;
     public static Block cobbledRedSandstone;
 
-    public static HashMap<Block, Block> blocksToPebbles;
+    public static HashMap<Block, Block> blocksToPebbles = new HashMap<>();
 
     public static void registerBlocks(final RegistryEvent.Register<Block> blockRegistryEvent)
     {
