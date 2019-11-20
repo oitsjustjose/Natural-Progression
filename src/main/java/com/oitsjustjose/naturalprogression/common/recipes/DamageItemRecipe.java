@@ -20,7 +20,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.item.crafting.ShapelessRecipe;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
@@ -29,7 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 /**
- * Special recipe type for chopping logs into planks
+ * Special shapeless recipe that allows use of Tools, and damages the tool properly
  *
  * @author Credit to Integral for the Enchantment Transpose Recipe as a guide
  */
@@ -97,21 +96,11 @@ public class DamageItemRecipe extends ShapelessRecipe
                     shouldAttemptDmg = (1 + random.nextInt(5)) <= unbreakingLvl;
                 }
 
-                if (!savedStack.hasTag())
-                {
-                    savedStack.setTag(new CompoundNBT());
-                    assert savedStack.getTag() != null;
-                    savedStack.getTag().putInt("Damage", 0);
-                }
-
-                assert savedStack.getTag() != null;
-                int damage = savedStack.getTag().getInt("Damage");
-
-                if (damage < savedStack.getMaxDamage())
+                if (savedStack.getDamage() < savedStack.getMaxDamage())
                 {
                     if (shouldAttemptDmg)
                     {
-                        savedStack.getTag().putInt("Damage", damage + 1);
+                        savedStack.setDamage(savedStack.getDamage() + 1);
                     }
                     nonnulllist.set(i, savedStack);
                 }
