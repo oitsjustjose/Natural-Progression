@@ -129,7 +129,7 @@ def genAxePlanking(axes: list, plank_map:dict) -> None:
 
 def main() -> None:
     """Generates recipes"""
-    axes = ["minecraft:stone_axe", "minecraft:iron_axe", "minecraft:diamond_axe"]
+    axes = ["minecraft:stone_axe", "minecraft:iron_axe", "minecraft:diamond_axe", "natural-progression:flint_hatchet"]
     saws = ["natural-progression:basic_saw", "natural-progression:improved_saw"]
 
     strip_map = {

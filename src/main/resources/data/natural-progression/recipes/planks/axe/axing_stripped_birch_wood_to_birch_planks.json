@@ -1,1 +1,1 @@
-{"type": "natural-progression:damage_tools", "ingredients": [{"item": "minecraft:stripped_birch_wood"}, [{"item": "minecraft:stone_axe"}, {"item": "minecraft:iron_axe"}, {"item": "minecraft:diamond_axe"}]], "result": {"item": "minecraft:birch_planks", "count": 1}}
+{"type": "natural-progression:damage_tools", "ingredients": [{"item": "minecraft:stripped_birch_wood"}, [{"item": "minecraft:stone_axe"}, {"item": "minecraft:iron_axe"}, {"item": "minecraft:diamond_axe"}, {"item": "natural-progression:flint_hatchet"}]], "result": {"item": "minecraft:birch_planks", "count": 1}}
