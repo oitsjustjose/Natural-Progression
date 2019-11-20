@@ -1,5 +1,24 @@
 # Natural Progression Changelog
 
+## 1.1.0
+
+### Added
+
+- Red Sandstone Pebbles
+- Cobbled Red Sandstone
+
+### Changed
+
+- **Important**: Plank recipes are **no longer dynamic**. This means that if you want a plank recipe, you'll need to make it by hand (**even though it may be removed automatically**), but this *does* add compatability with any mod out there, and for custom more difficult recipes! See [this file]() for how to format a recipe like this. Yes, this means that you can use this recipe type to make *any* recipe that requires a tool, and it will damage (or break if no durability left) that tool. This also takes into account the Unbreaking enchantment!
+
+### Fixed
+
+- Log spam from old crafting recipe handlers
+
+### Removed
+
+- JEI Compat -- It's not needed anymore!!
+
 ## 1.0.8
 
 ### Added
