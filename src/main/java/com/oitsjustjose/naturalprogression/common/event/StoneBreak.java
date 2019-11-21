@@ -19,62 +19,67 @@ import java.util.List;
 
 public class StoneBreak
 {
-	@SubscribeEvent public void registerEvent(PlayerEvent.BreakSpeed event)
-	{
-		final BrokenHandSource brokenHandSource = new BrokenHandSource();
-		final List<Material> hardMaterials = Lists
-				.asList(Material.ROCK, new Material[] { Material.IRON, Material.ANVIL });
+    @SubscribeEvent
+    public void registerEvent(PlayerEvent.BreakSpeed event)
+    {
+        final BrokenHandSource brokenHandSource = new BrokenHandSource();
+        final List<Material> hardMaterials = Lists
+                .asList(Material.ROCK, new Material[] { Material.IRON, Material.ANVIL });
 
-		if (event.getState() == null || event.getPlayer() == null)
-		{
-			return;
-		}
+        if (event.getState() == null || event.getPlayer() == null)
+        {
+            return;
+        }
 
-		if (hardMaterials.contains(event.getState().getMaterial()))
-		{
-			// If the player **isn't** using a pickaxe on a hard block, don't let them break it
-			if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE))
-			{
-				event.setCanceled(true);
+        if (hardMaterials.contains(event.getState().getMaterial()))
+        {
+            // If the player **isn't** using a pickaxe on a hard block, don't let them break it
+            if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE))
+            {
+                event.setCanceled(true);
 
-				if (CommonConfig.SHOW_BREAKING_HELP.get())
-				{
-					event.getPlayer()
-							.sendStatusMessage(new TranslationTextComponent("natural-progression.stone.warning"), true);
-				}
-				// Random chance to even perform the hurt anim if the player is empty-handed
-				if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1)
-				{
-					// And when it's shown, random chance to actually hurt from breaking bones
-					if (event.getPlayer().getRNG().nextInt(2) == 1)
-					{
-						event.getPlayer().attackEntityFrom(brokenHandSource, 1F);
-					}
-					else
-					{
-						NaturalProgression.proxy.doHurtAnimation(event.getPlayer());
-					}
-				}
-			}
-		}
-	}
+                if (CommonConfig.SHOW_BREAKING_HELP.get())
+                {
+                    event.getPlayer()
+                            .sendStatusMessage(new TranslationTextComponent("natural-progression.stone.warning"), true);
+                }
+                // Random chance to even perform the hurt anim if the player is empty-handed
+                if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1)
+                {
+                    // And when it's shown, random chance to actually hurt from breaking bones
+                    if (event.getPlayer().getRNG().nextInt(2) == 1)
+                    {
+                        event.getPlayer().attackEntityFrom(brokenHandSource, 1F);
+                    }
+                    else
+                    {
+                        NaturalProgression.proxy.doHurtAnimation(event.getPlayer());
+                    }
+                }
+            }
+        }
+    }
 
-	public static class BrokenHandSource extends DamageSource
-	{
-		BrokenHandSource()
-		{
-			super("broken hand");
-		}
+    public static class BrokenHandSource extends DamageSource
+    {
+        BrokenHandSource()
+        {
+            super("broken hand");
+        }
 
-		@Override @Nullable public Entity getTrueSource()
-		{
-			return null;
-		}
+        @Override
+        @Nullable
+        public Entity getTrueSource()
+        {
+            return null;
+        }
 
-		@Override @Nonnull public ITextComponent getDeathMessage(LivingEntity entityLivingBaseIn)
-		{
-			return new TranslationTextComponent("natural-progression.broken.bones",
-					entityLivingBaseIn.getDisplayName());
-		}
-	}
+        @Override
+        @Nonnull
+        public ITextComponent getDeathMessage(LivingEntity entityLivingBaseIn)
+        {
+            return new TranslationTextComponent("natural-progression.broken.bones",
+                    entityLivingBaseIn.getDisplayName());
+        }
+    }
 }

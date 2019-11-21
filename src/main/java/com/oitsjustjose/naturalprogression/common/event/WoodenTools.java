@@ -10,52 +10,54 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class WoodenTools
 {
-	@SubscribeEvent public void registerEvent(PlayerEvent.BreakSpeed event)
-	{
-		if (event.getState() == null || event.getPlayer() == null)
-		{
-			return;
-		}
+    @SubscribeEvent
+    public void registerEvent(PlayerEvent.BreakSpeed event)
+    {
+        if (event.getState() == null || event.getPlayer() == null)
+        {
+            return;
+        }
 
-		ItemStack heldItem = event.getPlayer().getHeldItemMainhand();
+        ItemStack heldItem = event.getPlayer().getHeldItemMainhand();
 
-		if (heldItem.getItem() instanceof ToolItem)
-		{
-			ToolItem tool = (ToolItem) heldItem.getItem();
-			if (tool.getTier() == ItemTier.WOOD)
-			{
-				event.setCanceled(true);
-			}
-		}
-		else if (heldItem.getItem() instanceof SwordItem)
-		{
-			SwordItem tool = (SwordItem) heldItem.getItem();
-			if (tool.getTier() == ItemTier.WOOD)
-			{
-				event.setCanceled(true);
-			}
-		}
-	}
+        if (heldItem.getItem() instanceof ToolItem)
+        {
+            ToolItem tool = (ToolItem) heldItem.getItem();
+            if (tool.getTier() == ItemTier.WOOD)
+            {
+                event.setCanceled(true);
+            }
+        }
+        else if (heldItem.getItem() instanceof SwordItem)
+        {
+            SwordItem tool = (SwordItem) heldItem.getItem();
+            if (tool.getTier() == ItemTier.WOOD)
+            {
+                event.setCanceled(true);
+            }
+        }
+    }
 
-	@SubscribeEvent public void registerEvent(AttackEntityEvent event)
-	{
-		if (event.getPlayer() == null)
-		{
-			return;
-		}
+    @SubscribeEvent
+    public void registerEvent(AttackEntityEvent event)
+    {
+        if (event.getPlayer() == null)
+        {
+            return;
+        }
 
-		ItemStack heldItem = event.getPlayer().getHeldItemMainhand();
+        ItemStack heldItem = event.getPlayer().getHeldItemMainhand();
 
-		if (heldItem.getItem() instanceof SwordItem)
-		{
-			SwordItem tool = (SwordItem) heldItem.getItem();
-			if (tool.getTier() == ItemTier.WOOD)
-			{
-				if (event.isCancelable())
-				{
-					event.setCanceled(true);
-				}
-			}
-		}
-	}
+        if (heldItem.getItem() instanceof SwordItem)
+        {
+            SwordItem tool = (SwordItem) heldItem.getItem();
+            if (tool.getTier() == ItemTier.WOOD)
+            {
+                if (event.isCancelable())
+                {
+                    event.setCanceled(true);
+                }
+            }
+        }
+    }
 }
