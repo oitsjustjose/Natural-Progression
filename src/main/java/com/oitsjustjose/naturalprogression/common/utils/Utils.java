@@ -4,7 +4,6 @@ import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlock
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.ILiquidContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.BlockPos;
@@ -42,20 +41,9 @@ public class Utils
      * @param searchPos  The BlockPos currently be searched at
      * @return true if the block at pos is replaceable
      */
-    private static boolean canReplace(BlockState stateAtPos, IWorld world, BlockPos searchPos)
+    public static boolean canReplace(BlockState stateAtPos, IWorld world, BlockPos searchPos)
     {
-        if (stateAtPos.getMaterial().isReplaceable() || stateAtPos.getMaterial() == Material.AIR || stateAtPos
-                .isFoliage(world, searchPos))
-        {
-            return true;
-        }
-
-        if (stateAtPos.getMaterial().isLiquid() && stateAtPos.getBlock() == Blocks.WATER)
-        {
-            return true;
-        }
-
-        return stateAtPos.has(BlockStateProperties.WATERLOGGED);
+        return stateAtPos.getMaterial().isLiquid() || stateAtPos.getMaterial() == Material.AIR;
     }
 
     /**
@@ -65,11 +53,8 @@ public class Utils
      */
     public static boolean isInWater(IWorld world, BlockPos pos)
     {
-        if (world.getBlockState(pos).getBlock() == Blocks.WATER)
-        {
-            return true;
-        }
-        return world.getBlockState(pos) instanceof ILiquidContainer;
+        BlockState state = world.getBlockState(pos);
+        return state.getBlock() == Blocks.WATER || state.has(BlockStateProperties.WATERLOGGED);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.oitsjustjose.naturalprogression.common.world.feature;
 
 import com.mojang.datafixers.Dynamic;
+import com.oitsjustjose.naturalprogression.NaturalProgression;
 import com.oitsjustjose.naturalprogression.common.blocks.PebbleBlock;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.Utils;
@@ -38,35 +39,45 @@ public class PebbleFeature extends Feature<NoFeatureConfig>
 
         boolean placed = false;
 
-        if (world.getWorld().getWorldType() != WorldType.FLAT)
+
+        try
         {
-            for (int i = 0; i < CommonConfig.MAX_PEBBLES_PER_CHUNK.get(); i++)
+            if (world.getWorld().getWorldType() != WorldType.FLAT)
             {
-                BlockPos pebblePos = Utils.getPebblePos(world, new ChunkPos(pos));
-
-                if (pebblePos == null || Utils.inNonWaterFluid(world, pebblePos))
+                for (int i = 0; i < CommonConfig.MAX_PEBBLES_PER_CHUNK.get(); i++)
                 {
-                    continue;
-                }
+                    BlockPos pebblePos = Utils.getPebblePos(world, new ChunkPos(pos));
 
-                Block pebble = Utils.getPebbleForPos(world, pebblePos);
-
-                if (world.getBlockState(pebblePos).getBlock() != pebble)
-                {
-                    boolean isInWater = Utils.isInWater(world, pebblePos);
-                    BlockState stateToPlace = isInWater ?
-                            pebble.getDefaultState().with(PebbleBlock.WATERLOGGED, Boolean.TRUE) :
-                            pebble.getDefaultState();
-
-                    if (world.setBlockState(pebblePos, stateToPlace, 2 | 16))
+                    if (pebblePos == null || Utils.inNonWaterFluid(world, pebblePos))
                     {
-                        // Clean up the blocks *around* the pebble
-                        stateToPlace.updateNeighbors(world, pebblePos, 0);
-                        stateToPlace.updateNeighbors(world, pebblePos.up(), 0);
-                        placed = true;
+                        continue;
+                    }
+
+                    Block pebble = Utils.getPebbleForPos(world, pebblePos);
+
+                    if (!(world.getBlockState(pebblePos).getBlock() instanceof PebbleBlock))
+                    {
+                        boolean isInWater = Utils.isInWater(world, pebblePos);
+                        BlockState stateToPlace = isInWater ?
+                                pebble.getDefaultState().with(PebbleBlock.WATERLOGGED, Boolean.TRUE) :
+                                pebble.getDefaultState();
+
+                        if (world.setBlockState(pebblePos, stateToPlace, 2 | 16))
+                        {
+                            if (Utils.canReplace(world.getBlockState(pebblePos.up()), world, pebblePos.up()))
+                            {
+                                world.destroyBlock(pos.up(), false);
+                            }
+                            placed = true;
+                        }
                     }
                 }
             }
+        }
+        catch (Exception e)
+        {
+            NaturalProgression.getInstance().LOGGER.error(e.getMessage());
+            return false;
         }
 
         return placed;
