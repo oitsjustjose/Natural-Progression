@@ -1,16 +1,25 @@
 package com.oitsjustjose.naturalprogression.common.items;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -20,10 +29,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class PebbleItem extends BlockItem
 {
@@ -37,6 +42,19 @@ public class PebbleItem extends BlockItem
             @Nonnull ITooltipFlag flagIn)
     {
         tooltip.add(new TranslationTextComponent("natural-progression.hit.together"));
+    }
+
+    @Override
+    public ActionResultType onItemUse(ItemUseContext context)
+    {
+        if (context.getPlayer().getHeldItemOffhand().getItem() instanceof PebbleItem)
+        {
+            if (context.getPlayer().getHeldItemMainhand().getItem() instanceof PebbleItem)
+            {
+                return onItemRightClick(context.getWorld(), context.getPlayer(), context.getHand()).getType();
+            }
+        }
+        return super.onItemUse(context);
     }
 
     @Override
@@ -70,7 +88,7 @@ public class PebbleItem extends BlockItem
                         else
                         {
                             worldIn.playSound(null, playerIn.getPosition(), SoundEvents.ITEM_SHIELD_BREAK,
-                                    SoundCategory.PLAYERS, 0.75F, 0.75F);
+                                    SoundCategory.PLAYERS, 0.5F, 0.75F);
                         }
                     }
                     else
@@ -81,7 +99,7 @@ public class PebbleItem extends BlockItem
                 }
             }
         }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return new ActionResult<>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
     }
 
     @Override
