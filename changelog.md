@@ -1,5 +1,16 @@
 # Natural Progression Changelog
 
+## 1.1.1
+
+### Fixed
+
+- Server Thread occasionally hanging
+- Red Sandstone not dropping its Pebbles
+
+### Changed
+
+- Pebbles will no longer replace blocks other than air and water
+
 ## 1.1.0
 
 ### Added
