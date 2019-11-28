@@ -4,6 +4,7 @@ import com.oitsjustjose.naturalprogression.client.ClientProxy;
 import com.oitsjustjose.naturalprogression.common.CommonProxy;
 import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
+import com.oitsjustjose.naturalprogression.common.event.GroundBreak;
 import com.oitsjustjose.naturalprogression.common.event.StoneBreak;
 import com.oitsjustjose.naturalprogression.common.event.ToolTips;
 import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
@@ -13,6 +14,10 @@ import com.oitsjustjose.naturalprogression.common.recipes.DamageItemRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 import com.oitsjustjose.naturalprogression.common.utils.Sounds;
 import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -33,8 +38,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Mod(Constants.MODID)
 public class NaturalProgression
@@ -56,9 +59,10 @@ public class NaturalProgression
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new WoodBreak());
         MinecraftForge.EVENT_BUS.register(new StoneBreak());
+        MinecraftForge.EVENT_BUS.register(new GroundBreak());
+        MinecraftForge.EVENT_BUS.register(new Sounds());
         MinecraftForge.EVENT_BUS.register(new ToolTips());
         MinecraftForge.EVENT_BUS.register(new WoodenTools());
-        MinecraftForge.EVENT_BUS.register(new Sounds());
 
         this.configSetup();
     }
