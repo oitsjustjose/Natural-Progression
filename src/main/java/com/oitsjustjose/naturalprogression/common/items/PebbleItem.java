@@ -1,5 +1,6 @@
 package com.oitsjustjose.naturalprogression.common.items;
 
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
@@ -60,10 +61,17 @@ public class PebbleItem extends BlockItem
                         playerIn.getHeldItemMainhand().shrink(1);
                         playerIn.getHeldItemOffhand().shrink(1);
 
-                        worldIn.playSound(null, playerIn.getPosition(), SoundEvents.ITEM_SHIELD_BREAK,
-                                SoundCategory.PLAYERS, 0.75F, 0.75F);
-
-                        ItemHandlerHelper.giveItemToPlayer(playerIn, new ItemStack(Items.FLINT, 1));
+                        if (playerIn.getRNG().nextInt(100) < CommonConfig.FLINT_CHANCE.get())
+                        {
+                            worldIn.playSound(null, playerIn.getPosition(), SoundEvents.ITEM_FLINTANDSTEEL_USE,
+                                    SoundCategory.PLAYERS, 1.0F, 0.5F);
+                            ItemHandlerHelper.giveItemToPlayer(playerIn, new ItemStack(Items.FLINT, 1));
+                        }
+                        else
+                        {
+                            worldIn.playSound(null, playerIn.getPosition(), SoundEvents.ITEM_SHIELD_BREAK,
+                                    SoundCategory.PLAYERS, 0.75F, 0.75F);
+                        }
                     }
                     else
                     {
