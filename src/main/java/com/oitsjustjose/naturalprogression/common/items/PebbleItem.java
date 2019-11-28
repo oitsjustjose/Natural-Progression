@@ -67,17 +67,18 @@ public class PebbleItem extends BlockItem
         {
             if (mainHand.getItem() instanceof PebbleItem && offHand.getItem() instanceof PebbleItem)
             {
+                Hand swingArm = playerIn.getRNG().nextBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND;
+
                 if (worldIn.isRemote())
                 {
-                    playerIn.swingArm(playerIn.getRNG().nextBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND);
+                    playerIn.swingArm(swingArm);
                 }
                 else
                 {
                     // 5% chance of knapping actually working:
                     if (playerIn.getRNG().nextInt(100) <= 5)
                     {
-                        playerIn.getHeldItemMainhand().shrink(1);
-                        playerIn.getHeldItemOffhand().shrink(1);
+                        playerIn.getHeldItem(swingArm).shrink(1);
 
                         if (playerIn.getRNG().nextInt(100) < CommonConfig.FLINT_CHANCE.get())
                         {
