@@ -1,5 +1,19 @@
 # Natural Progression Changelog
 
+## 1.1.3
+
+### Added
+
+- Tooltips to wooden tools indicating that they will not function
+- Help tooltips for pebbles
+
+### Changed
+
+- Plank and log stripping recipes now use tags
+    - Saws are replaced with `natural-progression:saw`
+    - Axes are replaced with `natural-progression:axe`
+- Tooltip for crafting only applies to items within the `natural-progression:axe` or `natural-progression:saw` tags.
+
 ## 1.1.2
 
 ### Added
