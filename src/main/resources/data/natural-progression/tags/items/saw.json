@@ -1,0 +1,11 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "item": "natural-progression:basic_saw"
+        },
+        {
+            "item": "natural-progression:improved_saw"
+        }
+    ]
+}
