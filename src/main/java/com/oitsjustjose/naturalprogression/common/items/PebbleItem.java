@@ -8,12 +8,14 @@ import javax.annotation.Nullable;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
 
+import org.lwjgl.glfw.GLFW;
+
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -41,7 +43,23 @@ public class PebbleItem extends BlockItem
     public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
             @Nonnull ITooltipFlag flagIn)
     {
-        tooltip.add(new TranslationTextComponent("natural-progression.hit.together"));
+        if (Screen.hasShiftDown())
+        {
+            if (Screen.hasAltDown())
+            {
+                tooltip.add(new TranslationTextComponent("natural-progression.pebble.help.1"));
+                tooltip.add(new TranslationTextComponent("natural-progression.pebble.help.2"));
+            }
+            else
+            {
+                tooltip.add(new TranslationTextComponent("natural-progression.pebble.desc.1"));
+                tooltip.add(new TranslationTextComponent("natural-progression.pebble.desc.2"));
+            }
+        }
+        else
+        {
+            tooltip.add(new TranslationTextComponent("natural-progression.pebble.shift"));
+        }
     }
 
     @Override
