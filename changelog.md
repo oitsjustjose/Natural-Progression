@@ -1,5 +1,20 @@
 # Natural Progression Changelog
 
+## 1.1.2
+
+### Added
+
+- Chance that knapping is unsuccessful
+- Config for this chance
+
+### Changed
+
+- Dirt / shovel-based blocks now break slower without an appropriate tool
+- Using pebbles to knap won't try to place them (e.g. if you have a pebble in the offhand and mainhand, they won't place)
+- Changed a crafting sound for a different one
+- Only the swinging arm's stack of pebbles is decremented when making (or failing to make) flint
+- Knapping sounds
+
 ## 1.1.1
 
 ### Fixed
@@ -20,7 +35,7 @@
 
 ### Changed
 
-- **Important**: Plank recipes are **no longer dynamic**. This means that if you want a plank recipe, you'll need to make it by hand (**even though it may be removed automatically**), but this *does* add compatability with any mod out there, and for custom more difficult recipes! See [this file](https://gist.github.com/oitsjustjose/11a78df64d55cbcb00c3a7b646db729b#file-damage-tool-example-json) for how to format a recipe like this. Yes, this means that you can use this recipe type to make *any* recipe that requires a tool, and it will damage (or break if no durability left) that tool. This also takes into account the Unbreaking enchantment!
+- **Important**: Plank recipes are **no longer dynamic**. This means that if you want a plank recipe, you'll need to make it by hand (**even though it may be removed automatically**), but this _does_ add compatability with any mod out there, and for custom more difficult recipes! See [this file](https://gist.github.com/oitsjustjose/11a78df64d55cbcb00c3a7b646db729b#file-damage-tool-example-json) for how to format a recipe like this. Yes, this means that you can use this recipe type to make _any_ recipe that requires a tool, and it will damage (or break if no durability left) that tool. This also takes into account the Unbreaking enchantment!
 
 ### Fixed
 
