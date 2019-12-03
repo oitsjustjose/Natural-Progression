@@ -22,9 +22,9 @@
     "itemGroup.natural-progression.name": "Natural Progression",
     "natural-progression.subtitle.craft_plank": "Planks Being Sliced",
     "natural-progression.subtitle.craft_other": "Item Being Crafted",
-    "natural-progression.pebble.desc.1": "§5Used to make flint§r.",
-    "natural-progression.pebble.desc.2": "§8Press §5[ALT] + [SHIFT]§8 for more help§r.",
-    "natural-progression.pebble.help.1": "§7Hold pebbles in each hand (main and off-hand) and right click to knap §5flint§r.",
+    "natural-progression.pebble.desc.1": "§5Used to make flint§r",
+    "natural-progression.pebble.desc.2": "§8Press §5[ALT] + [SHIFT]§8 for more help§r",
+    "natural-progression.pebble.help.1": "§7Hold pebbles in each hand (main and off-hand) and right click to knap §5flint§r",
     "natural-progression.pebble.help.2": "§7§nThis process has a random chance of working so be patient!§r",    
     "natural-progression.pebble.shift": "§8Press §5[SHIFT]§r"
 }
