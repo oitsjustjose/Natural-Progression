@@ -4,6 +4,7 @@ import com.oitsjustjose.naturalprogression.client.ClientProxy;
 import com.oitsjustjose.naturalprogression.common.CommonProxy;
 import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
+import com.oitsjustjose.naturalprogression.common.event.BoneEvent;
 import com.oitsjustjose.naturalprogression.common.event.GroundBreak;
 import com.oitsjustjose.naturalprogression.common.event.StoneBreak;
 import com.oitsjustjose.naturalprogression.common.event.ToolTips;
@@ -63,6 +64,7 @@ public class NaturalProgression
         MinecraftForge.EVENT_BUS.register(new Sounds());
         MinecraftForge.EVENT_BUS.register(new ToolTips());
         MinecraftForge.EVENT_BUS.register(new WoodenTools());
+        MinecraftForge.EVENT_BUS.register(new BoneEvent());
 
         this.configSetup();
     }

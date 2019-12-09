@@ -22,6 +22,7 @@ public class CommonConfig
     public static ForgeConfigSpec.EnumValue<CraftingSounds> CRAFTING_SOUNDS;
     public static ForgeConfigSpec.BooleanValue ARE_PEBBLES_REPLACEABLE;
     public static ForgeConfigSpec.IntValue FLINT_CHANCE;
+    public static ForgeConfigSpec.IntValue BONE_SHARD_CHANCE;
     public static ForgeConfigSpec.BooleanValue SHOW_BREAKING_HELP;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_WHITELIST;
 
@@ -62,6 +63,10 @@ public class CommonConfig
                 .comment("The chance (out of 100) for flint to be created via knapping.\n"
                         + "e.g.: Setting to 75 means there is a 75% chance knapping will provide flint.")
                 .defineInRange("flintKnappingChance", 75, 1, 100);
+        BONE_SHARD_CHANCE = COMMON_BUILDER
+                .comment("The chance (out of 100) for bone to be created via knapping.\n"
+                        + "e.g.: Setting to 75 means there is a 75% chance knapping will provide a bone shard.")
+                .defineInRange("boneShardKnappingChance", 75, 1, 100);
         SHOW_BREAKING_HELP = COMMON_BUILDER.comment(
                 "Setting this to true will let players know that they can't break certain blocks without a certain tool")
                 .define("showToolHelp", true);

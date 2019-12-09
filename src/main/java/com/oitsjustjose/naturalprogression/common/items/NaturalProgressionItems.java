@@ -1,17 +1,23 @@
 package com.oitsjustjose.naturalprogression.common.items;
 
+import java.util.ArrayList;
+
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
+import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
+import net.minecraft.item.PickaxeItem;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
-
-import java.util.ArrayList;
 
 public class NaturalProgressionItems
 {
     private static ArrayList<Item> modItems = new ArrayList<>();
     public static Item flintHatchet;
+    public static Item bonePickaxe;
+    public static Item boneShard;
     public static Item basicSaw;
     public static Item improvedSaw;
 
@@ -20,6 +26,15 @@ public class NaturalProgressionItems
         flintHatchet = new HatchetItem();
         flintHatchet.setRegistryName(new ResourceLocation(Constants.MODID, "flint_hatchet"));
         modItems.add(flintHatchet);
+
+        bonePickaxe = new PickaxeItem(new BoneItemTier(), 0, 0F,
+                new Item.Properties().group(NaturalProgressionGroup.getInstance()).maxStackSize(1).maxDamage(40));
+        bonePickaxe.setRegistryName(new ResourceLocation(Constants.MODID, "bone_pickaxe"));
+        modItems.add(bonePickaxe);
+
+        boneShard = new Item(new Item.Properties().group(NaturalProgressionGroup.getInstance()));
+        boneShard.setRegistryName(new ResourceLocation(Constants.MODID, "bone_shard"));
+        modItems.add(boneShard);
 
         basicSaw = new SawItem(new FlintItemTier());
         basicSaw.setRegistryName(new ResourceLocation(Constants.MODID, "basic_saw"));
@@ -34,5 +49,4 @@ public class NaturalProgressionItems
             itemRegistryEvent.getRegistry().register(item);
         }
     }
-
 }

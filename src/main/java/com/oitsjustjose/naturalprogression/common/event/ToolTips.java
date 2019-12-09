@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.google.common.collect.Lists;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
@@ -38,6 +39,26 @@ public class ToolTips
         else if (woodenTools.contains(event.getItemStack().getItem()))
         {
             event.getToolTip().add(new TranslationTextComponent("natural-progression.wooden.tool.tooltip"));
+        }
+        else if (event.getItemStack().getItem() == Items.BONE)
+        {
+            if (Screen.hasShiftDown())
+            {
+                if (Screen.hasAltDown())
+                {
+                    event.getToolTip().add(new TranslationTextComponent("natural-progression.bone.help.1"));
+                    event.getToolTip().add(new TranslationTextComponent("natural-progression.bone.help.2"));
+                }
+                else
+                {
+                    event.getToolTip().add(new TranslationTextComponent("natural-progression.bone.desc.1"));
+                    event.getToolTip().add(new TranslationTextComponent("natural-progression.bone.desc.2"));
+                }
+            }
+            else
+            {
+                event.getToolTip().add(new TranslationTextComponent("natural-progression.bone.shift"));
+            }
         }
     }
 }

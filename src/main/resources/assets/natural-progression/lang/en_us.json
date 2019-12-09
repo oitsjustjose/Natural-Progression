@@ -13,6 +13,8 @@
     "item.natural-progression.flint_hatchet": "Flint Hatchet",
     "item.natural-progression.basic_saw": "Basic Saw",
     "item.natural-progression.improved_saw": "Improved Saw",
+    "item.natural-progression.bone_pickaxe": "Bone Pickaxe",
+    "item.natural-progression.bone_shard": "Bone Shard",
     "natural-progression.wood.warning": "§4You cannot break wooden blocks without an axe.§r",
     "natural-progression.stone.warning": "§4You cannot break hard blocks without a pickaxe.§r",
     "natural-progression.splintered.to.death": "%s was splintered to death",
@@ -26,6 +28,11 @@
     "natural-progression.pebble.desc.1": "§5Used to make flint§r",
     "natural-progression.pebble.desc.2": "§8Press §5[ALT] + [SHIFT]§8 for more help§r",
     "natural-progression.pebble.help.1": "§7Hold pebbles in each hand (main and off-hand) and right click to knap §5flint§r",
-    "natural-progression.pebble.help.2": "§7§nThis process has a random chance of working so be patient!§r",    
-    "natural-progression.pebble.shift": "§8Press §5[SHIFT]§r"
+    "natural-progression.pebble.help.2": "§7§nThis process has a random chance of working so be patient!§r",
+    "natural-progression.pebble.shift": "§8Press §5[SHIFT]§r",
+    "natural-progression.bone.desc.1": "§5Used to make bone shards§r",
+    "natural-progression.bone.desc.2": "§8Press §5[ALT] + [SHIFT]§8 for more help§r",
+    "natural-progression.bone.help.1": "§7Hold a bone in one hand and flint in the other hand, then right click to knap §5bone shards§r",
+    "natural-progression.bone.help.2": "§7§nThis process has a random chance of working so be patient!§r",
+    "natural-progression.bone.shift": "§8Press §5[SHIFT]§r"
 }

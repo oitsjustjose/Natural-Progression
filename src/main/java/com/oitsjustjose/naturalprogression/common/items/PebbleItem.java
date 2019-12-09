@@ -8,8 +8,6 @@ import javax.annotation.Nullable;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
 
-import org.lwjgl.glfw.GLFW;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
