@@ -9,7 +9,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 
 public class NaturalProgressionItems
@@ -27,7 +26,7 @@ public class NaturalProgressionItems
         flintHatchet.setRegistryName(new ResourceLocation(Constants.MODID, "flint_hatchet"));
         modItems.add(flintHatchet);
 
-        bonePickaxe = new PickaxeItem(new BoneItemTier(), 0, 0F,
+        bonePickaxe = new PickaxeItem(new BoneItemTier(), 1, -2.8F,
                 new Item.Properties().group(NaturalProgressionGroup.getInstance()).maxStackSize(1).maxDamage(40));
         bonePickaxe.setRegistryName(new ResourceLocation(Constants.MODID, "bone_pickaxe"));
         modItems.add(bonePickaxe);

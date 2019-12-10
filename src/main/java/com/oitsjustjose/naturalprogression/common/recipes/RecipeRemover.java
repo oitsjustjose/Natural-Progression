@@ -36,8 +36,8 @@ import java.util.function.Predicate;
 @Mod.EventBusSubscriber(modid = Constants.MODID)
 public class RecipeRemover
 {
-    private static final Field RECIPES = ObfuscationReflectionHelper
-            .findField(RecipeManager.class, "field_199522_d" /* recipes */);
+    private static final Field RECIPES = ObfuscationReflectionHelper.findField(RecipeManager.class,
+            "field_199522_d" /* recipes */);
 
     @SubscribeEvent
     @SuppressWarnings("deprecation")
@@ -59,6 +59,14 @@ public class RecipeRemover
             removeRecipes(mgr, new ItemStack(Items.WOODEN_SHOVEL, 1));
             removeRecipes(mgr, new ItemStack(Items.WOODEN_SWORD, 1));
         }
+        if (CommonConfig.REMOVE_STONE_TOOL_RECIPES.get())
+        {
+            removeRecipes(mgr, new ItemStack(Items.STONE_AXE, 1));
+            removeRecipes(mgr, new ItemStack(Items.STONE_HOE, 1));
+            removeRecipes(mgr, new ItemStack(Items.STONE_PICKAXE, 1));
+            removeRecipes(mgr, new ItemStack(Items.STONE_SHOVEL, 1));
+            removeRecipes(mgr, new ItemStack(Items.STONE_SWORD, 1));
+        }
         if (CommonConfig.REMOVE_PLANK_RECIPES.get())
         {
             removeRecipes(mgr, ItemTags.PLANKS);
@@ -75,12 +83,12 @@ public class RecipeRemover
     {
         final int recipesRemoved = removeRecipes(recipeManager, recipe -> {
             final ItemStack recipeOutput = recipe.getRecipeOutput();
-            return recipeOutput.equals(stack, false) && !(recipe
-                    .getSerializer() instanceof DamageItemRecipe.Serializer);
+            return recipeOutput.equals(stack, false)
+                    && !(recipe.getSerializer() instanceof DamageItemRecipe.Serializer);
         });
 
-        NaturalProgression.getInstance().LOGGER
-                .info("Removed {} recipe(s) for {}", recipesRemoved, stack.getDisplayName().getFormattedText());
+        NaturalProgression.getInstance().LOGGER.info("Removed {} recipe(s) for {}", recipesRemoved,
+                stack.getDisplayName().getFormattedText());
     }
 
     /**
@@ -93,8 +101,8 @@ public class RecipeRemover
     {
         final int recipesRemoved = removeRecipes(recipeManager, recipe -> {
             final ItemStack recipeOutput = recipe.getRecipeOutput();
-            return !recipeOutput.isEmpty() && recipeOutput.getItem().isIn(tag) && !(recipe
-                    .getSerializer() instanceof DamageItemRecipe.Serializer);
+            return !recipeOutput.isEmpty() && recipeOutput.getItem().isIn(tag)
+                    && !(recipe.getSerializer() instanceof DamageItemRecipe.Serializer);
         });
 
         NaturalProgression.getInstance().LOGGER.info("Removed {} recipe(s) for tag {}", recipesRemoved, tag.getId());
