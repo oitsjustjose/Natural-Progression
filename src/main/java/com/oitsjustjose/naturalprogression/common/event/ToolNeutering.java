@@ -8,7 +8,7 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class WoodenTools
+public class ToolNeutering
 {
     @SubscribeEvent
     public void registerEvent(PlayerEvent.BreakSpeed event)
@@ -23,7 +23,7 @@ public class WoodenTools
         if (heldItem.getItem() instanceof ToolItem)
         {
             ToolItem tool = (ToolItem) heldItem.getItem();
-            if (tool.getTier() == ItemTier.WOOD)
+            if (tool.getTier() == ItemTier.WOOD || tool.getTier() == ItemTier.STONE)
             {
                 event.setCanceled(true);
             }
@@ -31,7 +31,7 @@ public class WoodenTools
         else if (heldItem.getItem() instanceof SwordItem)
         {
             SwordItem tool = (SwordItem) heldItem.getItem();
-            if (tool.getTier() == ItemTier.WOOD)
+            if (tool.getTier() == ItemTier.WOOD || tool.getTier() == ItemTier.STONE)
             {
                 event.setCanceled(true);
             }
@@ -51,7 +51,7 @@ public class WoodenTools
         if (heldItem.getItem() instanceof SwordItem)
         {
             SwordItem tool = (SwordItem) heldItem.getItem();
-            if (tool.getTier() == ItemTier.WOOD)
+            if (tool.getTier() == ItemTier.WOOD || tool.getTier() == ItemTier.STONE)
             {
                 if (event.isCancelable())
                 {

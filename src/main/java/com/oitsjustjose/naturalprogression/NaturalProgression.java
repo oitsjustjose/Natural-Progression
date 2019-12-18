@@ -9,7 +9,7 @@ import com.oitsjustjose.naturalprogression.common.event.GroundBreak;
 import com.oitsjustjose.naturalprogression.common.event.StoneBreak;
 import com.oitsjustjose.naturalprogression.common.event.ToolTips;
 import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
-import com.oitsjustjose.naturalprogression.common.event.WoodenTools;
+import com.oitsjustjose.naturalprogression.common.event.ToolNeutering;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
 import com.oitsjustjose.naturalprogression.common.recipes.DamageItemRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
@@ -63,7 +63,7 @@ public class NaturalProgression
         MinecraftForge.EVENT_BUS.register(new GroundBreak());
         MinecraftForge.EVENT_BUS.register(new Sounds());
         MinecraftForge.EVENT_BUS.register(new ToolTips());
-        MinecraftForge.EVENT_BUS.register(new WoodenTools());
+        MinecraftForge.EVENT_BUS.register(new ToolNeutering());
         MinecraftForge.EVENT_BUS.register(new BoneEvent());
 
         this.configSetup();

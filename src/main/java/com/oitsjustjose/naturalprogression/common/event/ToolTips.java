@@ -19,8 +19,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ToolTips
 {
-    private ArrayList<Item> woodenTools = Lists.newArrayList(Items.WOODEN_AXE, Items.WOODEN_PICKAXE,
-            Items.WOODEN_SHOVEL, Items.WOODEN_HOE, Items.WOODEN_SWORD);
+    private ArrayList<Item> neuteredTools = Lists.newArrayList(Items.WOODEN_AXE, Items.WOODEN_PICKAXE,
+            Items.WOODEN_SHOVEL, Items.WOODEN_HOE, Items.WOODEN_SWORD, Items.STONE_AXE, Items.STONE_PICKAXE,
+            Items.STONE_SHOVEL, Items.STONE_HOE, Items.STONE_SWORD);
     private Tag<Item> axes = ItemTags.getCollection().getOrCreate(new ResourceLocation(Constants.MODID, "axe"));
     private Tag<Item> saws = ItemTags.getCollection().getOrCreate(new ResourceLocation(Constants.MODID, "saw"));
 
@@ -36,7 +37,7 @@ public class ToolTips
         {
             event.getToolTip().add(new TranslationTextComponent("natural-progression.saw.tooltip"));
         }
-        else if (woodenTools.contains(event.getItemStack().getItem()))
+        else if (neuteredTools.contains(event.getItemStack().getItem()))
         {
             event.getToolTip().add(new TranslationTextComponent("natural-progression.wooden.tool.tooltip"));
         }
