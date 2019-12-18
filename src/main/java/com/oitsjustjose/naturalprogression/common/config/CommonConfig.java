@@ -21,6 +21,7 @@ public class CommonConfig
     public static ForgeConfigSpec.BooleanValue REMOVE_WOODEN_TOOL_RECIPES;
     public static ForgeConfigSpec.BooleanValue REMOVE_STONE_TOOL_RECIPES;
     public static ForgeConfigSpec.EnumValue<CraftingSounds> CRAFTING_SOUNDS;
+    public static ForgeConfigSpec.BooleanValue MAKE_GROUND_BLOCKS_HARDER;
     public static ForgeConfigSpec.BooleanValue ARE_PEBBLES_REPLACEABLE;
     public static ForgeConfigSpec.IntValue FLINT_CHANCE;
     public static ForgeConfigSpec.IntValue BONE_SHARD_CHANCE;
@@ -62,6 +63,9 @@ public class CommonConfig
         CRAFTING_SOUNDS = COMMON_BUILDER.comment(
                 "When to play sounds when crafting -- PLANKS will make it only play slicing sounds when crafting planks")
                 .defineEnum("craftingSounds", CraftingSounds.ALL);
+        MAKE_GROUND_BLOCKS_HARDER = COMMON_BUILDER.comment(
+                "Setting this to true will make ground blocks (e.g. sand, dirt, gravel) harder to break without the correct tool.")
+                .define("makeGroundBlocksHarder", true);
         ARE_PEBBLES_REPLACEABLE = COMMON_BUILDER.comment(
                 "Setting this to true will allow you to replace pebbles like tall grass (more convenient for building, but loses the block forever")
                 .define("arePebblesReplaceable", true);
