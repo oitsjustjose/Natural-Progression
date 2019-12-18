@@ -11,7 +11,7 @@ public class BoneItemTier implements IItemTier
     @Override
     public int getMaxUses()
     {
-        return 40;
+        return 128;
     }
 
     @Override

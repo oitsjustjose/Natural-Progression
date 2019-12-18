@@ -79,7 +79,7 @@ public class CommonConfig
                 .defineInRange("boneShardKnappingChance", 75, 1, 100);
         BONE_DROP_CHANCE = COMMON_BUILDER.comment(
                 "The chance (out of 100) that a bone can drop from the entities in 'boneDropMobs'.\nSetting this to 0 disables this feature")
-                .defineInRange("boneDropFromMobsChance", 15, 0, 100);
+                .defineInRange("boneDropFromMobsChance", 50, 0, 100);
         BONE_DROP_MOBS = COMMON_BUILDER
                 .comment("A set of names in form of <modid:loot_table_path> that you wish to add loot drops for.\n"
                         + "These aren't necessarily the paths to the mobs themselves, but *to their loot tables*")

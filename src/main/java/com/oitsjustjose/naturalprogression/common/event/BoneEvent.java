@@ -143,7 +143,6 @@ public class BoneEvent
                 float chance = (float) CommonConfig.BONE_DROP_CHANCE.get() / 100F;
                 NaturalProgression.getInstance().LOGGER.info("Injecting bone drops into {} with {}% chance", string,
                         CommonConfig.BONE_DROP_CHANCE.get());
-
                 addItemToTable(table, Items.BONE, 10, 1F, chance, 1, 1, Constants.MODID + ":extra_bone_drop");
             }
         });

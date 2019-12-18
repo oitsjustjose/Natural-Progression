@@ -32,12 +32,12 @@ public class NaturalProgressionItems
         modItems.add(flintHatchet);
 
         bonePickaxe = new PickaxeItem(boneTier, 1, -2.8F,
-                new Item.Properties().group(NaturalProgressionGroup.getInstance()).maxStackSize(1).maxDamage(40));
+                new Item.Properties().group(NaturalProgressionGroup.getInstance()).maxStackSize(1));
         bonePickaxe.setRegistryName(new ResourceLocation(Constants.MODID, "bone_pickaxe"));
         modItems.add(bonePickaxe);
 
         boneKnife = new SwordItem(boneTier, 1, -1.4F,
-                new Item.Properties().group(NaturalProgressionGroup.getInstance()).maxStackSize(1).maxDamage(40));
+                new Item.Properties().group(NaturalProgressionGroup.getInstance()).maxStackSize(1));
         boneKnife.setRegistryName(new ResourceLocation(Constants.MODID, "bone_knife"));
         modItems.add(boneKnife);
 
