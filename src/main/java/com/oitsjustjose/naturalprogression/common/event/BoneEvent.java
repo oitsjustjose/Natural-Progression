@@ -103,13 +103,13 @@ public class BoneEvent
             return;
         }
 
-        event.getPlayer().swingArm(boneHand);
+        event.getPlayer().swingArm(flintHand);
 
         if (event.getPlayer().getRNG().nextInt(100) <= CommonConfig.BONE_SHARD_CHANCE.get())
         {
             if (event.getWorld().isRemote)
             {
-                event.getPlayer().playSound(SoundEvents.ENTITY_SKELETON_AMBIENT, 1F, 1F);
+                event.getPlayer().playSound(SoundEvents.ENTITY_PARROT_IMITATE_SKELETON, 1F, 0.7F);
             }
             else
             {
@@ -118,10 +118,6 @@ public class BoneEvent
                         new ItemStack(NaturalProgressionItems.boneShard, count));
                 event.getPlayer().getHeldItem(boneHand).shrink(1);
             }
-        }
-        else
-        {
-            event.getPlayer().playSound(SoundEvents.ENTITY_SKELETON_HURT, 1F, 0.7F);
         }
 
         playersLastRightClicked.put(event.getPlayer().getUniqueID(), System.currentTimeMillis());
