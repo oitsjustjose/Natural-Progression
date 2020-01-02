@@ -1,5 +1,25 @@
 # Natural Progression Changelog
 
+## 1.2.0
+
+### Added
+
+- Furthered Progression
+
+  - Bones drop from those entities / blocks specified in the config (add your own even!)
+  - Percentage of bone drop also specified in config
+  - Bones can be knapped into 1-2 bone shards by holding a bone in one hand and flint in another
+  - Bone Shards can be used to make a Bone Knife (early-game, decent weapon)
+  - Bone Shards can be used to make a Bone Pickaxe (early-game, decent pick capable of gathering iron-level blocks)
+
+- Config option to disable harder-to-break soils
+- Passable Leaves
+
+  - Can be disabled
+  - Can (at least usually) momentarily reduce fall damage
+
+- Stone Tool Recipe Removal (with config option)
+
 ## 1.1.3
 
 ### Added
@@ -10,8 +30,8 @@
 ### Changed
 
 - Plank and log stripping recipes now use tags
-    - Saws are replaced with `natural-progression:saw`
-    - Axes are replaced with `natural-progression:axe`
+  - Saws are replaced with `natural-progression:saw`
+  - Axes are replaced with `natural-progression:axe`
 - Tooltip for crafting only applies to items within the `natural-progression:axe` or `natural-progression:saw` tags.
 
 ## 1.1.2
