@@ -24,7 +24,6 @@ public class NaturalProgressionItems
     public static Item basicSaw;
     public static Item improvedSaw;
 
-
     public static void registerItems(final RegistryEvent.Register<Item> itemRegistryEvent)
     {
         flintHatchet = new HatchetItem();

@@ -23,8 +23,8 @@ public class StoneBreak
     public void registerEvent(PlayerEvent.BreakSpeed event)
     {
         final BrokenHandSource brokenHandSource = new BrokenHandSource();
-        final List<Material> hardMaterials = Lists
-                .asList(Material.ROCK, new Material[] { Material.IRON, Material.ANVIL });
+        final List<Material> hardMaterials = Lists.asList(Material.ROCK, new Material[]
+        { Material.IRON, Material.ANVIL });
 
         if (event.getState() == null || event.getPlayer() == null)
         {

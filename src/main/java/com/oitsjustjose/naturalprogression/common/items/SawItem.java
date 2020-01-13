@@ -10,8 +10,7 @@ public class SawItem extends AxeItem
 {
     public SawItem(IItemTier tier)
     {
-        super(tier, 1.8F, 0F,
-                new Item.Properties().addToolType(ToolType.AXE, 0).group(NaturalProgressionGroup.getInstance())
-                        .maxStackSize(1));
+        super(tier, 1.8F, 0F, new Item.Properties().addToolType(ToolType.AXE, 0)
+                .group(NaturalProgressionGroup.getInstance()).maxStackSize(1));
     }
 }

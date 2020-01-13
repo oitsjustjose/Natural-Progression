@@ -1,1 +1,15 @@
-{"type": "natural-progression:damage_tools", "ingredients": [{"item": "minecraft:birch_log"}, {"tag": "natural-progression:saw"}], "result": {"item": "minecraft:stripped_birch_log", "count": 1}}
+{
+    "type": "natural-progression:damage_tools",
+    "ingredients": [
+        {
+            "item": "minecraft:birch_log"
+        },
+        {
+            "tag": "natural-progression:saw"
+        }
+    ],
+    "result": {
+        "item": "minecraft:stripped_birch_log",
+        "count": 1
+    }
+}

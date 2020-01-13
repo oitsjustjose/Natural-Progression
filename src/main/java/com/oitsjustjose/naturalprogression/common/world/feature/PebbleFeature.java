@@ -39,7 +39,6 @@ public class PebbleFeature extends Feature<NoFeatureConfig>
 
         boolean placed = false;
 
-
         try
         {
             if (world.getWorld().getWorldType() != WorldType.FLAT)
@@ -58,9 +57,9 @@ public class PebbleFeature extends Feature<NoFeatureConfig>
                     if (!(world.getBlockState(pebblePos).getBlock() instanceof PebbleBlock))
                     {
                         boolean isInWater = Utils.isInWater(world, pebblePos);
-                        BlockState stateToPlace = isInWater ?
-                                pebble.getDefaultState().with(PebbleBlock.WATERLOGGED, Boolean.TRUE) :
-                                pebble.getDefaultState();
+                        BlockState stateToPlace = isInWater
+                                ? pebble.getDefaultState().with(PebbleBlock.WATERLOGGED, Boolean.TRUE)
+                                : pebble.getDefaultState();
 
                         if (world.setBlockState(pebblePos, stateToPlace, 2 | 16))
                         {

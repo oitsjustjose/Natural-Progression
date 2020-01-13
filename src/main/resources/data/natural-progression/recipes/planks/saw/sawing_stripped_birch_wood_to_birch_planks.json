@@ -1,1 +1,15 @@
-{"type": "natural-progression:damage_tools", "ingredients": [{"item": "minecraft:stripped_birch_wood"}, {"tag": "natural-progression:saw"}], "result": {"item": "minecraft:birch_planks", "count": 4}}
+{
+    "type": "natural-progression:damage_tools",
+    "ingredients": [
+        {
+            "item": "minecraft:stripped_birch_wood"
+        },
+        {
+            "tag": "natural-progression:saw"
+        }
+    ],
+    "result": {
+        "item": "minecraft:birch_planks",
+        "count": 4
+    }
+}
