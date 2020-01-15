@@ -34,6 +34,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
  * Thanks to Choonster@github, this code is mostly theirs: https://bit.ly/2BLB9t3 (Code used under their MIT license)
  */
 
+@SuppressWarnings("deprecation")
 @Mod.EventBusSubscriber(modid = Constants.MODID)
 public class RecipeRemover
 {
@@ -41,7 +42,6 @@ public class RecipeRemover
             "field_199522_d" /* recipes */);
 
     @SubscribeEvent
-    @SuppressWarnings("deprecation")
     public static void onServerStart(final FMLServerStartedEvent event)
     {
         final RecipeManager mgr = event.getServer().getRecipeManager();
