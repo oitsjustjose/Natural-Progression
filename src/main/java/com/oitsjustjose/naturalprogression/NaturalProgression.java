@@ -7,13 +7,12 @@ import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.event.BoneEvent;
 import com.oitsjustjose.naturalprogression.common.event.GroundBreak;
 import com.oitsjustjose.naturalprogression.common.event.StoneBreak;
+import com.oitsjustjose.naturalprogression.common.event.ToolNeutering;
 import com.oitsjustjose.naturalprogression.common.event.ToolTips;
 import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
-import com.oitsjustjose.naturalprogression.common.event.ToolNeutering;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
 import com.oitsjustjose.naturalprogression.common.recipes.DamageItemRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
-import com.oitsjustjose.naturalprogression.common.utils.PassableLeaves;
 import com.oitsjustjose.naturalprogression.common.utils.Sounds;
 import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
 
@@ -66,8 +65,6 @@ public class NaturalProgression
         MinecraftForge.EVENT_BUS.register(new ToolTips());
         MinecraftForge.EVENT_BUS.register(new ToolNeutering());
         MinecraftForge.EVENT_BUS.register(new BoneEvent());
-
-        PassableLeaves.init();
 
         this.configSetup();
     }
