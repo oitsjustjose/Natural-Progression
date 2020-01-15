@@ -1,9 +1,14 @@
 package com.oitsjustjose.naturalprogression.common.recipes;
 
+import java.lang.reflect.Field;
+import java.util.Map;
+import java.util.function.Predicate;
+
 import com.google.common.collect.ImmutableMap;
 import com.oitsjustjose.naturalprogression.NaturalProgression;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
+
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.item.Item;
@@ -21,10 +26,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
-
-import java.lang.reflect.Field;
-import java.util.Map;
-import java.util.function.Predicate;
 
 /**
  * This code is written as a result to PlankRecipe#match() not catching plank crafting consistently due to it being the *wrong*
@@ -115,7 +116,7 @@ public class RecipeRemover
      * @param predicate     The predicate
      * @return The number of recipes removed
      */
-    private static int removeRecipes(final RecipeManager recipeManager, final Predicate<IRecipe> predicate)
+    private static int removeRecipes(final RecipeManager recipeManager, final Predicate<IRecipe<?>> predicate)
     {
         final Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> existingRecipes;
         try
