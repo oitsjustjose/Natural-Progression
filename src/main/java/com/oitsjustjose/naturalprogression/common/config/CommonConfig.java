@@ -60,7 +60,7 @@ public class CommonConfig
                 .define("removeWoodenToolRecipes", true);
         REMOVE_STONE_TOOL_RECIPES = COMMON_BUILDER.comment(
                 "Setting this to true prevents the ability to craft stone tools. This is totally unrealistic anyways.")
-                .define("removeWoodenToolRecipes", true);
+                .define("removeStoneToolRecipes", true);
         CRAFTING_SOUNDS = COMMON_BUILDER.comment(
                 "When to play sounds when crafting -- PLANKS will make it only play slicing sounds when crafting planks")
                 .defineEnum("craftingSounds", CraftingSounds.ALL);
