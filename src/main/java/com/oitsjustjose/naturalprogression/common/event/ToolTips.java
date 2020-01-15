@@ -1,13 +1,14 @@
 package com.oitsjustjose.naturalprogression.common.event;
 
-import java.util.ArrayList;
-
-import com.google.common.collect.Lists;
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemTier;
 import net.minecraft.item.Items;
+import net.minecraft.item.ToolItem;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
@@ -19,9 +20,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ToolTips
 {
-    private ArrayList<Item> neuteredTools = Lists.newArrayList(Items.WOODEN_AXE, Items.WOODEN_PICKAXE,
-            Items.WOODEN_SHOVEL, Items.WOODEN_HOE, Items.WOODEN_SWORD, Items.STONE_AXE, Items.STONE_PICKAXE,
-            Items.STONE_SHOVEL, Items.STONE_HOE, Items.STONE_SWORD);
     private Tag<Item> axes = ItemTags.getCollection().getOrCreate(new ResourceLocation(Constants.MODID, "axe"));
     private Tag<Item> saws = ItemTags.getCollection().getOrCreate(new ResourceLocation(Constants.MODID, "saw"));
 
@@ -37,9 +35,17 @@ public class ToolTips
         {
             event.getToolTip().add(new TranslationTextComponent("natural-progression.saw.tooltip"));
         }
-        else if (neuteredTools.contains(event.getItemStack().getItem()))
+        else if (event.getItemStack().getItem() instanceof ToolItem)
         {
-            event.getToolTip().add(new TranslationTextComponent("natural-progression.wooden.tool.tooltip"));
+            IItemTier toolTier = ((ToolItem) event.getItemStack().getItem()).getTier();
+            if (toolTier == ItemTier.WOOD && CommonConfig.REMOVE_WOODEN_TOOL_RECIPES.get())
+            {
+                event.getToolTip().add(new TranslationTextComponent("natural-progression.disabled.tool.tooltip"));
+            }
+            else if (toolTier == ItemTier.STONE && CommonConfig.REMOVE_STONE_TOOL_RECIPES.get())
+            {
+                event.getToolTip().add(new TranslationTextComponent("natural-progression.disabled.tool.tooltip"));
+            }
         }
         else if (event.getItemStack().getItem() == Items.BONE)
         {

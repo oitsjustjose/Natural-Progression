@@ -1,5 +1,7 @@
 package com.oitsjustjose.naturalprogression.common.event;
 
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTier;
 import net.minecraft.item.SwordItem;
@@ -23,7 +25,11 @@ public class ToolNeutering
         if (heldItem.getItem() instanceof ToolItem)
         {
             ToolItem tool = (ToolItem) heldItem.getItem();
-            if (tool.getTier() == ItemTier.WOOD || tool.getTier() == ItemTier.STONE)
+            if (tool.getTier() == ItemTier.WOOD && CommonConfig.REMOVE_WOODEN_TOOL_RECIPES.get())
+            {
+                event.setCanceled(true);
+            }
+            else if (tool.getTier() == ItemTier.STONE && CommonConfig.REMOVE_STONE_TOOL_RECIPES.get())
             {
                 event.setCanceled(true);
             }
@@ -31,7 +37,11 @@ public class ToolNeutering
         else if (heldItem.getItem() instanceof SwordItem)
         {
             SwordItem tool = (SwordItem) heldItem.getItem();
-            if (tool.getTier() == ItemTier.WOOD || tool.getTier() == ItemTier.STONE)
+            if (tool.getTier() == ItemTier.WOOD && CommonConfig.REMOVE_WOODEN_TOOL_RECIPES.get())
+            {
+                event.setCanceled(true);
+            }
+            else if (tool.getTier() == ItemTier.STONE && CommonConfig.REMOVE_STONE_TOOL_RECIPES.get())
             {
                 event.setCanceled(true);
             }
@@ -51,7 +61,14 @@ public class ToolNeutering
         if (heldItem.getItem() instanceof SwordItem)
         {
             SwordItem tool = (SwordItem) heldItem.getItem();
-            if (tool.getTier() == ItemTier.WOOD || tool.getTier() == ItemTier.STONE)
+            if (tool.getTier() == ItemTier.WOOD && CommonConfig.REMOVE_WOODEN_TOOL_RECIPES.get())
+            {
+                if (event.isCancelable())
+                {
+                    event.setCanceled(true);
+                }
+            }
+            else if (tool.getTier() == ItemTier.STONE && CommonConfig.REMOVE_STONE_TOOL_RECIPES.get())
             {
                 if (event.isCancelable())
                 {
