@@ -1,5 +1,11 @@
 # Natural Progression Changelog
 
+## 1.2.1
+
+### Removed
+
+- Passable Leaves: There's a problem with making the collision box empty for the leaf, and that's the fact that many blocks check that shape to determine if they can stay. This includes vines, for example, which would update randomly and break themselves off of the (transparent) leaves because their collision box isn't "solid".
+
 ## 1.2.0
 
 ### Added
