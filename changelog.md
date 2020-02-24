@@ -1,5 +1,12 @@
 # Natural Progression Changelog
 
+## 1.2.2
+
+### Changed
+
+- Bone Drop Addition now works using the entity's name (e.g. `minecraft:bat`) instead of modifying the internalized loot table.
+- Config layout for adding bone drops to entities. **You will need to change this again if you changed it before!**.
+
 ## 1.2.1
 
 ### Removed
