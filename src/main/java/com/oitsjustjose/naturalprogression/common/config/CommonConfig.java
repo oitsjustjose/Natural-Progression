@@ -26,7 +26,7 @@ public class CommonConfig
     public static ForgeConfigSpec.IntValue FLINT_CHANCE;
     public static ForgeConfigSpec.IntValue BONE_SHARD_CHANCE;
     public static ForgeConfigSpec.IntValue BONE_DROP_CHANCE;
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> BONE_DROP_MOBS;
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> BONE_DROP_ENTITIES;
     public static ForgeConfigSpec.BooleanValue SHOW_BREAKING_HELP;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_WHITELIST;
 
@@ -80,17 +80,15 @@ public class CommonConfig
         BONE_DROP_CHANCE = COMMON_BUILDER.comment(
                 "The chance (out of 100) that a bone can drop from the entities in 'boneDropMobs'.\nSetting this to 0 disables this feature")
                 .defineInRange("boneDropFromMobsChance", 50, 0, 100);
-        BONE_DROP_MOBS = COMMON_BUILDER
-                .comment("A set of names in form of <modid:loot_table_path> that you wish to add loot drops for.\n"
-                        + "These aren't necessarily the paths to the mobs themselves, but *to their loot tables*")
-                .defineList("boneDropMobs", Lists.newArrayList(new String[]
-                { "minecraft:entities/bat", "minecraft:entities/cat", "minecraft:entities/chicken",
-                        "minecraft:entities/cow", "minecraft:entities/donkey", "minecraft:entities/fox",
-                        "minecraft:entities/horse", "minecraft:entities/llama", "minecraft:entities/mooshroom",
-                        "minecraft:entities/mule", "minecraft:entities/ocelot", "minecraft:entities/panda",
-                        "minecraft:entities/parrot", "minecraft:entities/pig", "minecraft:entities/polar_bear",
-                        "minecraft:entities/rabbit", "minecraft:entities/sheep", "minecraft:entities/trader_llama",
-                        "minecraft:entities/wolf" }), (itemRaw) -> itemRaw instanceof String);
+        BONE_DROP_ENTITIES = COMMON_BUILDER
+                .comment("The NEW (as of version 1.2.2) way to add bone drops to an entity.\n"
+                        + "Find this name by typing '/summon' in game, and hit TAB.")
+                .defineList("boneDropEntities", Lists.newArrayList(new String[]
+                { "minecraft:bat", "minecraft:cat", "minecraft:chicken", "minecraft:cow", "minecraft:donkey",
+                        "minecraft:fox", "minecraft:horse", "minecraft:llama", "minecraft:mooshroom", "minecraft:mule",
+                        "minecraft:ocelot", "minecraft:panda", "minecraft:parrot", "minecraft:pig",
+                        "minecraft:polar_bear", "minecraft:rabbit", "minecraft:sheep", "minecraft:trader_llama",
+                        "minecraft:wolf" }), (itemRaw) -> itemRaw instanceof String);
         SHOW_BREAKING_HELP = COMMON_BUILDER.comment(
                 "Setting this to true will let players know that they can't break certain blocks without a certain tool")
                 .define("showToolHelp", true);
