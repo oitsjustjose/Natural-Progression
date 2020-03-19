@@ -24,7 +24,7 @@ public class PebbleFeature extends Feature<NoFeatureConfig>
 {
     public PebbleFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn)
     {
-        super(configFactoryIn, true);
+        super(configFactoryIn);
     }
 
     @Override

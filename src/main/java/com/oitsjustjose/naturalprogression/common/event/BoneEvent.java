@@ -80,8 +80,9 @@ public class BoneEvent
             {
                 if (rand.nextInt(100) < CommonConfig.BONE_DROP_CHANCE.get())
                 {
-                    ItemEntity drop = new ItemEntity(event.getEntityLiving().world, event.getEntityLiving().posX,
-                            event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(Items.BONE));
+                    ItemEntity drop = new ItemEntity(event.getEntityLiving().world, event.getEntityLiving().getPosX(),
+                            event.getEntityLiving().getPosY(), event.getEntityLiving().getPosZ(),
+                            new ItemStack(Items.BONE));
                     event.getDrops().add(drop);
                 }
             }

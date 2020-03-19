@@ -1,7 +1,16 @@
 package com.oitsjustjose.naturalprogression.common.blocks;
 
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
-import net.minecraft.block.*;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.IWaterLoggable;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
@@ -13,7 +22,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -26,9 +35,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-import java.util.Random;
-
 public class PebbleBlock extends Block implements IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -36,14 +42,8 @@ public class PebbleBlock extends Block implements IWaterLoggable
     public PebbleBlock()
     {
         super(Properties.create(Material.EARTH, MaterialColor.LIGHT_GRAY).hardnessAndResistance(0.125F, 2F)
-                .sound(SoundType.STONE).doesNotBlockMovement());
+                .sound(SoundType.STONE).doesNotBlockMovement().notSolid());
         this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.FALSE));
-    }
-
-    @Override
-    public boolean isSolid(BlockState state)
-    {
-        return false;
     }
 
     @Override
@@ -80,22 +80,22 @@ public class PebbleBlock extends Block implements IWaterLoggable
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
-            BlockRayTraceResult hit)
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+            Hand handIn, BlockRayTraceResult hit)
     {
-        if (!player.isSneaking())
+        if (!player.isCrouching())
         {
             worldIn.destroyBlock(pos, true);
             player.swingArm(handIn);
-            return true;
+            return ActionResultType.SUCCESS;
         }
-        return false;
+        return ActionResultType.PASS;
     }
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
     {
-        return Block.func_220055_a(worldIn, pos.down(), Direction.UP);
+        return hasEnoughSolidSide(worldIn, pos.down(), Direction.UP);
     }
 
     @Override
@@ -109,13 +109,6 @@ public class PebbleBlock extends Block implements IWaterLoggable
     public Block.OffsetType getOffsetType()
     {
         return Block.OffsetType.XZ;
-    }
-
-    @Override
-    @Nonnull
-    public BlockRenderLayer getRenderLayer()
-    {
-        return BlockRenderLayer.CUTOUT;
     }
 
     @Override

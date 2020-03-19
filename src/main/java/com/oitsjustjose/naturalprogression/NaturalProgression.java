@@ -25,6 +25,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.placement.NoPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
@@ -85,9 +86,14 @@ public class NaturalProgression
     {
         for (Biome biome : ForgeRegistries.BIOMES.getValues())
         {
-            biome.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
-                    Biome.createDecoratedFeature(new PebbleFeature(NoFeatureConfig::deserialize), new NoFeatureConfig(),
-                            Placement.NOPE, new NoPlacementConfig()));
+
+            biome.addFeature(
+                GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
+                new ConfiguredFeature<>(
+                    new PebbleFeature(NoFeatureConfig::deserialize),
+                    new NoFeatureConfig()
+                )
+            );
         }
     }
 
