@@ -1,0 +1,35 @@
+{
+    "parent": "natural-progression:craft_hatchet",
+    "display": {
+        "icon": {
+            "item": "minecraft:oak_planks"
+        },
+        "title": {
+            "translate": "advancements.story.get_planks.title"
+        },
+        "description": {
+            "translate": "advancements.story.get_planks.description"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "get_planks": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "tag": "minecraft:planks"
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+            "get_planks"
+        ]
+    ]
+}
