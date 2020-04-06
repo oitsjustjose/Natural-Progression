@@ -1,16 +1,11 @@
 package com.oitsjustjose.naturalprogression.common.items;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -23,11 +18,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class PebbleItem extends BlockItem
@@ -35,29 +26,6 @@ public class PebbleItem extends BlockItem
     public PebbleItem(Block blockForm)
     {
         super(blockForm, new Item.Properties().group(NaturalProgressionGroup.getInstance()));
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-            @Nonnull ITooltipFlag flagIn)
-    {
-        if (Screen.hasShiftDown())
-        {
-            if (Screen.hasAltDown())
-            {
-                tooltip.add(new TranslationTextComponent("natural-progression.pebble.help.1"));
-                tooltip.add(new TranslationTextComponent("natural-progression.pebble.help.2"));
-            }
-            else
-            {
-                tooltip.add(new TranslationTextComponent("natural-progression.pebble.desc.1"));
-                tooltip.add(new TranslationTextComponent("natural-progression.pebble.desc.2"));
-            }
-        }
-        else
-        {
-            tooltip.add(new TranslationTextComponent("natural-progression.pebble.shift"));
-        }
     }
 
     @Override
