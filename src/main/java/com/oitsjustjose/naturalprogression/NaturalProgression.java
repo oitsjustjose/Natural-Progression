@@ -15,11 +15,14 @@ import com.oitsjustjose.naturalprogression.common.recipes.DamageItemRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 import com.oitsjustjose.naturalprogression.common.utils.Sounds;
 import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
+import com.oitsjustjose.naturalprogression.common.world.feature.TwigFeature;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
@@ -27,8 +30,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.placement.NoPlacementConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,6 +37,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig.Type;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -57,6 +59,7 @@ public class NaturalProgression
         instance = this;
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new WoodBreak());
@@ -86,15 +89,16 @@ public class NaturalProgression
     {
         for (Biome biome : ForgeRegistries.BIOMES.getValues())
         {
-
-            biome.addFeature(
-                GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
-                new ConfiguredFeature<>(
-                    new PebbleFeature(NoFeatureConfig::deserialize),
-                    new NoFeatureConfig()
-                )
-            );
+            biome.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
+                    new ConfiguredFeature<>(new TwigFeature(NoFeatureConfig::deserialize), new NoFeatureConfig()));
+            biome.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
+                    new ConfiguredFeature<>(new PebbleFeature(NoFeatureConfig::deserialize), new NoFeatureConfig()));
         }
+    }
+
+    public void setupClient(final FMLClientSetupEvent event)
+    {
+        RenderTypeLookup.setRenderLayer(NaturalProgressionBlocks.twigs, RenderType.getCutout());
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
