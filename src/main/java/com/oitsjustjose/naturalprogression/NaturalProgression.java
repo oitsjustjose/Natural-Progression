@@ -8,13 +8,12 @@ import com.oitsjustjose.naturalprogression.common.event.BoneEvent;
 import com.oitsjustjose.naturalprogression.common.event.GroundBreak;
 import com.oitsjustjose.naturalprogression.common.event.StoneBreak;
 import com.oitsjustjose.naturalprogression.common.event.ToolNeutering;
-import com.oitsjustjose.naturalprogression.common.event.ToolTips;
 import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
 import com.oitsjustjose.naturalprogression.common.recipes.DamageItemRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
-import com.oitsjustjose.naturalprogression.common.utils.Sounds;
 import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
+import com.oitsjustjose.naturalprogression.common.world.feature.TwigFeature;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -61,8 +60,6 @@ public class NaturalProgression
         MinecraftForge.EVENT_BUS.register(new WoodBreak());
         MinecraftForge.EVENT_BUS.register(new StoneBreak());
         MinecraftForge.EVENT_BUS.register(new GroundBreak());
-        MinecraftForge.EVENT_BUS.register(new Sounds());
-        MinecraftForge.EVENT_BUS.register(new ToolTips());
         MinecraftForge.EVENT_BUS.register(new ToolNeutering());
         MinecraftForge.EVENT_BUS.register(new BoneEvent());
 
@@ -87,6 +84,9 @@ public class NaturalProgression
         {
             biome.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
                     Biome.createDecoratedFeature(new PebbleFeature(NoFeatureConfig::deserialize), new NoFeatureConfig(),
+                            Placement.NOPE, new NoPlacementConfig()));
+            biome.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
+                    Biome.createDecoratedFeature(new TwigFeature(NoFeatureConfig::deserialize), new NoFeatureConfig(),
                             Placement.NOPE, new NoPlacementConfig()));
         }
     }

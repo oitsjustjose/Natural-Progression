@@ -26,6 +26,8 @@ public class NaturalProgressionBlocks
     public static Block sandstonePebble;
     public static Block redSandstonePebble;
 
+    public static Block twigs;
+
     public static Block cobbledAndesite;
     public static Block cobbledDiorite;
     public static Block cobbledGranite;
@@ -67,6 +69,10 @@ public class NaturalProgressionBlocks
         modBlocks.add(redSandstonePebble);
         blocksToPebbles.put(Blocks.RED_SANDSTONE, redSandstonePebble);
         blocksToPebbles.put(Blocks.RED_SAND, redSandstonePebble);
+
+        // Don't add to mod blocks -- we don't want a BlockItem for this, we just want sticks.
+        twigs = new TwigBlock().setRegistryName(new ResourceLocation(Constants.MODID, "twigs"));
+        blockRegistryEvent.getRegistry().register(twigs);
 
         Block.Properties cobbleProps = Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 6.0F);
 
