@@ -21,7 +21,6 @@ public class CommonConfig
     public static ForgeConfigSpec.BooleanValue REMOVE_PLANK_RECIPES;
     public static ForgeConfigSpec.BooleanValue REMOVE_WOODEN_TOOL_RECIPES;
     public static ForgeConfigSpec.BooleanValue REMOVE_STONE_TOOL_RECIPES;
-    public static ForgeConfigSpec.EnumValue<CraftingSounds> CRAFTING_SOUNDS;
     public static ForgeConfigSpec.BooleanValue MAKE_GROUND_BLOCKS_HARDER;
     public static ForgeConfigSpec.BooleanValue ARE_PEBBLES_REPLACEABLE;
     public static ForgeConfigSpec.IntValue FLINT_CHANCE;
@@ -63,9 +62,6 @@ public class CommonConfig
         REMOVE_STONE_TOOL_RECIPES = COMMON_BUILDER.comment(
                 "Setting this to true prevents the ability to craft stone tools. This is totally unrealistic anyways.")
                 .define("removeStoneToolRecipes", true);
-        CRAFTING_SOUNDS = COMMON_BUILDER.comment(
-                "When to play sounds when crafting -- PLANKS will make it only play slicing sounds when crafting planks")
-                .defineEnum("craftingSounds", CraftingSounds.ALL);
         MAKE_GROUND_BLOCKS_HARDER = COMMON_BUILDER.comment(
                 "Setting this to true will make ground blocks (e.g. sand, dirt, gravel) harder to break without the correct tool.")
                 .define("makeGroundBlocksHarder", true);
@@ -100,10 +96,5 @@ public class CommonConfig
                 .defineList("dimensionWhitelist", Lists.newArrayList("minecraft:overworld"),
                         (itemRaw) -> itemRaw instanceof String);
         COMMON_BUILDER.pop();
-    }
-
-    public enum CraftingSounds
-    {
-        ALL, PLANKS, NONE
     }
 }
