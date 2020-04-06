@@ -1,5 +1,9 @@
 # Natural Progression Changelog
 
+## 1.3.0b
+
+**Hotfix for twigs not dropping sticks**
+
 ## 1.3.0
 
 ### Added
