@@ -13,7 +13,6 @@ import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
 import com.oitsjustjose.naturalprogression.common.recipes.DamageItemRecipe;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
-import com.oitsjustjose.naturalprogression.common.utils.Sounds;
 import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
 import com.oitsjustjose.naturalprogression.common.world.feature.TwigFeature;
 
@@ -65,7 +64,6 @@ public class NaturalProgression
         MinecraftForge.EVENT_BUS.register(new WoodBreak());
         MinecraftForge.EVENT_BUS.register(new StoneBreak());
         MinecraftForge.EVENT_BUS.register(new GroundBreak());
-        MinecraftForge.EVENT_BUS.register(new Sounds());
         MinecraftForge.EVENT_BUS.register(new ToolTips());
         MinecraftForge.EVENT_BUS.register(new ToolNeutering());
         MinecraftForge.EVENT_BUS.register(new BoneEvent());
