@@ -1,0 +1,21 @@
+{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "atmospheric"
+        }
+    ],
+    "type": "natural-progression:damage_tools",
+    "ingredients": [
+        {
+            "item": "atmospheric:yucca_wood"
+        },
+        {
+            "tag": "natural-progression:axe"
+        }
+    ],
+    "result": {
+        "item": "atmospheric:stripped_yucca_wood",
+        "count": 1
+    }
+}

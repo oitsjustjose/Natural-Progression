@@ -1,0 +1,21 @@
+{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "atmospheric"
+        }
+    ],
+    "type": "natural-progression:damage_tools",
+    "ingredients": [
+        {
+            "item": "atmospheric:rosewood_log"
+        },
+        {
+            "tag": "natural-progression:axe"
+        }
+    ],
+    "result": {
+        "item": "atmospheric:stripped_rosewood_log",
+        "count": 1
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "midnight"
+        }
+    ],
+    "type": "natural-progression:damage_tools",
+    "ingredients": [
+        {
+            "item": "midnight:dark_willow_stripped_wood"
+        },
+        {
+            "tag": "natural-progression:axe"
+        }
+    ],
+    "result": {
+        "item": "midnight:dark_willow_planks",
+        "count": 1
+    }
+}
