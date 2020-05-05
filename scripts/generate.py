@@ -2,20 +2,30 @@
 
 import json
 import os
-from typing import NamedTuple, Set, Any, Dict, Tuple, Callable, List
+from typing import NamedTuple, Set, Tuple, Callable, List, Optional
 
 
 class WoodType(NamedTuple):
-    log: str
-    wood: str
+    log: Optional[str]
+    wood: Optional[str]
     planks: str
     stripped_log: str
-    stripped_wood: str
+    stripped_wood: Optional[str]
 
 
 class WoodSet(NamedTuple):
     namespace: str
     wood_types: Set[WoodType]
+
+
+class DamageToolsRecipe(NamedTuple):
+    namespace: str
+    action: str
+    original: str
+    tool: str
+    result: str
+    amount: int
+    override: bool
 
 
 def vanilla_named_wood_type(name: str) -> WoodType:
@@ -138,10 +148,14 @@ WOOD_SETS = [
 
 
 def damage_tools_recipe(
-    action: str, namespace: str, original: str, tool: str, result: str, amount: int,
+        action: str, namespace: str, original: str, tool: str, result: str, amount: int, override: bool,
 ) -> Tuple[str, str]:
+    if override:
+        path = f"data/{namespace}/recipes/{result}.json"
+    else:
+        path = f"data/natural-progression/recipes/wood/{action}/{namespace}/{action}_{original}_to_{result}.json"
     return (
-        f"data/natural-progression/recipes/wood/{action}/{namespace}/{action}_{original}_to_{result}.json",
+        path,
         json.dumps(
             {
                 "conditions": [{"type": "forge:mod_loaded", "modid": namespace}],
@@ -158,54 +172,53 @@ def damage_tools_recipe(
 
 
 def damage_tools_recipe_set(
-    action: str,
-    pairs: Callable[[WoodType], List[Tuple[str, str]]],
-    tool: str,
-    amount: int,
+        action: str,
+        pairs: Callable[[WoodType], List[Tuple[str, str, bool]]],
+        tool: str,
+        amount: int,
 ) -> Set[Tuple[str, str]]:
     return {
         damage_tools_recipe(
             action=action,
             namespace=wood_set.namespace,
-            original=first,
+            original=original,
             tool=tool,
-            result=second,
+            result=result,
             amount=amount,
+            override=override
         )
         for wood_set in WOOD_SETS
         for wood_type in wood_set.wood_types
-        for first, second in pairs(wood_type)
-        if first is not None and second is not None
+        for original, result, override in pairs(wood_type)
+        if original is not None and result is not None
     }
 
 
 STRIPPING_RECIPES = damage_tools_recipe_set(
     action="stripping",
     pairs=lambda wood_type: [
-        (wood_type.log, wood_type.stripped_log),
-        (wood_type.wood, wood_type.stripped_wood),
+        (wood_type.log, wood_type.stripped_log, False),
+        (wood_type.wood, wood_type.stripped_wood, False),
     ],
     tool="saw",
     amount=1,
 )
 
-
 AXING_RECIPES = damage_tools_recipe_set(
     action="axing",
     pairs=lambda wood_type: [
-        (wood_type.stripped_log, wood_type.planks),
-        (wood_type.stripped_wood, wood_type.planks),
+        (wood_type.stripped_log, wood_type.planks, False),
+        (wood_type.stripped_wood, wood_type.planks, False),
     ],
     tool="axe",
     amount=1,
 )
 
-
 SAWING_RECIPES = damage_tools_recipe_set(
     action="sawing",
     pairs=lambda wood_type: [
-        (wood_type.stripped_log, wood_type.planks),
-        (wood_type.stripped_wood, wood_type.planks),
+        (wood_type.stripped_log, wood_type.planks, True),
+        (wood_type.stripped_wood, wood_type.planks, False),
     ],
     tool="saw",
     amount=4,
@@ -213,15 +226,20 @@ SAWING_RECIPES = damage_tools_recipe_set(
 
 
 def dump(file_name: str, data: str):
-    file_name = f"src/main/resources/{name}"
+    file_name = f"src/main/resources/{file_name}"
     os.makedirs(os.path.dirname(file_name), exist_ok=True)
     with open(file_name, "w") as fp:
         fp.write(data)
 
 
-for name, data in STRIPPING_RECIPES:
-    dump(file_name=name, data=data)
-for name, data in AXING_RECIPES:
-    dump(file_name=name, data=data)
-for name, data in SAWING_RECIPES:
-    dump(file_name=name, data=data)
+def main():
+    for name, data in STRIPPING_RECIPES:
+        dump(file_name=name, data=data)
+    for name, data in AXING_RECIPES:
+        dump(file_name=name, data=data)
+    for name, data in SAWING_RECIPES:
+        dump(file_name=name, data=data)
+
+
+if __name__ == '__main__':
+    main()

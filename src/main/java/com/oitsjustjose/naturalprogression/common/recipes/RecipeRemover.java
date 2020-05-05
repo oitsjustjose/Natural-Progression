@@ -68,10 +68,6 @@ public class RecipeRemover
             removeRecipes(mgr, new ItemStack(Items.STONE_SHOVEL, 1));
             removeRecipes(mgr, new ItemStack(Items.STONE_SWORD, 1));
         }
-        if (CommonConfig.REMOVE_PLANK_RECIPES.get())
-        {
-            removeRecipes(mgr, ItemTags.PLANKS);
-        }
     }
 
     /**
