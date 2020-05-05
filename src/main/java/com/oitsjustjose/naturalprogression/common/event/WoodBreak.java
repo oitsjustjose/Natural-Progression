@@ -1,19 +1,19 @@
 package com.oitsjustjose.naturalprogression.common.event;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.oitsjustjose.naturalprogression.NaturalProgression;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class WoodBreak
 {
@@ -29,8 +29,7 @@ public class WoodBreak
 
         if (event.getState().getMaterial() == Material.WOOD)
         {
-            // If the player **isn't** using an axe on a log, don't let them break it
-            if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE))
+            if (!event.getPlayer().getHeldItemMainhand().canHarvestBlock(event.getState()))
             {
                 event.setCanceled(true);
 

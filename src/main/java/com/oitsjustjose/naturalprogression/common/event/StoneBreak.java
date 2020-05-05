@@ -33,8 +33,7 @@ public class StoneBreak
 
         if (hardMaterials.contains(event.getState().getMaterial()))
         {
-            // If the player **isn't** using a pickaxe on a hard block, don't let them break it
-            if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE))
+            if (!event.getPlayer().getHeldItemMainhand().canHarvestBlock(event.getState()))
             {
                 event.setCanceled(true);
 
