@@ -27,3 +27,5 @@ gradle-app.setting
 src/main/resources/assets/base/models/item/wrench.json
 .idea
 .vscode/**
+
+__pycache__
