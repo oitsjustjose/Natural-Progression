@@ -30,7 +30,7 @@ public class WoodBreak
         if (event.getState().getMaterial() == Material.WOOD)
         {
             // If the player **isn't** using an axe on a log, don't let them break it
-            if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE))
+            if (!event.getPlayer().getHeldItemMainhand().canHarvestBlock(event.getState()))
             {
                 event.setCanceled(true);
 
