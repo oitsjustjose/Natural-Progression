@@ -9,8 +9,6 @@ import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ToolItem;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -27,7 +25,7 @@ public class WoodBreak {
             return;
         }
 
-        if (BlockTags.LOGS.contains(event.getState().getBlock())) {
+        if (event.getState().getMaterial() == Material.WOOD) {
             if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE)) {
                 event.setCanceled(true);
 
