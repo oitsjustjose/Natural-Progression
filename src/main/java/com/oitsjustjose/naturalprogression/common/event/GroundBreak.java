@@ -7,21 +7,16 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class GroundBreak
-{
+public class GroundBreak {
     @SubscribeEvent
-    public void registerEvent(PlayerEvent.BreakSpeed event)
-    {
+    public void registerEvent(PlayerEvent.BreakSpeed event) {
         if (event.getState().getMaterial() == Material.EARTH || event.getState().getMaterial() == Material.SAND
-                || event.getState().getMaterial() == Material.ORGANIC)
-        {
-            if (!CommonConfig.MAKE_GROUND_BLOCKS_HARDER.get())
-            {
+                || event.getState().getMaterial() == Material.ORGANIC) {
+            if (!CommonConfig.MAKE_GROUND_BLOCKS_HARDER.get()) {
                 return;
             }
             // If NOT holding a shovel
-            if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.SHOVEL))
-            {
+            if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.SHOVEL)) {
                 event.setNewSpeed(event.getOriginalSpeed() / 4);
             }
         }

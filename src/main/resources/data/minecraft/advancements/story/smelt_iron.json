@@ -1,35 +1,35 @@
 {
-    "parent": "natural-progression:craft_bone_pick",
-    "display": {
-      "icon": {
-        "item": "minecraft:iron_ingot"
-      },
-      "title": {
-        "translate": "advancements.story.smelt_iron.title"
-      },
-      "description": {
-        "translate": "advancements.story.smelt_iron.description"
-      },
-      "frame": "task",
-      "show_toast": true,
-      "announce_to_chat": true,
-      "hidden": false
+  "parent": "natural-progression:craft_bone_pick",
+  "display": {
+    "icon": {
+      "item": "minecraft:iron_ingot"
     },
-    "criteria": {
-      "iron": {
-        "trigger": "minecraft:inventory_changed",
-        "conditions": {
-          "items": [
-            {
-              "item": "minecraft:iron_ingot"
-            }
-          ]
-        }
+    "title": {
+      "translate": "advancements.story.smelt_iron.title"
+    },
+    "description": {
+      "translate": "advancements.story.smelt_iron.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:iron_ingot"
+          }
+        ]
       }
-    },
-    "requirements": [
-      [
-        "iron"
-      ]
+    }
+  },
+  "requirements": [
+    [
+      "iron"
     ]
-  }
+  ]
+}

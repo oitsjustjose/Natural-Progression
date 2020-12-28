@@ -1,7 +1,7 @@
 {
-    "variants": {
-        "": {
-            "model": "natural-progression:block/sandstone_pebble"
-        }
+  "variants": {
+    "": {
+      "model": "natural-progression:block/sandstone_pebble"
     }
+  }
 }

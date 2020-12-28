@@ -1,21 +1,21 @@
 {
-    "variants": {
-        "": [
-            {
-                "model": "natural-progression:block/twigs"
-            },
-            {
-                "model": "natural-progression:block/twigs",
-                "y": 90
-            },
-            {
-                "model": "natural-progression:block/twigs",
-                "y": 180
-            },
-            {
-                "model": "natural-progression:block/twigs",
-                "y": 270
-            }
-        ]
-    }
+  "variants": {
+    "": [
+      {
+        "model": "natural-progression:block/twigs"
+      },
+      {
+        "model": "natural-progression:block/twigs",
+        "y": 90
+      },
+      {
+        "model": "natural-progression:block/twigs",
+        "y": 180
+      },
+      {
+        "model": "natural-progression:block/twigs",
+        "y": 270
+      }
+    ]
+  }
 }

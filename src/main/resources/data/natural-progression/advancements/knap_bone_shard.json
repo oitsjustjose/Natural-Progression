@@ -1,35 +1,35 @@
 {
-    "parent": "natural-progression:get_bone",
-    "display": {
-        "icon": {
+  "parent": "natural-progression:get_bone",
+  "display": {
+    "icon": {
+      "item": "natural-progression:bone_shard"
+    },
+    "title": {
+      "translate": "advancements.story.knap_bone_shard.title"
+    },
+    "description": {
+      "translate": "advancements.story.knap_bone_shard.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_bone_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
             "item": "natural-progression:bone_shard"
-        },
-        "title": {
-            "translate": "advancements.story.knap_bone_shard.title"
-        },
-        "description": {
-            "translate": "advancements.story.knap_bone_shard.description"
-        },
-        "frame": "task",
-        "show_toast": true,
-        "announce_to_chat": true,
-        "hidden": false
-    },
-    "criteria": {
-        "get_bone_shard": {
-            "trigger": "minecraft:inventory_changed",
-            "conditions": {
-                "items": [
-                    {
-                        "item": "natural-progression:bone_shard"
-                    }
-                ]
-            }
-        }
-    },
-    "requirements": [
-        [
-            "get_bone_shard"
+          }
         ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_bone_shard"
     ]
+  ]
 }

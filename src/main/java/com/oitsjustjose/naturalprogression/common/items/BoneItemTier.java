@@ -6,42 +6,35 @@ import net.minecraft.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
 
-public class BoneItemTier implements IItemTier
-{
+public class BoneItemTier implements IItemTier {
     @Override
-    public int getMaxUses()
-    {
+    public int getMaxUses() {
         return 128;
     }
 
     @Override
-    public float getEfficiency()
-    {
+    public float getEfficiency() {
         return 2.0F;
     }
 
     @Override
-    public float getAttackDamage()
-    {
+    public float getAttackDamage() {
         return 2.0F;
     }
 
     @Override
-    public int getHarvestLevel()
-    {
+    public int getHarvestLevel() {
         return 1;
     }
 
     @Override
-    public int getEnchantability()
-    {
+    public int getEnchantability() {
         return 0;
     }
 
     @Override
     @Nonnull
-    public Ingredient getRepairMaterial()
-    {
+    public Ingredient getRepairMaterial() {
         return Ingredient.fromItems(Items.BONE);
     }
 }

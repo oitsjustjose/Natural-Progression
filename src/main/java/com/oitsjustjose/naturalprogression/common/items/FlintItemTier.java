@@ -6,42 +6,35 @@ import net.minecraft.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
 
-public class FlintItemTier implements IItemTier
-{
+public class FlintItemTier implements IItemTier {
     @Override
-    public int getMaxUses()
-    {
+    public int getMaxUses() {
         return 16;
     }
 
     @Override
-    public float getEfficiency()
-    {
+    public float getEfficiency() {
         return 1.5F;
     }
 
     @Override
-    public float getAttackDamage()
-    {
+    public float getAttackDamage() {
         return 1.0F;
     }
 
     @Override
-    public int getHarvestLevel()
-    {
+    public int getHarvestLevel() {
         return 0;
     }
 
     @Override
-    public int getEnchantability()
-    {
+    public int getEnchantability() {
         return 0;
     }
 
     @Override
     @Nonnull
-    public Ingredient getRepairMaterial()
-    {
+    public Ingredient getRepairMaterial() {
         return Ingredient.fromItems(Items.FLINT);
     }
 }

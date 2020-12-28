@@ -7,81 +7,87 @@ import java.util.function.Predicate;
 import com.google.common.collect.ImmutableMap;
 import com.oitsjustjose.naturalprogression.NaturalProgression;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
-import com.oitsjustjose.naturalprogression.common.utils.Constants;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.client.resources.ReloadListener;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.resources.IResourceManagerReloadListener;
+import net.minecraft.profiler.IProfiler;
+import net.minecraft.resources.IResourceManager;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 
 /**
- * This code is written as a result to PlankRecipe#match() not catching plank crafting consistently due to it being the *wrong*
- * way to do it (via https://bit.ly/2Ns6Vkv)
+ * This code is written as a result to PlankRecipe#match() not catching plank
+ * crafting consistently due to it being the *wrong* way to do it (via
+ * https://bit.ly/2Ns6Vkv)
  * <p>
- * Thanks to Choonster@github, this code is mostly theirs: https://bit.ly/2BLB9t3 (Code used under their MIT license)
+ * Thanks to Choonster@github, this code is mostly theirs:
+ * https://bit.ly/2BLB9t3 (Code used under their MIT license)
  */
 
-@SuppressWarnings("deprecation")
-@Mod.EventBusSubscriber(modid = Constants.MODID)
-public class RecipeRemover
-{
+public class RecipeRemover {
     private static final Field RECIPES = ObfuscationReflectionHelper.findField(RecipeManager.class,
             "field_199522_d" /* recipes */);
 
     @SubscribeEvent
-    public static void onServerStart(final FMLServerStartedEvent event)
-    {
-        final RecipeManager mgr = event.getServer().getRecipeManager();
-        IReloadableResourceManager resourceMgr = event.getServer().getResourceManager();
-        remove(mgr);
-        resourceMgr.addReloadListener((IResourceManagerReloadListener) resourceManager -> remove(mgr));
+    public void onServerStart(final FMLServerStartedEvent evt) {
+        remove(evt.getServer().getRecipeManager());
     }
 
-    private static void remove(RecipeManager mgr)
-    {
-        if (CommonConfig.REMOVE_WOODEN_TOOL_RECIPES.get())
-        {
+    @SubscribeEvent
+    public void addReloadListener(final AddReloadListenerEvent evt) {
+        evt.addListener(new ReloadListener<Void>() {
+            @Override
+            protected void apply(Void objectIn, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+                remove(evt.getDataPackRegistries().getRecipeManager());
+            }
+
+            @Override
+            protected Void prepare(IResourceManager resourceManagerIn, IProfiler profilerIn) {
+                return null;
+            }
+        });
+    }
+
+    private static void remove(RecipeManager mgr) {
+        if (CommonConfig.REMOVE_WOODEN_TOOL_RECIPES.get()) {
             removeRecipes(mgr, new ItemStack(Items.WOODEN_AXE, 1));
             removeRecipes(mgr, new ItemStack(Items.WOODEN_HOE, 1));
             removeRecipes(mgr, new ItemStack(Items.WOODEN_PICKAXE, 1));
             removeRecipes(mgr, new ItemStack(Items.WOODEN_SHOVEL, 1));
             removeRecipes(mgr, new ItemStack(Items.WOODEN_SWORD, 1));
         }
-        if (CommonConfig.REMOVE_STONE_TOOL_RECIPES.get())
-        {
+        if (CommonConfig.REMOVE_STONE_TOOL_RECIPES.get()) {
             removeRecipes(mgr, new ItemStack(Items.STONE_AXE, 1));
             removeRecipes(mgr, new ItemStack(Items.STONE_HOE, 1));
             removeRecipes(mgr, new ItemStack(Items.STONE_PICKAXE, 1));
             removeRecipes(mgr, new ItemStack(Items.STONE_SHOVEL, 1));
             removeRecipes(mgr, new ItemStack(Items.STONE_SWORD, 1));
         }
-        if (CommonConfig.REMOVE_PLANK_RECIPES.get())
-        {
+        if (CommonConfig.REMOVE_PLANK_RECIPES.get()) {
             removeRecipes(mgr, ItemTags.PLANKS);
         }
     }
 
     /**
-     * Removes all crafting recipes with an output item contained in the specified tag.
+     * Removes all crafting recipes with an output item contained in the specified
+     * tag.
      *
      * @param recipeManager The recipe manager
      * @param stack         The ItemStack output of the recipe to remove
      */
-    private static void removeRecipes(final RecipeManager recipeManager, final ItemStack stack)
-    {
+    private static void removeRecipes(final RecipeManager recipeManager, final ItemStack stack) {
         final int recipesRemoved = removeRecipes(recipeManager, recipe -> {
             final ItemStack recipeOutput = recipe.getRecipeOutput();
             return recipeOutput.equals(stack, false)
@@ -89,24 +95,29 @@ public class RecipeRemover
         });
 
         NaturalProgression.getInstance().LOGGER.info("Removed {} recipe(s) for {}", recipesRemoved,
-                stack.getDisplayName().getFormattedText());
+                stack.getDisplayName().getString());
     }
 
     /**
-     * Removes all crafting recipes with an output item contained in the specified tag.
+     * Removes all crafting recipes with an output item contained in the specified
+     * tag.
      *
      * @param recipeManager The recipe manager
      * @param tag           The tag
      */
-    private static void removeRecipes(final RecipeManager recipeManager, final Tag<Item> tag)
-    {
-        final int recipesRemoved = removeRecipes(recipeManager, recipe -> {
-            final ItemStack recipeOutput = recipe.getRecipeOutput();
-            return !recipeOutput.isEmpty() && recipeOutput.getItem().isIn(tag)
-                    && !(recipe.getSerializer() instanceof DamageItemRecipe.Serializer);
-        });
+    private static void removeRecipes(final RecipeManager recipeManager, final ITag.INamedTag<Item> tag) {
+        try {
+            final int recipesRemoved = removeRecipes(recipeManager, recipe -> {
+                final ItemStack recipeOutput = recipe.getRecipeOutput();
+                return !recipeOutput.isEmpty() && recipeOutput.getItem().isIn(tag)
+                        && !(recipe.getSerializer() instanceof DamageItemRecipe.Serializer);
+            });
 
-        NaturalProgression.getInstance().LOGGER.info("Removed {} recipe(s) for tag {}", recipesRemoved, tag.getId());
+            NaturalProgression.getInstance().LOGGER.info("Removed {} recipe(s) for tag {}", recipesRemoved,
+                    tag.getName());
+        } catch (IllegalStateException ex) {
+            return;
+        }
     }
 
     /**
@@ -116,18 +127,14 @@ public class RecipeRemover
      * @param predicate     The predicate
      * @return The number of recipes removed
      */
-    private static int removeRecipes(final RecipeManager recipeManager, final Predicate<IRecipe<?>> predicate)
-    {
+    private static int removeRecipes(final RecipeManager recipeManager, final Predicate<IRecipe> predicate) {
         final Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> existingRecipes;
-        try
-        {
+        try {
             @SuppressWarnings("unchecked")
             final Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> recipesMap = (Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>>) RECIPES
                     .get(recipeManager);
             existingRecipes = recipesMap;
-        }
-        catch (final IllegalAccessException e)
-        {
+        } catch (final IllegalAccessException e) {
             throw new RuntimeException("Couldn't get recipes map while removing recipes", e);
         }
 
@@ -135,10 +142,7 @@ public class RecipeRemover
         final ImmutableMap.Builder<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> newRecipes = ImmutableMap
                 .builder();
 
-        // For each recipe type, create a new map that doesn't contain the recipes to be removed
         existingRecipes.forEach((recipeType, existingRecipesForType) -> {
-            // noinspection UnstableApiUsage
-
             final ImmutableMap<ResourceLocation, IRecipe<?>> newRecipesForType = existingRecipesForType.entrySet()
                     .stream().filter(entry -> !predicate.test(entry.getValue()))
                     .collect(ImmutableMap.toImmutableMap(Map.Entry::getKey, Map.Entry::getValue));
@@ -149,12 +153,9 @@ public class RecipeRemover
 
         final int removedCount = removedCounts.values().stream().reduce(0, Integer::sum);
 
-        try
-        {
+        try {
             RECIPES.set(recipeManager, newRecipes.build());
-        }
-        catch (final IllegalAccessException e)
-        {
+        } catch (final IllegalAccessException e) {
             throw new RuntimeException("Couldn't replace recipes map while removing recipes", e);
         }
 

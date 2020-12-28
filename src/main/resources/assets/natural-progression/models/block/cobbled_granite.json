@@ -1,6 +1,6 @@
 {
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "natural-progression:block/cobbled_granite"
-    }
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "natural-progression:block/cobbled_granite"
+  }
 }

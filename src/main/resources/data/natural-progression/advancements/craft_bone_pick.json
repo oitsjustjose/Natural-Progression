@@ -1,35 +1,35 @@
 {
-    "parent": "natural-progression:knap_bone_shard",
-    "display": {
-        "icon": {
+  "parent": "natural-progression:knap_bone_shard",
+  "display": {
+    "icon": {
+      "item": "natural-progression:bone_pickaxe"
+    },
+    "title": {
+      "translate": "advancements.story.get_bone_pickaxe.title"
+    },
+    "description": {
+      "translate": "advancements.story.get_bone_pickaxe.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_bone_pickaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
             "item": "natural-progression:bone_pickaxe"
-        },
-        "title": {
-            "translate": "advancements.story.get_bone_pickaxe.title"
-        },
-        "description": {
-            "translate": "advancements.story.get_bone_pickaxe.description"
-        },
-        "frame": "task",
-        "show_toast": true,
-        "announce_to_chat": true,
-        "hidden": false
-    },
-    "criteria": {
-        "get_bone_pickaxe": {
-            "trigger": "minecraft:inventory_changed",
-            "conditions": {
-                "items": [
-                    {
-                        "item": "natural-progression:bone_pickaxe"
-                    }
-                ]
-            }
-        }
-    },
-    "requirements": [
-        [
-            "get_bone_pickaxe"
+          }
         ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_bone_pickaxe"
     ]
+  ]
 }

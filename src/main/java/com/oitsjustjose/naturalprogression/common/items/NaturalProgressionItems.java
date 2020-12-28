@@ -12,8 +12,7 @@ import net.minecraft.item.SwordItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 
-public class NaturalProgressionItems
-{
+public class NaturalProgressionItems {
     private static ArrayList<Item> modItems = new ArrayList<>();
     private static BoneItemTier boneTier = new BoneItemTier();
 
@@ -24,8 +23,7 @@ public class NaturalProgressionItems
     public static Item basicSaw;
     public static Item improvedSaw;
 
-    public static void registerItems(final RegistryEvent.Register<Item> itemRegistryEvent)
-    {
+    public static void registerItems(final RegistryEvent.Register<Item> itemRegistryEvent) {
         flintHatchet = new HatchetItem();
         flintHatchet.setRegistryName(new ResourceLocation(Constants.MODID, "flint_hatchet"));
         modItems.add(flintHatchet);
@@ -52,8 +50,7 @@ public class NaturalProgressionItems
         improvedSaw.setRegistryName(new ResourceLocation(Constants.MODID, "improved_saw"));
         modItems.add(improvedSaw);
 
-        for (Item item : modItems)
-        {
+        for (Item item : modItems) {
             itemRegistryEvent.getRegistry().register(item);
         }
     }

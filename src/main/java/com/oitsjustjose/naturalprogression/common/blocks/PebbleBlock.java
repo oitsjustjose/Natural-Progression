@@ -15,8 +15,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
@@ -27,30 +27,26 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-public class PebbleBlock extends Block implements IWaterLoggable
-{
+public class PebbleBlock extends Block implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public PebbleBlock()
-    {
+    public PebbleBlock() {
         super(Properties.create(Material.EARTH, MaterialColor.LIGHT_GRAY).hardnessAndResistance(0.125F, 2F)
                 .sound(SoundType.STONE).doesNotBlockMovement().notSolid());
         this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.FALSE));
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context)
-    {
-        if (context.getWorld().getBlockState(context.getPos()).getBlock() == Blocks.WATER)
-        {
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        if (context.getWorld().getBlockState(context.getPos()).getBlock() == Blocks.WATER) {
             return this.getDefaultState().with(WATERLOGGED, Boolean.TRUE);
         }
         return this.getDefaultState();
@@ -58,22 +54,18 @@ public class PebbleBlock extends Block implements IWaterLoggable
 
     @Override
     @Nonnull
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
-    {
-        Vec3d offset = state.getOffset(worldIn, pos);
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        Vector3d offset = state.getOffset(worldIn, pos);
         return VoxelShapes.create(0.37D, 0.0D, 0.37D, 0.69D, 0.065D, 0.69D).withOffset(offset.x, offset.y, offset.z);
     }
 
     @Override
-    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
-    {
+    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
         super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
         // One in ten chance for the sample to break when fallen on
         Random random = new Random();
-        if (((int) fallDistance) > 0)
-        {
-            if (random.nextInt((int) fallDistance) > 5)
-            {
+        if (((int) fallDistance) > 0) {
+            if (random.nextInt((int) fallDistance) > 5) {
                 worldIn.destroyBlock(pos, true);
             }
         }
@@ -81,10 +73,8 @@ public class PebbleBlock extends Block implements IWaterLoggable
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-            Hand handIn, BlockRayTraceResult hit)
-    {
-        if (!player.isCrouching())
-        {
+            Hand handIn, BlockRayTraceResult hit) {
+        if (!player.isCrouching()) {
             worldIn.destroyBlock(pos, true);
             player.swingArm(handIn);
             return ActionResultType.SUCCESS;
@@ -93,62 +83,51 @@ public class PebbleBlock extends Block implements IWaterLoggable
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
-    {
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         return hasEnoughSolidSide(worldIn, pos.down(), Direction.UP);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
-    {
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
     }
 
     @Override
     @Nonnull
-    public Block.OffsetType getOffsetType()
-    {
+    public Block.OffsetType getOffsetType() {
         return Block.OffsetType.XZ;
     }
 
     @Override
     @Nonnull
     @SuppressWarnings("deprecation")
-    public IFluidState getFluidState(BlockState state)
-    {
+    public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-            boolean isMoving)
-    {
+            boolean isMoving) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
-        if (!this.isValidPosition(state, worldIn, pos))
-        {
+        if (!this.isValidPosition(state, worldIn, pos)) {
             worldIn.destroyBlock(pos, true);
         }
         // Update the water from flowing to still or vice-versa
-        else if (state.get(WATERLOGGED))
-        {
+        else if (state.get(WATERLOGGED)) {
             worldIn.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
         }
     }
 
-    public BlockState asWaterlogged()
-    {
+    public BlockState asWaterlogged() {
         return this.getDefaultState().with(WATERLOGGED, Boolean.TRUE);
     }
 
     @Override
     @SuppressWarnings("deprecated")
-    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext)
-    {
-        if (useContext.getItem().getItem() instanceof BlockItem)
-        {
-            if (((BlockItem) useContext.getItem().getItem()).getBlock() instanceof PebbleBlock)
-            {
+    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+        if (useContext.getItem().getItem() instanceof BlockItem) {
+            if (((BlockItem) useContext.getItem().getItem()).getBlock() instanceof PebbleBlock) {
                 return false;
             }
         }

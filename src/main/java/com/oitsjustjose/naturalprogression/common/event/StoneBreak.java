@@ -17,41 +17,31 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class StoneBreak
-{
+public class StoneBreak {
     @SubscribeEvent
-    public void registerEvent(PlayerEvent.BreakSpeed event)
-    {
+    public void registerEvent(PlayerEvent.BreakSpeed event) {
         final BrokenHandSource brokenHandSource = new BrokenHandSource();
-        final List<Material> hardMaterials = Lists.asList(Material.ROCK, new Material[]
-        { Material.IRON, Material.ANVIL });
+        final List<Material> hardMaterials = Lists.asList(Material.ROCK,
+                new Material[] { Material.IRON, Material.ANVIL });
 
-        if (event.getState() == null || event.getPlayer() == null)
-        {
+        if (event.getState() == null || event.getPlayer() == null) {
             return;
         }
 
-        if (hardMaterials.contains(event.getState().getMaterial()))
-        {
-            if (!event.getPlayer().getHeldItemMainhand().canHarvestBlock(event.getState()))
-            {
+        if (hardMaterials.contains(event.getState().getMaterial())) {
+            if (!event.getPlayer().getHeldItemMainhand().canHarvestBlock(event.getState())) {
                 event.setCanceled(true);
 
-                if (CommonConfig.SHOW_BREAKING_HELP.get())
-                {
+                if (CommonConfig.SHOW_BREAKING_HELP.get()) {
                     event.getPlayer()
                             .sendStatusMessage(new TranslationTextComponent("natural-progression.stone.warning"), true);
                 }
                 // Random chance to even perform the hurt anim if the player is empty-handed
-                if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1)
-                {
+                if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1) {
                     // And when it's shown, random chance to actually hurt from breaking bones
-                    if (event.getPlayer().getRNG().nextInt(2) == 1)
-                    {
+                    if (event.getPlayer().getRNG().nextInt(2) == 1) {
                         event.getPlayer().attackEntityFrom(brokenHandSource, 1F);
-                    }
-                    else
-                    {
+                    } else {
                         NaturalProgression.proxy.doHurtAnimation(event.getPlayer());
                     }
                 }
@@ -59,24 +49,20 @@ public class StoneBreak
         }
     }
 
-    public static class BrokenHandSource extends DamageSource
-    {
-        BrokenHandSource()
-        {
+    public static class BrokenHandSource extends DamageSource {
+        BrokenHandSource() {
             super("broken hand");
         }
 
         @Override
         @Nullable
-        public Entity getTrueSource()
-        {
+        public Entity getTrueSource() {
             return null;
         }
 
         @Override
         @Nonnull
-        public ITextComponent getDeathMessage(LivingEntity entityLivingBaseIn)
-        {
+        public ITextComponent getDeathMessage(LivingEntity entityLivingBaseIn) {
             return new TranslationTextComponent("natural-progression.broken.bones",
                     entityLivingBaseIn.getDisplayName());
         }

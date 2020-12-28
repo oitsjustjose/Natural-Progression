@@ -9,46 +9,39 @@ import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ToolItem;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class WoodBreak
-{
-    @SubscribeEvent
-    public void registerEvent(PlayerEvent.BreakSpeed event)
-    {
-        final SplinterSource splinterSource = new SplinterSource();
+public class WoodBreak {
+    final SplinterSource splinterSource = new SplinterSource();
 
-        if (event.getState() == null || event.getPlayer() == null)
-        {
+    @SubscribeEvent
+    public void registerEvent(PlayerEvent.BreakSpeed event) {
+        if (event.getState() == null || event.getPlayer() == null) {
             return;
         }
 
-        if (event.getState().getMaterial() == Material.WOOD)
-        {
-            if (!event.getPlayer().getHeldItemMainhand().canHarvestBlock(event.getState()))
-            {
+        if (BlockTags.LOGS.contains(event.getState().getBlock())) {
+            if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE)) {
                 event.setCanceled(true);
 
-                if (CommonConfig.SHOW_BREAKING_HELP.get())
-                {
+                if (CommonConfig.SHOW_BREAKING_HELP.get()) {
                     event.getPlayer()
                             .sendStatusMessage(new TranslationTextComponent("natural-progression.wood.warning"), true);
                 }
 
                 // Random chance to even perform the hurt anim if the player is empty-handed
-                if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1)
-                {
+                if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1) {
                     // And when it's shown, random chance to actually hurt from "splintering"
-                    if (event.getPlayer().getRNG().nextInt(10) == 1)
-                    {
+                    if (event.getPlayer().getRNG().nextInt(10) == 1) {
                         event.getPlayer().attackEntityFrom(splinterSource, 1F);
-                    }
-                    else
-                    {
+                    } else {
                         NaturalProgression.proxy.doHurtAnimation(event.getPlayer());
                     }
                 }
@@ -56,24 +49,20 @@ public class WoodBreak
         }
     }
 
-    public static class SplinterSource extends DamageSource
-    {
-        SplinterSource()
-        {
+    public static class SplinterSource extends DamageSource {
+        SplinterSource() {
             super("splintering");
         }
 
         @Override
         @Nullable
-        public Entity getTrueSource()
-        {
+        public Entity getTrueSource() {
             return null;
         }
 
         @Override
         @Nonnull
-        public ITextComponent getDeathMessage(LivingEntity entityLivingBaseIn)
-        {
+        public ITextComponent getDeathMessage(LivingEntity entityLivingBaseIn) {
             return new TranslationTextComponent("natural-progression.splintered.to.death",
                     entityLivingBaseIn.getDisplayName());
         }

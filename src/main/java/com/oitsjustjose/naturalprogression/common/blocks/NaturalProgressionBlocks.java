@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class NaturalProgressionBlocks
-{
+public class NaturalProgressionBlocks {
     private static ArrayList<Block> modBlocks = new ArrayList<>();
 
     public static Block stonePebble;
@@ -36,8 +35,7 @@ public class NaturalProgressionBlocks
 
     public static HashMap<Block, Block> blocksToPebbles = new HashMap<>();
 
-    public static void registerBlocks(final RegistryEvent.Register<Block> blockRegistryEvent)
-    {
+    public static void registerBlocks(final RegistryEvent.Register<Block> blockRegistryEvent) {
         stonePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "stone_pebble"));
         blockRegistryEvent.getRegistry().register(stonePebble);
         modBlocks.add(stonePebble);
@@ -70,7 +68,8 @@ public class NaturalProgressionBlocks
         blocksToPebbles.put(Blocks.RED_SANDSTONE, redSandstonePebble);
         blocksToPebbles.put(Blocks.RED_SAND, redSandstonePebble);
 
-        // Don't add to mod blocks -- we don't want a BlockItem for this, we just want sticks.
+        // Don't add to mod blocks -- we don't want a BlockItem for this, we just want
+        // sticks.
         twigs = new TwigBlock().setRegistryName(new ResourceLocation(Constants.MODID, "twigs"));
         blockRegistryEvent.getRegistry().register(twigs);
 
@@ -102,18 +101,13 @@ public class NaturalProgressionBlocks
         modBlocks.add(cobbledRedSandstone);
     }
 
-    public static void registerBlockItems(final RegistryEvent.Register<Item> itemRegistryEvent)
-    {
-        for (Block block : modBlocks)
-        {
+    public static void registerBlockItems(final RegistryEvent.Register<Item> itemRegistryEvent) {
+        for (Block block : modBlocks) {
             // Ignore pebble blocks - pebble item will represent them
-            if (block instanceof PebbleBlock)
-            {
+            if (block instanceof PebbleBlock) {
                 Item iBlock = new PebbleItem(block).setRegistryName(Objects.requireNonNull(block.getRegistryName()));
                 itemRegistryEvent.getRegistry().register(iBlock);
-            }
-            else
-            {
+            } else {
                 Item iBlock = new BlockItem(block, new Item.Properties().group(NaturalProgressionGroup.getInstance()))
                         .setRegistryName(Objects.requireNonNull(block.getRegistryName()));
                 itemRegistryEvent.getRegistry().register(iBlock);

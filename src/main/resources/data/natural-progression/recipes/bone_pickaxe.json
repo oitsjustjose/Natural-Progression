@@ -1,19 +1,19 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "B",
-        "S",
-        "S"
-    ],
-    "key": {
-        "B": {
-            "item": "natural-progression:bone_shard"
-        },
-        "S": {
-            "tag": "forge:rods/wooden"
-        }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B",
+    "S",
+    "S"
+  ],
+  "key": {
+    "B": {
+      "item": "natural-progression:bone_shard"
     },
-    "result": {
-        "item": "natural-progression:bone_pickaxe"
+    "S": {
+      "tag": "forge:rods/wooden"
     }
+  },
+  "result": {
+    "item": "natural-progression:bone_pickaxe"
+  }
 }

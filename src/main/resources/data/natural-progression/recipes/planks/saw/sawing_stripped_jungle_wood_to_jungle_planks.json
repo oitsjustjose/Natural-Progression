@@ -1,15 +1,15 @@
 {
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "minecraft:stripped_jungle_wood"
-        },
-        {
-            "tag": "natural-progression:saw"
-        }
-    ],
-    "result": {
-        "item": "minecraft:jungle_planks",
-        "count": 4
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "minecraft:stripped_jungle_wood"
+    },
+    {
+      "tag": "natural-progression:saw"
     }
+  ],
+  "result": {
+    "item": "minecraft:jungle_planks",
+    "count": 4
+  }
 }

@@ -1,18 +1,18 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "SSS",
-        "FFF"
-    ],
-    "key": {
-        "F": {
-            "item": "minecraft:flint"
-        },
-        "S": {
-            "tag": "forge:rods/wooden"
-        }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "FFF"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:flint"
     },
-    "result": {
-        "item": "natural-progression:basic_saw"
+    "S": {
+      "tag": "forge:rods/wooden"
     }
+  },
+  "result": {
+    "item": "natural-progression:basic_saw"
+  }
 }

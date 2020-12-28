@@ -11,6 +11,7 @@ import com.oitsjustjose.naturalprogression.common.event.ToolNeutering;
 import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
 import com.oitsjustjose.naturalprogression.common.recipes.DamageItemRecipe;
+import com.oitsjustjose.naturalprogression.common.recipes.RecipeRemover;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
 import com.oitsjustjose.naturalprogression.common.world.feature.TwigFeature;
@@ -24,42 +25,38 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod(Constants.MODID)
-public class NaturalProgression
-{
+public class NaturalProgression {
     private static NaturalProgression instance;
 
     public Logger LOGGER = LogManager.getLogger();
 
-    public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    public static CommonProxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public static final IRecipeSerializer<DamageItemRecipe> DAMAGE_ITEM_RECIPE = new DamageItemRecipe.Serializer();
 
-    public NaturalProgression()
-    {
+    public NaturalProgression() {
         instance = this;
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
 
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new RecipeRemover());
         MinecraftForge.EVENT_BUS.register(new WoodBreak());
         MinecraftForge.EVENT_BUS.register(new StoneBreak());
         MinecraftForge.EVENT_BUS.register(new GroundBreak());
@@ -69,53 +66,48 @@ public class NaturalProgression
         this.configSetup();
     }
 
-    public static NaturalProgression getInstance()
-    {
+    public static NaturalProgression getInstance() {
         return instance;
     }
 
-    private void configSetup()
-    {
+    private void configSetup() {
         ModLoadingContext.get().registerConfig(Type.COMMON, CommonConfig.COMMON_CONFIG);
         CommonConfig.loadConfig(CommonConfig.COMMON_CONFIG,
                 FMLPaths.CONFIGDIR.get().resolve("natural-progression-common.toml"));
     }
 
-    public void setup(final FMLCommonSetupEvent event)
-    {
-        for (Biome biome : ForgeRegistries.BIOMES.getValues())
-        {
-            biome.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
-                    new ConfiguredFeature<>(new TwigFeature(NoFeatureConfig::deserialize), new NoFeatureConfig()));
-            biome.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
-                    new ConfiguredFeature<>(new PebbleFeature(NoFeatureConfig::deserialize), new NoFeatureConfig()));
-        }
+    @SubscribeEvent
+    public void onBiomesLoaded(BiomeLoadingEvent evt) {
+        BiomeGenerationSettingsBuilder settings = evt.getGeneration();
+
+        PebbleFeature p = new PebbleFeature(NoFeatureConfig.field_236558_a_);
+        TwigFeature t = new TwigFeature(NoFeatureConfig.field_236558_a_);
+
+        settings.withFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
+                p.withConfiguration(NoFeatureConfig.field_236559_b_));
+        settings.withFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION,
+                t.withConfiguration(NoFeatureConfig.field_236559_b_));
     }
 
-    public void setupClient(final FMLClientSetupEvent event)
-    {
+    public void setupClient(final FMLClientSetupEvent event) {
         RenderTypeLookup.setRenderLayer(NaturalProgressionBlocks.twigs, RenderType.getCutout());
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents
-    {
+    public static class RegistryEvents {
         @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent)
-        {
+        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             NaturalProgressionBlocks.registerBlocks(blockRegistryEvent);
         }
 
         @SubscribeEvent
-        public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent)
-        {
+        public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
             NaturalProgressionBlocks.registerBlockItems(itemRegistryEvent);
             NaturalProgressionItems.registerItems(itemRegistryEvent);
         }
 
         @SubscribeEvent
-        public static void onRegisterSerializers(final RegistryEvent.Register<IRecipeSerializer<?>> event)
-        {
+        public static void onRegisterSerializers(final RegistryEvent.Register<IRecipeSerializer<?>> event) {
             event.getRegistry().register(
                     DAMAGE_ITEM_RECIPE.setRegistryName(new ResourceLocation(Constants.MODID, "damage_tools")));
         }
