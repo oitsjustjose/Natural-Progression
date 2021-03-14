@@ -38,26 +38,29 @@ public class StoneBreak {
 
         ItemStack heldItem = event.getPlayer().getHeldItemMainhand();
 
-        if (hardMaterials.contains(event.getState().getMaterial())) {
-            if (ItemTags.getCollection().get(OVERRIDE_RL) != null
-                    && ItemTags.getCollection().get(OVERRIDE_RL).contains(heldItem.getItem())) {
-                return;
-            }
-            if (!heldItem.getToolTypes().contains(ToolType.PICKAXE)) {
-                event.setCanceled(true);
+        if (!hardMaterials.contains(event.getState().getMaterial())) {
+            return;
+        }
 
-                if (CommonConfig.SHOW_BREAKING_HELP.get()) {
-                    event.getPlayer()
-                            .sendStatusMessage(new TranslationTextComponent("natural-progression.stone.warning"), true);
-                }
-                // Random chance to even perform the hurt anim if the player is empty-handed
-                if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1) {
-                    // And when it's shown, random chance to actually hurt from breaking bones
-                    if (event.getPlayer().getRNG().nextInt(2) == 1) {
-                        event.getPlayer().attackEntityFrom(brokenHandSource, 1F);
-                    } else {
-                        NaturalProgression.proxy.doHurtAnimation(event.getPlayer());
-                    }
+        if (ItemTags.getCollection().get(OVERRIDE_RL) != null
+                && ItemTags.getCollection().get(OVERRIDE_RL).contains(heldItem.getItem())) {
+            return;
+        }
+
+        if (!heldItem.getToolTypes().contains(ToolType.PICKAXE)) {
+            event.setCanceled(true);
+
+            if (CommonConfig.SHOW_BREAKING_HELP.get()) {
+                event.getPlayer().sendStatusMessage(new TranslationTextComponent("natural-progression.stone.warning"),
+                        true);
+            }
+            // Random chance to even perform the hurt anim if the player is empty-handed
+            if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1) {
+                // And when it's shown, random chance to actually hurt from breaking bones
+                if (event.getPlayer().getRNG().nextInt(2) == 1) {
+                    event.getPlayer().attackEntityFrom(brokenHandSource, 1F);
+                } else {
+                    NaturalProgression.proxy.doHurtAnimation(event.getPlayer());
                 }
             }
         }

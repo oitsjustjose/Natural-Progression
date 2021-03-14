@@ -32,27 +32,31 @@ public class WoodBreak {
 
         ItemStack heldItem = event.getPlayer().getHeldItemMainhand();
 
-        if (event.getState().getMaterial() == Material.WOOD || event.getState().getMaterial() == Material.NETHER_WOOD) {
-            if (ItemTags.getCollection().get(OVERRIDE_RL) != null
-                    && ItemTags.getCollection().get(OVERRIDE_RL).contains(heldItem.getItem())) {
-                return;
+        if (!(event.getState().getMaterial() == Material.WOOD
+                || event.getState().getMaterial() == Material.NETHER_WOOD)) {
+            return;
+        }
+
+        if (ItemTags.getCollection().get(OVERRIDE_RL) != null
+                && ItemTags.getCollection().get(OVERRIDE_RL).contains(heldItem.getItem())) {
+            return;
+        }
+
+        if (!heldItem.getToolTypes().contains(ToolType.AXE)) {
+            event.setCanceled(true);
+
+            if (CommonConfig.SHOW_BREAKING_HELP.get()) {
+                event.getPlayer().sendStatusMessage(new TranslationTextComponent("natural-progression.wood.warning"),
+                        true);
             }
-            if (!heldItem.getToolTypes().contains(ToolType.AXE)) {
-                event.setCanceled(true);
 
-                if (CommonConfig.SHOW_BREAKING_HELP.get()) {
-                    event.getPlayer()
-                            .sendStatusMessage(new TranslationTextComponent("natural-progression.wood.warning"), true);
-                }
-
-                // Random chance to even perform the hurt anim if the player is empty-handed
-                if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1) {
-                    // And when it's shown, random chance to actually hurt from "splintering"
-                    if (event.getPlayer().getRNG().nextInt(10) == 1) {
-                        event.getPlayer().attackEntityFrom(splinterSource, 1F);
-                    } else {
-                        NaturalProgression.proxy.doHurtAnimation(event.getPlayer());
-                    }
+            // Random chance to even perform the hurt anim if the player is empty-handed
+            if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1) {
+                // And when it's shown, random chance to actually hurt from "splintering"
+                if (event.getPlayer().getRNG().nextInt(10) == 1) {
+                    event.getPlayer().attackEntityFrom(splinterSource, 1F);
+                } else {
+                    NaturalProgression.proxy.doHurtAnimation(event.getPlayer());
                 }
             }
         }
