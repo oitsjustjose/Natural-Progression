@@ -1,23 +1,31 @@
 package com.oitsjustjose.naturalprogression.common.event;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Lists;
 import com.oitsjustjose.naturalprogression.NaturalProgression;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
+import com.oitsjustjose.naturalprogression.common.utils.Constants;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
-
 public class StoneBreak {
+    final ResourceLocation OVERRIDE_RL = new ResourceLocation(Constants.MODID, "override_pickaxes");
+
     @SubscribeEvent
     public void registerEvent(PlayerEvent.BreakSpeed event) {
         final BrokenHandSource brokenHandSource = new BrokenHandSource();
@@ -28,8 +36,13 @@ public class StoneBreak {
             return;
         }
 
+        ItemStack heldItem = event.getPlayer().getHeldItemMainhand();
+
         if (hardMaterials.contains(event.getState().getMaterial())) {
-            if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE)) {
+            if (ItemTags.getCollection().get(OVERRIDE_RL).contains(heldItem.getItem())) {
+                return;
+            }
+            if (!heldItem.getToolTypes().contains(ToolType.PICKAXE)) {
                 event.setCanceled(true);
 
                 if (CommonConfig.SHOW_BREAKING_HELP.get()) {

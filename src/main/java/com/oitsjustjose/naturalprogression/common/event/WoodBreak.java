@@ -5,11 +5,15 @@ import javax.annotation.Nullable;
 
 import com.oitsjustjose.naturalprogression.NaturalProgression;
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
+import com.oitsjustjose.naturalprogression.common.utils.Constants;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.ToolType;
@@ -18,6 +22,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class WoodBreak {
     final SplinterSource splinterSource = new SplinterSource();
+    final ResourceLocation OVERRIDE_RL = new ResourceLocation(Constants.MODID, "override_axes");
 
     @SubscribeEvent
     public void registerEvent(PlayerEvent.BreakSpeed event) {
@@ -25,8 +30,13 @@ public class WoodBreak {
             return;
         }
 
+        ItemStack heldItem = event.getPlayer().getHeldItemMainhand();
+
         if (event.getState().getMaterial() == Material.WOOD || event.getState().getMaterial() == Material.NETHER_WOOD) {
-            if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE)) {
+            if (ItemTags.getCollection().get(OVERRIDE_RL).contains(heldItem.getItem())) {
+                return;
+            }
+            if (!heldItem.getToolTypes().contains(ToolType.AXE)) {
                 event.setCanceled(true);
 
                 if (CommonConfig.SHOW_BREAKING_HELP.get()) {
