@@ -13,19 +13,20 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.client.resources.ReloadListener;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.ItemTier;
+import net.minecraft.item.ToolItem;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.tags.ITag;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * This code is written as a result to PlankRecipe#match() not catching plank
@@ -62,21 +63,24 @@ public class RecipeRemover {
 
     private static void remove(RecipeManager mgr) {
         if (CommonConfig.REMOVE_WOODEN_TOOL_RECIPES.get()) {
-            removeRecipes(mgr, new ItemStack(Items.WOODEN_AXE, 1));
-            removeRecipes(mgr, new ItemStack(Items.WOODEN_HOE, 1));
-            removeRecipes(mgr, new ItemStack(Items.WOODEN_PICKAXE, 1));
-            removeRecipes(mgr, new ItemStack(Items.WOODEN_SHOVEL, 1));
-            removeRecipes(mgr, new ItemStack(Items.WOODEN_SWORD, 1));
+            for (Item i : ForgeRegistries.ITEMS.getValues()) {
+                if (i instanceof ToolItem) {
+                    ToolItem t = (ToolItem) i;
+                    if (t.getTier() == ItemTier.WOOD) {
+                        removeRecipes(mgr, new ItemStack(t, 1));
+                    }
+                }
+            }
         }
         if (CommonConfig.REMOVE_STONE_TOOL_RECIPES.get()) {
-            removeRecipes(mgr, new ItemStack(Items.STONE_AXE, 1));
-            removeRecipes(mgr, new ItemStack(Items.STONE_HOE, 1));
-            removeRecipes(mgr, new ItemStack(Items.STONE_PICKAXE, 1));
-            removeRecipes(mgr, new ItemStack(Items.STONE_SHOVEL, 1));
-            removeRecipes(mgr, new ItemStack(Items.STONE_SWORD, 1));
-        }
-        if (CommonConfig.REMOVE_PLANK_RECIPES.get()) {
-            removeRecipes(mgr, ItemTags.PLANKS);
+            for (Item i : ForgeRegistries.ITEMS.getValues()) {
+                if (i instanceof ToolItem) {
+                    ToolItem t = (ToolItem) i;
+                    if (t.getTier() == ItemTier.STONE) {
+                        removeRecipes(mgr, new ItemStack(t, 1));
+                    }
+                }
+            }
         }
     }
 
