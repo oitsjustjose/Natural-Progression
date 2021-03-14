@@ -29,7 +29,7 @@ public class StoneBreak {
         }
 
         if (hardMaterials.contains(event.getState().getMaterial())) {
-            if (!event.getPlayer().getHeldItemMainhand().canHarvestBlock(event.getState())) {
+            if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE)) {
                 event.setCanceled(true);
 
                 if (CommonConfig.SHOW_BREAKING_HELP.get()) {

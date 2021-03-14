@@ -25,7 +25,7 @@ public class WoodBreak {
             return;
         }
 
-        if (event.getState().getMaterial() == Material.WOOD) {
+        if (event.getState().getMaterial() == Material.WOOD || event.getState().getMaterial() == Material.NETHER_WOOD) {
             if (!event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE)) {
                 event.setCanceled(true);
 
