@@ -33,7 +33,8 @@ public class WoodBreak {
         ItemStack heldItem = event.getPlayer().getHeldItemMainhand();
 
         if (event.getState().getMaterial() == Material.WOOD || event.getState().getMaterial() == Material.NETHER_WOOD) {
-            if (ItemTags.getCollection().get(OVERRIDE_RL).contains(heldItem.getItem())) {
+            if (ItemTags.getCollection().get(OVERRIDE_RL) != null
+                    && ItemTags.getCollection().get(OVERRIDE_RL).contains(heldItem.getItem())) {
                 return;
             }
             if (!heldItem.getToolTypes().contains(ToolType.AXE)) {
