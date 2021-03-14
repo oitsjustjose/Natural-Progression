@@ -1,0 +1,21 @@
+{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "byg"
+        }
+    ],
+    "type": "natural-progression:damage_tools",
+    "ingredients": [
+        {
+            "item": "byg:stripped_cherry_wood"
+        },
+        {
+            "tag": "natural-progression:saw"
+        }
+    ],
+    "result": {
+        "item": "byg:cherry_planks",
+        "count": 4
+    }
+}

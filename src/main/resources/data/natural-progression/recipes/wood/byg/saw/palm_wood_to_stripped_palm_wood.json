@@ -1,0 +1,21 @@
+{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "byg"
+        }
+    ],
+    "type": "natural-progression:damage_tools",
+    "ingredients": [
+        {
+            "item": "byg:palm_wood"
+        },
+        {
+            "tag": "natural-progression:saw"
+        }
+    ],
+    "result": {
+        "item": "byg:stripped_palm_wood",
+        "count": 1
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "biomesoplenty"
+        }
+    ],
+    "type": "natural-progression:damage_tools",
+    "ingredients": [
+        {
+            "item": "biomesoplenty:dead_log"
+        },
+        {
+            "tag": "natural-progression:saw"
+        }
+    ],
+    "result": {
+        "item": "biomesoplenty:stripped_dead_log",
+        "count": 1
+    }
+}

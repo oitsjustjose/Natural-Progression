@@ -1,0 +1,21 @@
+{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "biomesoplenty"
+        }
+    ],
+    "type": "natural-progression:damage_tools",
+    "ingredients": [
+        {
+            "item": "biomesoplenty:stripped_fir_wood"
+        },
+        {
+            "tag": "natural-progression:saw"
+        }
+    ],
+    "result": {
+        "item": "biomesoplenty:fir_planks",
+        "count": 4
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "biomesoplenty"
+        }
+    ],
+    "type": "natural-progression:damage_tools",
+    "ingredients": [
+        {
+            "item": "biomesoplenty:stripped_jacaranda_log"
+        },
+        {
+            "tag": "natural-progression:saw"
+        }
+    ],
+    "result": {
+        "item": "biomesoplenty:jacaranda_planks",
+        "count": 4
+    }
+}
