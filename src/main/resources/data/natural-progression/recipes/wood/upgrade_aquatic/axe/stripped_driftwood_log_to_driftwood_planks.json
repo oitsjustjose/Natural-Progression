@@ -11,11 +11,11 @@
             "item": "upgrade_aquatic:stripped_driftwood_log"
         },
         {
-            "tag": "natural-progression:saw"
+            "tag": "natural-progression:axe"
         }
     ],
     "result": {
         "item": "upgrade_aquatic:driftwood_planks",
-        "count": 4
+        "count": 1
     }
 }

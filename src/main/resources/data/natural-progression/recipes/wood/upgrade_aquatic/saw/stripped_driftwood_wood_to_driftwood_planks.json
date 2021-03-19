@@ -8,7 +8,7 @@
     "type": "natural-progression:damage_tools",
     "ingredients": [
         {
-            "item": "upgrade_aquatic:stripped_driftwood_log"
+            "item": "upgrade_aquatic:stripped_driftwood_wood"
         },
         {
             "tag": "natural-progression:saw"

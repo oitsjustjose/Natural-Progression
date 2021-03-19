@@ -2,20 +2,20 @@
     "conditions": [
         {
             "type": "forge:mod_loaded",
-            "modid": "upgrade_aquatic"
+            "modid": "environmental"
         }
     ],
     "type": "natural-progression:damage_tools",
     "ingredients": [
         {
-            "item": "upgrade_aquatic:stripped_driftwood_log"
+            "item": "environmental:cherry_wood"
         },
         {
             "tag": "natural-progression:saw"
         }
     ],
     "result": {
-        "item": "upgrade_aquatic:driftwood_planks",
-        "count": 4
+        "item": "environmental:stripped_cherry_wood",
+        "count": 1
     }
 }

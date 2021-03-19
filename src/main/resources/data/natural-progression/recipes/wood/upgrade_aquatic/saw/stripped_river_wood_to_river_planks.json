@@ -8,14 +8,14 @@
     "type": "natural-progression:damage_tools",
     "ingredients": [
         {
-            "item": "upgrade_aquatic:stripped_driftwood_log"
+            "item": "upgrade_aquatic:stripped_river_wood"
         },
         {
             "tag": "natural-progression:saw"
         }
     ],
     "result": {
-        "item": "upgrade_aquatic:driftwood_planks",
+        "item": "upgrade_aquatic:river_planks",
         "count": 4
     }
 }

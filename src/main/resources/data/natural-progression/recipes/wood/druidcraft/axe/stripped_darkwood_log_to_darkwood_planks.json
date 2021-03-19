@@ -2,20 +2,20 @@
     "conditions": [
         {
             "type": "forge:mod_loaded",
-            "modid": "upgrade_aquatic"
+            "modid": "druidcraft"
         }
     ],
     "type": "natural-progression:damage_tools",
     "ingredients": [
         {
-            "item": "upgrade_aquatic:stripped_driftwood_log"
+            "item": "druidcraft:stripped_darkwood_log"
         },
         {
-            "tag": "natural-progression:saw"
+            "tag": "natural-progression:axe"
         }
     ],
     "result": {
-        "item": "upgrade_aquatic:driftwood_planks",
-        "count": 4
+        "item": "druidcraft:darkwood_planks",
+        "count": 1
     }
 }

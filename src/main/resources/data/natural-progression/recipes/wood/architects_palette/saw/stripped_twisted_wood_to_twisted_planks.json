@@ -2,20 +2,20 @@
     "conditions": [
         {
             "type": "forge:mod_loaded",
-            "modid": "upgrade_aquatic"
+            "modid": "architects_palette"
         }
     ],
     "type": "natural-progression:damage_tools",
     "ingredients": [
         {
-            "item": "upgrade_aquatic:stripped_driftwood_log"
+            "item": "architects_palette:stripped_twisted_wood"
         },
         {
             "tag": "natural-progression:saw"
         }
     ],
     "result": {
-        "item": "upgrade_aquatic:driftwood_planks",
+        "item": "architects_palette:twisted_planks",
         "count": 4
     }
 }
