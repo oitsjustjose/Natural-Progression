@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "FFF"
+  ],
+  "key": {
+    "F": {
+      "tag": "forge:ingots/gold"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "natural-progression:golden_saw"
+  }
+}

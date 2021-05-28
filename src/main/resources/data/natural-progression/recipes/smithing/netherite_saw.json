@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "natural-progression:diamond_saw"
+  },
+  "addition": {
+    "tag": "forge:ingots/netherite"
+  },
+  "result": {
+    "item": "natural-progression:netherite_saw"
+  }
+}

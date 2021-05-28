@@ -41,6 +41,9 @@ public class NaturalProgressionItems {
     public static SawItem flintSaw;
     public static SawItem copperSaw;
     public static SawItem ironSaw;
+    public static SawItem goldSaw;
+    public static SawItem diamondSaw;
+    public static SawItem netheriteSaw;
     public static SawItem bronzeSaw;
     public static SawItem steelSaw;
 
@@ -70,6 +73,18 @@ public class NaturalProgressionItems {
         ironSaw = new SawItem(ItemTier.IRON);
         ironSaw.setRegistryName(new ResourceLocation(Constants.MODID, "improved_saw"));
         modItems.add(ironSaw);
+
+        goldSaw = new SawItem(ItemTier.GOLD);
+        goldSaw.setRegistryName(new ResourceLocation(Constants.MODID, "golden_saw"));
+        modItems.add(goldSaw);
+
+        diamondSaw = new SawItem(ItemTier.DIAMOND);
+        diamondSaw.setRegistryName(new ResourceLocation(Constants.MODID, "diamond_saw"));
+        modItems.add(diamondSaw);
+
+        netheriteSaw = new SawItem(ItemTier.NETHERITE, true);
+        netheriteSaw.setRegistryName(new ResourceLocation(Constants.MODID, "netherite_saw"));
+        modItems.add(netheriteSaw);
 
         copperSaw = new SawItem(copperTier);
         copperSaw.setRegistryName(new ResourceLocation(Constants.MODID, "copper_saw"));

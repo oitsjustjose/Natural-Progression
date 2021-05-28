@@ -12,4 +12,9 @@ public class SawItem extends AxeItem {
         super(tier, 1.8F, 0F, new Item.Properties().addToolType(ToolType.AXE, 0).maxStackSize(0)
                 .group(NaturalProgressionGroup.getInstance()));
     }
+
+    public SawItem(IItemTier tier, boolean isImmuneToFire) {
+        super(tier, 1.8F, 0F, new Item.Properties().addToolType(ToolType.AXE, 0).maxStackSize(0)
+                .group(NaturalProgressionGroup.getInstance()).isImmuneToFire());
+    }
 }
