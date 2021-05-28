@@ -2,26 +2,48 @@ package com.oitsjustjose.naturalprogression.common.items;
 
 import java.util.ArrayList;
 
+import javax.annotation.Nullable;
+
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
 
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
+import net.minecraft.item.Items;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.SwordItem;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 
 public class NaturalProgressionItems {
     private static ArrayList<Item> modItems = new ArrayList<>();
-    private static BoneItemTier boneTier = new BoneItemTier();
+
+    public static IItemTier flintTier = new DynamicItemTier().setMaxUses(16).setEfficiency(1.5F).setAttackDamage(1.0F)
+            .setHarvestLvl(0).setEnchantability(0).setRepairMats(Items.FLINT);
+    public static IItemTier boneTier = new DynamicItemTier().setMaxUses(128).setEfficiency(2.0F).setAttackDamage(2.0F)
+            .setHarvestLvl(1).setEnchantability(0).setRepairMats(Items.BONE);
+    public static IItemTier copperTier = new DynamicItemTier().setMaxUses(192).setEfficiency(1.65F)
+            .setAttackDamage(1.5F).setHarvestLvl(0).setEnchantability(0)
+            .setRepairMat(getTagOrNull("forge:ingots/copper"));
+    public static IItemTier bronzeTier = new DynamicItemTier().setMaxUses(442).setEfficiency(2.5F).setAttackDamage(2.5F)
+            .setHarvestLvl(2).setEnchantability(0).setRepairMat(getTagOrNull("forge:ingots/bronze"));
+    public static IItemTier steelTier = new DynamicItemTier().setMaxUses(914).setEfficiency(3.5F).setAttackDamage(3.5F)
+            .setHarvestLvl(3).setEnchantability(0).setRepairMat(getTagOrNull("forge:ingots/steel"));
 
     public static Item flintHatchet;
     public static Item bonePickaxe;
     public static Item boneKnife;
     public static Item boneShard;
-    public static Item basicSaw;
-    public static Item improvedSaw;
+
+    public static SawItem flintSaw;
+    public static SawItem copperSaw;
+    public static SawItem ironSaw;
+    public static SawItem bronzeSaw;
+    public static SawItem steelSaw;
 
     public static void registerItems(final RegistryEvent.Register<Item> itemRegistryEvent) {
         flintHatchet = new HatchetItem();
@@ -42,16 +64,37 @@ public class NaturalProgressionItems {
         boneShard.setRegistryName(new ResourceLocation(Constants.MODID, "bone_shard"));
         modItems.add(boneShard);
 
-        basicSaw = new SawItem(new FlintItemTier());
-        basicSaw.setRegistryName(new ResourceLocation(Constants.MODID, "basic_saw"));
-        modItems.add(basicSaw);
+        flintSaw = new SawItem(flintTier);
+        flintSaw.setRegistryName(new ResourceLocation(Constants.MODID, "basic_saw"));
+        modItems.add(flintSaw);
 
-        improvedSaw = new SawItem(ItemTier.IRON);
-        improvedSaw.setRegistryName(new ResourceLocation(Constants.MODID, "improved_saw"));
-        modItems.add(improvedSaw);
+        ironSaw = new SawItem(ItemTier.IRON);
+        ironSaw.setRegistryName(new ResourceLocation(Constants.MODID, "improved_saw"));
+        modItems.add(ironSaw);
+
+        copperSaw = new SawItem(copperTier);
+        copperSaw.setRegistryName(new ResourceLocation(Constants.MODID, "copper_saw"));
+        modItems.add(copperSaw);
+
+        bronzeSaw = new SawItem(bronzeTier);
+        bronzeSaw.setRegistryName(new ResourceLocation(Constants.MODID, "bronze_saw"));
+        modItems.add(bronzeSaw);
+
+        steelSaw = new SawItem(steelTier);
+        steelSaw.setRegistryName(new ResourceLocation(Constants.MODID, "steel_saw"));
+        modItems.add(steelSaw);
 
         for (Item item : modItems) {
             itemRegistryEvent.getRegistry().register(item);
         }
+    }
+
+    @Nullable
+    public static ITag<Item> getTagOrNull(String tagName) {
+        ResourceLocation resLoc = new ResourceLocation(tagName);
+        if (ItemTags.getCollection().getRegisteredTags().contains(resLoc)) {
+            return ItemTags.getCollection().get(resLoc);
+        }
+        return null;
     }
 }
