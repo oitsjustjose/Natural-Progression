@@ -16,7 +16,6 @@ import net.minecraft.item.SwordItem;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 
 public class NaturalProgressionItems {
