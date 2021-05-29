@@ -32,7 +32,7 @@ public class Utils {
                 return NaturalProgressionBlocks.blocksToPebbles.get(world.getBlockState(search.down(y)).getBlock());
             }
         }
-        return NaturalProgressionBlocks.stonePebble;
+        return NaturalProgressionBlocks.blocksToPebbles.get(Blocks.STONE);
     }
 
     /**

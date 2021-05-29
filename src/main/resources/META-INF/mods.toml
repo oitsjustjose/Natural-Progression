@@ -29,3 +29,17 @@ Support me on Patreon at https://patreon.com/oitsjustjose
     versionRange="[1.16,)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.natural-progression]]
+    modId="quark"
+    mandatory=false
+    versionRange="[0,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.natural-progression]]
+    modId="create"
+    mandatory=false
+    versionRange="[0,)"
+    ordering="AFTER"
+    side="BOTH"

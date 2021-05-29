@@ -1,8 +1,14 @@
 package com.oitsjustjose.naturalprogression.common.blocks;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
+
+import com.oitsjustjose.naturalprogression.NaturalProgression;
 import com.oitsjustjose.naturalprogression.common.items.PebbleItem;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 import com.oitsjustjose.naturalprogression.common.utils.NaturalProgressionGroup;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
@@ -10,95 +16,87 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class NaturalProgressionBlocks {
+    public static HashMap<Block, Block> blocksToPebbles = new HashMap<>();
     private static ArrayList<Block> modBlocks = new ArrayList<>();
-
-    public static Block stonePebble;
-    public static Block andesitePebble;
-    public static Block dioritePebble;
-    public static Block granitePebble;
-    public static Block sandstonePebble;
-    public static Block redSandstonePebble;
 
     public static Block twigs;
 
-    public static Block cobbledAndesite;
-    public static Block cobbledDiorite;
-    public static Block cobbledGranite;
-    public static Block cobbledSandstone;
-    public static Block cobbledRedSandstone;
+    private static void registerPebble(String modid, String path) {
+        ResourceLocation rl = new ResourceLocation(modid, path);
+        ResourceLocation pebbleRl = new ResourceLocation(Constants.MODID,
+                (modid.toLowerCase() == "minecraft" ? "" : (modid + "_")) + path + "_pebble");
+        Block b = ForgeRegistries.BLOCKS.getValue(rl);
 
-    public static HashMap<Block, Block> blocksToPebbles = new HashMap<>();
+        if (b != null && b != Blocks.AIR) {
+            Block pebble = new PebbleBlock().setRegistryName(pebbleRl);
+            modBlocks.add(pebble);
+            blocksToPebbles.put(b, pebble);
+        } else {
+            NaturalProgression.getInstance().LOGGER.warn("{}:{} could not be found. No pebble will be created", modid,
+                    path);
+        }
+    }
+
+    private static void registerCobble(String modid, String path) {
+        Block.Properties cobbleProps = Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 6.0F);
+        ResourceLocation rl = new ResourceLocation(modid, path);
+        // Make it such that if there are two limestones, both can be registered.
+        ResourceLocation cobbleRl = new ResourceLocation(Constants.MODID,
+                (modid.toLowerCase() == "minecraft" ? "" : (modid + "_")) + "cobbled_" + path);
+        Block b = ForgeRegistries.BLOCKS.getValue(rl);
+
+        if (b != null && b != Blocks.AIR) {
+            Block cobble = new Block(cobbleProps).setRegistryName(cobbleRl);
+            modBlocks.add(cobble);
+        } else {
+            NaturalProgression.getInstance().LOGGER.warn("{}:{} could not be found. No cobble will be created", modid,
+                    path);
+        }
+    }
 
     public static void registerBlocks(final RegistryEvent.Register<Block> blockRegistryEvent) {
-        stonePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "stone_pebble"));
-        blockRegistryEvent.getRegistry().register(stonePebble);
-        modBlocks.add(stonePebble);
+        /* ------------ PEBBLES ------------ */
+        registerPebble("minecraft", "stone");
+        registerPebble("minecraft", "andesite");
+        registerPebble("minecraft", "diorite");
+        registerPebble("minecraft", "granite");
+        registerPebble("minecraft", "sandstone");
+        registerPebble("minecraft", "red_sandstone");
 
-        andesitePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "andesite_pebble"));
-        blockRegistryEvent.getRegistry().register(andesitePebble);
-        modBlocks.add(andesitePebble);
-        blocksToPebbles.put(Blocks.ANDESITE, andesitePebble);
+        /* Quark Stones (NO cobble needed) */
+        registerPebble("quark", "marble");
+        registerPebble("quark", "limestone");
+        registerPebble("quark", "jasper");
+        registerPebble("quark", 
+        "slate");
+        registerPebble("quark", "basalt");
 
-        dioritePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "diorite_pebble"));
-        blockRegistryEvent.getRegistry().register(dioritePebble);
-        modBlocks.add(dioritePebble);
-        blocksToPebbles.put(Blocks.DIORITE, dioritePebble);
+        /* Create Stones (NO cobble needed) */
+        registerPebble("create", "limestone");
+        registerPebble("create", "weathered_limestone");
+        registerPebble("create", "dolomite");
+        registerPebble("create", "gabbro");
+        registerPebble("create", "scoria");
+        registerPebble("create", "dark_scoria");
 
-        granitePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "granite_pebble"));
-        blockRegistryEvent.getRegistry().register(granitePebble);
-        modBlocks.add(granitePebble);
-        blocksToPebbles.put(Blocks.GRANITE, granitePebble);
-
-        sandstonePebble = new PebbleBlock().setRegistryName(new ResourceLocation(Constants.MODID, "sandstone_pebble"));
-        blockRegistryEvent.getRegistry().register(sandstonePebble);
-        modBlocks.add(sandstonePebble);
-        blocksToPebbles.put(Blocks.SANDSTONE, sandstonePebble);
-        blocksToPebbles.put(Blocks.SAND, sandstonePebble);
-
-        redSandstonePebble = new PebbleBlock()
-                .setRegistryName(new ResourceLocation(Constants.MODID, "red_sandstone_pebble"));
-        blockRegistryEvent.getRegistry().register(redSandstonePebble);
-        modBlocks.add(redSandstonePebble);
-        blocksToPebbles.put(Blocks.RED_SANDSTONE, redSandstonePebble);
-        blocksToPebbles.put(Blocks.RED_SAND, redSandstonePebble);
+        /* ------------ COBBLES ------------ */
+        registerCobble("minecraft", "andesite");
+        registerCobble("minecraft", "diorite");
+        registerCobble("minecraft", "granite");
+        registerCobble("minecraft", "sandstone");
+        registerCobble("minecraft", "red_sandstone");
 
         // Don't add to mod blocks -- we don't want a BlockItem for this, we just want
         // sticks.
         twigs = new TwigBlock().setRegistryName(new ResourceLocation(Constants.MODID, "twigs"));
         blockRegistryEvent.getRegistry().register(twigs);
 
-        Block.Properties cobbleProps = Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 6.0F);
-
-        cobbledAndesite = new Block(cobbleProps)
-                .setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_andesite"));
-        blockRegistryEvent.getRegistry().register(cobbledAndesite);
-        modBlocks.add(cobbledAndesite);
-
-        cobbledDiorite = new Block(cobbleProps)
-                .setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_diorite"));
-        blockRegistryEvent.getRegistry().register(cobbledDiorite);
-        modBlocks.add(cobbledDiorite);
-
-        cobbledGranite = new Block(cobbleProps)
-                .setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_granite"));
-        blockRegistryEvent.getRegistry().register(cobbledGranite);
-        modBlocks.add(cobbledGranite);
-
-        cobbledSandstone = new Block(cobbleProps)
-                .setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_sandstone"));
-        blockRegistryEvent.getRegistry().register(cobbledSandstone);
-        modBlocks.add(cobbledSandstone);
-
-        cobbledRedSandstone = new Block(cobbleProps)
-                .setRegistryName(new ResourceLocation(Constants.MODID, "cobbled_red_sandstone"));
-        blockRegistryEvent.getRegistry().register(cobbledRedSandstone);
-        modBlocks.add(cobbledRedSandstone);
+        for (Block b : modBlocks) {
+            blockRegistryEvent.getRegistry().register(b);
+        }
     }
 
     public static void registerBlockItems(final RegistryEvent.Register<Item> itemRegistryEvent) {

@@ -27,3 +27,7 @@ gradle-app.setting
 src/main/resources/assets/base/models/item/wrench.json
 .idea
 .vscode/**
+
+# Ignore python pycache, outputs
+scripts/pebble_compat/out
+scripts/pebble_compat/**/__pycache__
