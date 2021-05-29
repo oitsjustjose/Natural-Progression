@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "endergetic"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "endergetic:poise_wood_stripped"
-        },
-        {
-            "tag": "natural-progression:saw"
-        }
-    ],
-    "result": {
-        "item": "endergetic:poise_planks",
-        "count": 4
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "endergetic"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "endergetic:poise_wood_stripped"
+    },
+    {
+      "tag": "natural-progression:saw"
+    }
+  ],
+  "result": {
+    "item": "endergetic:poise_planks",
+    "count": 4
+  }
 }

@@ -1,1 +1,7 @@
-{"variants": {"": {"model": "natural-progression:block/create_gabbro_pebble"}}}
+{
+  "variants": {
+    "": {
+      "model": "natural-progression:block/create_gabbro_pebble"
+    }
+  }
+}

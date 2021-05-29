@@ -1,1 +1,7 @@
-{"variants": {"": {"model": "natural-progression:block/quark_slate_pebble"}}}
+{
+  "variants": {
+    "": {
+      "model": "natural-progression:block/quark_slate_pebble"
+    }
+  }
+}

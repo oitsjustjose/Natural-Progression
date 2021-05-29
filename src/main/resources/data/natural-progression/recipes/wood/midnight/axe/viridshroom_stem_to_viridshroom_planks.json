@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "midnight"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "midnight:viridshroom_stem"
-        },
-        {
-            "tag": "natural-progression:axe"
-        }
-    ],
-    "result": {
-        "item": "midnight:viridshroom_planks",
-        "count": 1
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "midnight"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "midnight:viridshroom_stem"
+    },
+    {
+      "tag": "natural-progression:axe"
+    }
+  ],
+  "result": {
+    "item": "midnight:viridshroom_planks",
+    "count": 1
+  }
 }

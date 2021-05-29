@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "bloomful"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "bloomful:stripped_wisteria_log"
-        },
-        {
-            "tag": "natural-progression:axe"
-        }
-    ],
-    "result": {
-        "item": "bloomful:wisteria_planks",
-        "count": 1
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "bloomful"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "bloomful:stripped_wisteria_log"
+    },
+    {
+      "tag": "natural-progression:axe"
+    }
+  ],
+  "result": {
+    "item": "bloomful:wisteria_planks",
+    "count": 1
+  }
 }

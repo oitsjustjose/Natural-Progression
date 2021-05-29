@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "endergetic"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "endergetic:poise_stem"
-        },
-        {
-            "tag": "natural-progression:saw"
-        }
-    ],
-    "result": {
-        "item": "endergetic:poise_stem_stripped",
-        "count": 1
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "endergetic"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "endergetic:poise_stem"
+    },
+    {
+      "tag": "natural-progression:saw"
+    }
+  ],
+  "result": {
+    "item": "endergetic:poise_stem_stripped",
+    "count": 1
+  }
 }

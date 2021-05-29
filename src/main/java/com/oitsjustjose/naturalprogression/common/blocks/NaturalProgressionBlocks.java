@@ -70,8 +70,7 @@ public class NaturalProgressionBlocks {
         registerPebble("quark", "marble");
         registerPebble("quark", "limestone");
         registerPebble("quark", "jasper");
-        registerPebble("quark", 
-        "slate");
+        registerPebble("quark", "slate");
         registerPebble("quark", "basalt");
 
         /* Create Stones (NO cobble needed) */

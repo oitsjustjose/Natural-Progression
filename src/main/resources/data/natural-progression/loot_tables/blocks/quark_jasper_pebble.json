@@ -1,1 +1,19 @@
-{"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "natural-progression:quark_jasper_pebble"}], "conditions": [{"condition": "minecraft:survives_explosion"}]}]}
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "natural-progression:quark_jasper_pebble"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

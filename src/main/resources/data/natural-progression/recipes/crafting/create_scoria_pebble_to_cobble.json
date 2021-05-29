@@ -1,1 +1,15 @@
-{"type": "minecraft:crafting_shaped", "pattern": ["PP", "PP"], "key": {"P": {"item": "natural-progression:create_scoria_pebble"}}, "result": {"item": "create:scoria_cobblestone"}}
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PP",
+    "PP"
+  ],
+  "key": {
+    "P": {
+      "item": "natural-progression:create_scoria_pebble"
+    }
+  },
+  "result": {
+    "item": "create:scoria_cobblestone"
+  }
+}

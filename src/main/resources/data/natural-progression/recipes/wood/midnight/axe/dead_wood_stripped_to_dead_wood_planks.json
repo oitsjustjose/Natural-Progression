@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "midnight"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "midnight:dead_wood_stripped"
-        },
-        {
-            "tag": "natural-progression:axe"
-        }
-    ],
-    "result": {
-        "item": "midnight:dead_wood_planks",
-        "count": 1
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "midnight"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "midnight:dead_wood_stripped"
+    },
+    {
+      "tag": "natural-progression:axe"
+    }
+  ],
+  "result": {
+    "item": "midnight:dead_wood_planks",
+    "count": 1
+  }
 }

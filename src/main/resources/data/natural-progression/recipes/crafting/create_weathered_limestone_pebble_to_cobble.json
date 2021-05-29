@@ -1,1 +1,15 @@
-{"type": "minecraft:crafting_shaped", "pattern": ["PP", "PP"], "key": {"P": {"item": "natural-progression:create_weathered_limestone_pebble"}}, "result": {"item": "create:weathered_limestone_cobblestone"}}
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PP",
+    "PP"
+  ],
+  "key": {
+    "P": {
+      "item": "natural-progression:create_weathered_limestone_pebble"
+    }
+  },
+  "result": {
+    "item": "create:weathered_limestone_cobblestone"
+  }
+}

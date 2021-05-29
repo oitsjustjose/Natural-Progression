@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "byg"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "byg:stripped_cika_wood"
-        },
-        {
-            "tag": "natural-progression:saw"
-        }
-    ],
-    "result": {
-        "item": "byg:cika_planks",
-        "count": 4
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "byg"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "byg:stripped_cika_wood"
+    },
+    {
+      "tag": "natural-progression:saw"
+    }
+  ],
+  "result": {
+    "item": "byg:cika_planks",
+    "count": 4
+  }
 }

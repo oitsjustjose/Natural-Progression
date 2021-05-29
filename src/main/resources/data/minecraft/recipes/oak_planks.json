@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "minecraft"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "minecraft:stripped_oak_log"
-        },
-        {
-            "tag": "natural-progression:saw"
-        }
-    ],
-    "result": {
-        "item": "minecraft:oak_planks",
-        "count": 4
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "minecraft"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "minecraft:stripped_oak_log"
+    },
+    {
+      "tag": "natural-progression:saw"
+    }
+  ],
+  "result": {
+    "item": "minecraft:oak_planks",
+    "count": 4
+  }
 }

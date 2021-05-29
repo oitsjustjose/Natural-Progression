@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "traverse"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "traverse:stripped_fir_log"
-        },
-        {
-            "tag": "natural-progression:saw"
-        }
-    ],
-    "result": {
-        "item": "traverse:fir_planks",
-        "count": 4
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "traverse"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "traverse:stripped_fir_log"
+    },
+    {
+      "tag": "natural-progression:saw"
+    }
+  ],
+  "result": {
+    "item": "traverse:fir_planks",
+    "count": 4
+  }
 }
