@@ -6,10 +6,10 @@
   ],
   "key": {
     "P": {
-      "item": "natural-progression:quark_voidstone_pebble"
+      "item": "natural-progression:quark_basalt_pebble"
     }
   },
   "result": {
-    "item": "quark:voidstone"
+    "item": "quark:basalt"
   }
 }
