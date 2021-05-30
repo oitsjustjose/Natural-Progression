@@ -6,7 +6,7 @@ from common.pebble_drops import PebbleDropGenerator
 from common.pebble_recipes import PebbleRecipeGenerator
 
 quark_stones = ModStones(
-    "quark", ["marble", "limestone", "jasper", "slate", "voidstone"]
+    "quark", ["marble", "limestone", "jasper", "slate", "basalt"]
 )
 quark_pag = PebbleAssetGenerator(quark_stones)
 quark_pdg = PebbleDropGenerator(quark_stones)
