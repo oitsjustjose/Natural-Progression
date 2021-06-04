@@ -13,6 +13,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
@@ -75,20 +77,55 @@ public class Utils {
         Random random = new Random();
         int blockPosX = (chunkPos.x << 4) + random.nextInt(16);
         int blockPosZ = (chunkPos.z << 4) + random.nextInt(16);
-        BlockPos searchPos = new BlockPos(blockPosX, world.getHeight(), blockPosZ);
 
-        for (int i = 0; i < searchPos.getY(); i++) {
-            BlockState stateAtPos = world.getBlockState(searchPos.down(i));
-            BlockState stateBelow = world.getBlockState(searchPos.down(i + 1));
+        BlockPos searchPosUp = new BlockPos(blockPosX, world.getSeaLevel(), blockPosZ);
+        BlockPos searchPosDown = new BlockPos(blockPosX, world.getSeaLevel(), blockPosZ);
 
-            if (canReplace(stateAtPos, world, searchPos)) {
-                if (stateBelow.isSolid() && stateBelow.getMaterial().blocksMovement()) {
-                    return searchPos.down(i);
+        // Try to get something _above_ sea level first
+        while (searchPosUp.getY() < world.getHeight()) {
+            if (Block.hasEnoughSolidSide(world, searchPosUp.down(), Direction.UP)) {
+                if (canReplace(world, searchPosUp) && canReplace(world, searchPosUp.up())
+                        && canPlaceOn(world, searchPosUp)) {
+                    return searchPosUp;
                 }
             }
+            searchPosUp = searchPosUp.up();
+        }
+
+        // If all else fails try something below sea level..
+        while (searchPosDown.getY() > 0) {
+            if (Block.hasEnoughSolidSide(world, searchPosDown.down(), Direction.UP)) {
+                if (canReplace(world, searchPosDown) && canReplace(world, searchPosDown.up())
+                        && canPlaceOn(world, searchPosDown)) {
+                    return searchPosDown;
+                }
+            }
+            searchPosDown = searchPosDown.down();
         }
 
         return null;
+    }
+
+    /**
+     * Determines if the sample can be placed on this block
+     * 
+     * @param world: an IWorld instance
+     * @param pos:   The current searching position that will be used to confirm
+     * @return true if the block below is solid on top AND isn't in the blacklist
+     */
+    public static boolean canPlaceOn(IWorld world, BlockPos pos) {
+        return Block.hasEnoughSolidSide(world, pos.down(), Direction.UP);
+    }
+
+    /**
+     * @param world an IWorld instance
+     * @param pos   A BlockPos to check in and around
+     * @return true if the block at pos is replaceable
+     */
+    public static boolean canReplace(IWorld world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        Material mat = state.getMaterial();
+        return BlockTags.LEAVES.contains(state.getBlock()) || mat.isReplaceable();
     }
 
     public static String dimensionToString(IWorld world) {
