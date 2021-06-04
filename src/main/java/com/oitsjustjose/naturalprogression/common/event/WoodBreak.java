@@ -11,6 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -23,6 +24,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class WoodBreak {
     final SplinterSource splinterSource = new SplinterSource();
     final ResourceLocation OVERRIDE_RL = new ResourceLocation(Constants.MODID, "override_axes");
+    final ResourceLocation IGNORE_BLOCKS_RL = new ResourceLocation(Constants.MODID, "ignored_wood_blocks");
 
     @SubscribeEvent
     public void registerEvent(PlayerEvent.BreakSpeed event) {
@@ -39,6 +41,11 @@ public class WoodBreak {
 
         if (ItemTags.getCollection().get(OVERRIDE_RL) != null
                 && ItemTags.getCollection().get(OVERRIDE_RL).contains(heldItem.getItem())) {
+            return;
+        }
+
+        if (BlockTags.getCollection().get(IGNORE_BLOCKS_RL) != null
+                && BlockTags.getCollection().get(IGNORE_BLOCKS_RL).contains(event.getState().getBlock())) {
             return;
         }
 

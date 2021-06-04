@@ -14,6 +14,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -25,6 +26,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class StoneBreak {
     final ResourceLocation OVERRIDE_RL = new ResourceLocation(Constants.MODID, "override_pickaxes");
+    final ResourceLocation IGNORE_BLOCKS_RL = new ResourceLocation(Constants.MODID, "ignored_stone_blocks");
 
     @SubscribeEvent
     public void registerEvent(PlayerEvent.BreakSpeed event) {
@@ -44,6 +46,11 @@ public class StoneBreak {
 
         if (ItemTags.getCollection().get(OVERRIDE_RL) != null
                 && ItemTags.getCollection().get(OVERRIDE_RL).contains(heldItem.getItem())) {
+            return;
+        }
+
+        if (BlockTags.getCollection().get(IGNORE_BLOCKS_RL) != null
+                && BlockTags.getCollection().get(IGNORE_BLOCKS_RL).contains(event.getState().getBlock())) {
             return;
         }
 
