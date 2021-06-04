@@ -1,0 +1,21 @@
+{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "betterendforge"
+        }
+    ],
+    "type": "natural-progression:damage_tools",
+    "ingredients": [
+        {
+            "item": "betterendforge:stripped_lucernia_wood"
+        },
+        {
+            "tag": "natural-progression:axe"
+        }
+    ],
+    "result": {
+        "item": "betterendforge:lucernia_planks",
+        "count": 1
+    }
+}
