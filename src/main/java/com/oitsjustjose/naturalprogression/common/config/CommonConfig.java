@@ -86,7 +86,8 @@ public class CommonConfig {
                 .define("showToolHelp", true);
         DIMENSION_WHITELIST = COMMON_BUILDER
                 .comment("A string of dimensions in which pebbles should spawn. See the defaults for the format.")
-                .defineList("dimensionWhitelist", Lists.newArrayList("minecraft:overworld"),
+                .defineList("dimensionWhitelist",
+                        Lists.newArrayList("minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"),
                         (itemRaw) -> itemRaw instanceof String);
         COMMON_BUILDER.pop();
     }

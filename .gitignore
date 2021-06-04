@@ -31,3 +31,5 @@ src/main/resources/assets/base/models/item/wrench.json
 # Ignore python pycache, outputs
 scripts/pebble_compat/out
 scripts/pebble_compat/**/__pycache__
+logs/debug.log
+logs/latest.log

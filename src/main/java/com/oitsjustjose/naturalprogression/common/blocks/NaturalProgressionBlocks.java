@@ -41,12 +41,14 @@ public class NaturalProgressionBlocks {
     }
 
     private static void registerCobble(String modid, String path) {
-        Block.Properties cobbleProps = Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 6.0F);
         ResourceLocation rl = new ResourceLocation(modid, path);
         // Make it such that if there are two limestones, both can be registered.
         ResourceLocation cobbleRl = new ResourceLocation(Constants.MODID,
                 (modid.toLowerCase() == "minecraft" ? "" : (modid + "_")) + "cobbled_" + path);
         Block b = ForgeRegistries.BLOCKS.getValue(rl);
+
+        Block.Properties cobbleProps = Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 6.0F)
+                .sound(b.getDefaultState().getSoundType());
 
         if (b != null && b != Blocks.AIR) {
             Block cobble = new Block(cobbleProps).setRegistryName(cobbleRl);
@@ -65,6 +67,9 @@ public class NaturalProgressionBlocks {
         registerPebble("minecraft", "granite");
         registerPebble("minecraft", "sandstone");
         registerPebble("minecraft", "red_sandstone");
+
+        registerPebble("minecraft", "netherrack");
+        registerPebble("minecraft", "end_stone");
 
         /* Quark Stones (NO cobble needed) */
         registerPebble("quark", "marble");
@@ -87,6 +92,8 @@ public class NaturalProgressionBlocks {
         registerCobble("minecraft", "granite");
         registerCobble("minecraft", "sandstone");
         registerCobble("minecraft", "red_sandstone");
+        registerCobble("minecraft", "netherrack");
+        registerCobble("minecraft", "end_stone");
 
         // Don't add to mod blocks -- we don't want a BlockItem for this, we just want
         // sticks.
