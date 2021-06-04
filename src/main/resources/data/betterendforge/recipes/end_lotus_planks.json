@@ -8,7 +8,7 @@
     "type": "natural-progression:damage_tools",
     "ingredients": [
         {
-            "item": "betterendforge:stripped_end_lotus_log"
+            "item": "betterendforge:end_lotus_stripped_log"
         },
         {
             "tag": "natural-progression:saw"

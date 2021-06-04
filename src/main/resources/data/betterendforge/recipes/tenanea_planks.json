@@ -8,7 +8,7 @@
     "type": "natural-progression:damage_tools",
     "ingredients": [
         {
-            "item": "betterendforge:stripped_tenanea_log"
+            "item": "betterendforge:tenanea_stripped_log"
         },
         {
             "tag": "natural-progression:saw"

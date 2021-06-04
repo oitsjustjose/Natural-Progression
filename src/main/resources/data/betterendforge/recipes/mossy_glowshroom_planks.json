@@ -8,7 +8,7 @@
     "type": "natural-progression:damage_tools",
     "ingredients": [
         {
-            "item": "betterendforge:stripped_mossy_glowshroom_log"
+            "item": "betterendforge:mossy_glowshroom_stripped_log"
         },
         {
             "tag": "natural-progression:saw"

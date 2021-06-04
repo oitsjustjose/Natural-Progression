@@ -8,14 +8,14 @@
     "type": "natural-progression:damage_tools",
     "ingredients": [
         {
-            "item": "betterendforge:helix_tree_stripped_log"
+            "item": "betterendforge:umbrella_tree_stripped_bark"
         },
         {
             "tag": "natural-progression:saw"
         }
     ],
     "result": {
-        "item": "betterendforge:helix_tree_planks",
+        "item": "betterendforge:umbrella_tree_planks",
         "count": 4
     }
 }

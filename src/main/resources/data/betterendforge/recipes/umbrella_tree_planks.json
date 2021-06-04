@@ -8,7 +8,7 @@
     "type": "natural-progression:damage_tools",
     "ingredients": [
         {
-            "item": "betterendforge:stripped_umbrella_tree_log"
+            "item": "betterendforge:umbrella_tree_stripped_log"
         },
         {
             "tag": "natural-progression:saw"

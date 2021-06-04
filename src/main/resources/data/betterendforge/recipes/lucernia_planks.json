@@ -8,7 +8,7 @@
     "type": "natural-progression:damage_tools",
     "ingredients": [
         {
-            "item": "betterendforge:stripped_lucernia_log"
+            "item": "betterendforge:lucernia_stripped_log"
         },
         {
             "tag": "natural-progression:saw"

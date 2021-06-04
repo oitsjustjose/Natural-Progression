@@ -11,11 +11,11 @@
             "item": "betterendforge:helix_tree_stripped_log"
         },
         {
-            "tag": "natural-progression:saw"
+            "tag": "natural-progression:axe"
         }
     ],
     "result": {
         "item": "betterendforge:helix_tree_planks",
-        "count": 4
+        "count": 1
     }
 }
