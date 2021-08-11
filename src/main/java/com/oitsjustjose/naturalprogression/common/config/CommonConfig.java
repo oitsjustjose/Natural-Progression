@@ -44,9 +44,11 @@ public class CommonConfig {
         String CATEGORY_GENERAL = "general";
         COMMON_BUILDER.comment("Miscellaneous").push(CATEGORY_GENERAL);
 
-        MAX_PEBBLES_PER_CHUNK = COMMON_BUILDER.comment("The maximum number of pebbles that can be found in each chunk")
+        MAX_PEBBLES_PER_CHUNK = COMMON_BUILDER
+                .comment("The maximum number of pebbles that can be found in each chunk")
                 .defineInRange("maxPebblesPerChunk", 5, 0, 256);
-        MAX_TWIGS_PER_CHUNK = COMMON_BUILDER.comment("The maximum number of twigs that can be found in each chunk")
+        MAX_TWIGS_PER_CHUNK = COMMON_BUILDER
+                .comment("The maximum number of twigs that can be found in each chunk")
                 .defineInRange("maxTwigsPerChunk", 3, 0, 256);
         REMOVE_WOODEN_TOOL_RECIPES = COMMON_BUILDER.comment(
                 "Setting this to true prevents the ability to craft wooden tools. This is totally unrealistic anyways.")
@@ -75,19 +77,22 @@ public class CommonConfig {
                 .comment("The NEW (as of version 1.2.2) way to add bone drops to an entity.\n"
                         + "Find this name by typing '/summon' in game, and hit TAB.")
                 .defineList("boneDropEntities",
-                        Lists.newArrayList(new String[] { "minecraft:bat", "minecraft:cat", "minecraft:chicken",
-                                "minecraft:cow", "minecraft:donkey", "minecraft:fox", "minecraft:horse",
-                                "minecraft:llama", "minecraft:mooshroom", "minecraft:mule", "minecraft:ocelot",
-                                "minecraft:panda", "minecraft:parrot", "minecraft:pig", "minecraft:polar_bear",
-                                "minecraft:rabbit", "minecraft:sheep", "minecraft:trader_llama", "minecraft:wolf" }),
+                        Lists.newArrayList(new String[] {"minecraft:bat", "minecraft:cat",
+                                "minecraft:chicken", "minecraft:cow", "minecraft:donkey",
+                                "minecraft:fox", "minecraft:horse", "minecraft:llama",
+                                "minecraft:mooshroom", "minecraft:mule", "minecraft:ocelot",
+                                "minecraft:panda", "minecraft:parrot", "minecraft:pig",
+                                "minecraft:polar_bear", "minecraft:rabbit", "minecraft:sheep",
+                                "minecraft:trader_llama", "minecraft:wolf"}),
                         (itemRaw) -> itemRaw instanceof String);
         SHOW_BREAKING_HELP = COMMON_BUILDER.comment(
                 "Setting this to true will let players know that they can't break certain blocks without a certain tool")
                 .define("showToolHelp", true);
-        DIMENSION_WHITELIST = COMMON_BUILDER
-                .comment("A string of dimensions in which pebbles should spawn. See the defaults for the format.")
-                .defineList("dimensionWhitelist",
-                        Lists.newArrayList("minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"),
+        DIMENSION_WHITELIST = COMMON_BUILDER.comment(
+                "A string of dimensions in which pebbles should spawn. See the defaults for the format.")
+                .defineList(
+                        "dimensionWhitelist", Lists.newArrayList("minecraft:overworld",
+                                "minecraft:the_nether", "minecraft:the_end"),
                         (itemRaw) -> itemRaw instanceof String);
         COMMON_BUILDER.pop();
     }

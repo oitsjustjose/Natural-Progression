@@ -27,9 +27,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "get_bone"
-    ]
-  ]
+  "requirements": [["get_bone"]]
 }

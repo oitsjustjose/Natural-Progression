@@ -19,7 +19,8 @@ public class DynamicItemTier implements IItemTier {
     private int enchantability;
     private Ingredient repairMat;
 
-    public DynamicItemTier(int maxUses, float eff, float dmg, int harv, int ench, Ingredient repairMat) {
+    public DynamicItemTier(int maxUses, float eff, float dmg, int harv, int ench,
+            Ingredient repairMat) {
         this.maxUses = maxUses;
         this.efficiency = eff;
         this.attackDamage = dmg;
@@ -28,7 +29,8 @@ public class DynamicItemTier implements IItemTier {
         this.repairMat = repairMat;
     }
 
-    public DynamicItemTier(int maxUses, float eff, float dmg, int harv, int ench, ITag<Item> repairMatTag) {
+    public DynamicItemTier(int maxUses, float eff, float dmg, int harv, int ench,
+            ITag<Item> repairMatTag) {
         this.maxUses = maxUses;
         this.efficiency = eff;
         this.attackDamage = dmg;

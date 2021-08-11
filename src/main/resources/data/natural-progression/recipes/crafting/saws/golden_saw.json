@@ -1,9 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SSS",
-    "FFF"
-  ],
+  "pattern": ["SSS", "FFF"],
   "key": {
     "F": {
       "tag": "forge:ingots/gold"

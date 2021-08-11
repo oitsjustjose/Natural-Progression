@@ -27,9 +27,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "get_bone_shard"
-    ]
-  ]
+  "requirements": [["get_bone_shard"]]
 }

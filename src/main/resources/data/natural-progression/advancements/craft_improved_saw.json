@@ -27,9 +27,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "get_improved_saw"
-    ]
-  ]
+  "requirements": [["get_improved_saw"]]
 }

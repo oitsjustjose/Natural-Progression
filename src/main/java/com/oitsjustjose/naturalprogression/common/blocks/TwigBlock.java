@@ -36,14 +36,15 @@ public class TwigBlock extends Block implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public TwigBlock() {
-        super(Properties.create(Material.EARTH, MaterialColor.BROWN).hardnessAndResistance(0.125F, 2F)
-                .sound(SoundType.WOOD).doesNotBlockMovement().notSolid());
+        super(Properties.create(Material.EARTH, MaterialColor.BROWN)
+                .hardnessAndResistance(0.125F, 2F).sound(SoundType.WOOD).doesNotBlockMovement()
+                .notSolid());
         this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.FALSE));
     }
 
     @Override
-    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos,
-            PlayerEntity player) {
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world,
+            BlockPos pos, PlayerEntity player) {
         return new ItemStack(Items.STICK);
 
     }
@@ -58,14 +59,16 @@ public class TwigBlock extends Block implements IWaterLoggable {
 
     @Override
     @Nonnull
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos,
+            ISelectionContext context) {
         Vector3d offset = state.getOffset(worldIn, pos);
-        return VoxelShapes.create(0.2D, 0.0D, 0.2D, 0.75D, 0.01D, 0.75D).withOffset(offset.x, offset.y, offset.z);
+        return VoxelShapes.create(0.2D, 0.0D, 0.2D, 0.75D, 0.01D, 0.75D).withOffset(offset.x,
+                offset.y, offset.z);
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-            Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos,
+            PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (!player.isCrouching()) {
             worldIn.destroyBlock(pos, true);
             player.swingArm(handIn);
@@ -94,20 +97,22 @@ public class TwigBlock extends Block implements IWaterLoggable {
     @Nonnull
     @SuppressWarnings("deprecation")
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false)
+                : super.getFluidState(state);
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-            boolean isMoving) {
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn,
+            BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
         if (!this.isValidPosition(state, worldIn, pos)) {
             worldIn.destroyBlock(pos, true);
         }
         // Update the water from flowing to still or vice-versa
         else if (state.get(WATERLOGGED)) {
-            worldIn.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+            worldIn.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER,
+                    Fluids.WATER.getTickRate(worldIn));
         }
     }
 

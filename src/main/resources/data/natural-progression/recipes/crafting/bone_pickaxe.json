@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "B",
-    "S",
-    "S"
-  ],
+  "pattern": ["B", "S", "S"],
   "key": {
     "B": {
       "item": "natural-progression:bone_shard"

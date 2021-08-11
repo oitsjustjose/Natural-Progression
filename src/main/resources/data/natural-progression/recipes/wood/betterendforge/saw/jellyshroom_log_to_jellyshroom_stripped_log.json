@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "betterendforge"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "betterendforge:jellyshroom_log"
-        },
-        {
-            "tag": "natural-progression:saw"
-        }
-    ],
-    "result": {
-        "item": "betterendforge:jellyshroom_stripped_log",
-        "count": 1
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "betterendforge"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "betterendforge:jellyshroom_log"
+    },
+    {
+      "tag": "natural-progression:saw"
+    }
+  ],
+  "result": {
+    "item": "betterendforge:jellyshroom_stripped_log",
+    "count": 1
+  }
 }

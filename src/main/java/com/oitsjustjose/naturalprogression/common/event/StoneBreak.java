@@ -26,13 +26,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class StoneBreak {
     final ResourceLocation OVERRIDE_RL = new ResourceLocation(Constants.MODID, "override_pickaxes");
-    final ResourceLocation IGNORE_BLOCKS_RL = new ResourceLocation(Constants.MODID, "ignored_stone_blocks");
+    final ResourceLocation IGNORE_BLOCKS_RL =
+            new ResourceLocation(Constants.MODID, "ignored_stone_blocks");
 
     @SubscribeEvent
     public void registerEvent(PlayerEvent.BreakSpeed event) {
         final BrokenHandSource brokenHandSource = new BrokenHandSource();
-        final List<Material> hardMaterials = Lists.asList(Material.ROCK,
-                new Material[] { Material.IRON, Material.ANVIL });
+        final List<Material> hardMaterials =
+                Lists.asList(Material.ROCK, new Material[] {Material.IRON, Material.ANVIL});
 
         if (event.getState() == null || event.getPlayer() == null) {
             return;
@@ -49,8 +50,8 @@ public class StoneBreak {
             return;
         }
 
-        if (BlockTags.getCollection().get(IGNORE_BLOCKS_RL) != null
-                && BlockTags.getCollection().get(IGNORE_BLOCKS_RL).contains(event.getState().getBlock())) {
+        if (BlockTags.getCollection().get(IGNORE_BLOCKS_RL) != null && BlockTags.getCollection()
+                .get(IGNORE_BLOCKS_RL).contains(event.getState().getBlock())) {
             return;
         }
 
@@ -58,11 +59,12 @@ public class StoneBreak {
             event.setCanceled(true);
 
             if (CommonConfig.SHOW_BREAKING_HELP.get()) {
-                event.getPlayer().sendStatusMessage(new TranslationTextComponent("natural-progression.stone.warning"),
-                        true);
+                event.getPlayer().sendStatusMessage(
+                        new TranslationTextComponent("natural-progression.stone.warning"), true);
             }
             // Random chance to even perform the hurt anim if the player is empty-handed
-            if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1) {
+            if (event.getPlayer().getHeldItemMainhand().isEmpty()
+                    && event.getPlayer().getRNG().nextInt(25) == 1) {
                 // And when it's shown, random chance to actually hurt from breaking bones
                 if (event.getPlayer().getRNG().nextInt(2) == 1) {
                     event.getPlayer().attackEntityFrom(brokenHandSource, 1F);

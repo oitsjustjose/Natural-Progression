@@ -30,8 +30,10 @@ public class Utils {
                 continue;
             }
 
-            if (NaturalProgressionBlocks.blocksToPebbles.containsKey(world.getBlockState(search.down(y)).getBlock())) {
-                return NaturalProgressionBlocks.blocksToPebbles.get(world.getBlockState(search.down(y)).getBlock());
+            if (NaturalProgressionBlocks.blocksToPebbles
+                    .containsKey(world.getBlockState(search.down(y)).getBlock())) {
+                return NaturalProgressionBlocks.blocksToPebbles
+                        .get(world.getBlockState(search.down(y)).getBlock());
             }
         }
         return NaturalProgressionBlocks.blocksToPebbles.get(Blocks.STONE);
@@ -39,8 +41,8 @@ public class Utils {
 
     /**
      * @param stateAtPos The BlockState at the the position
-     * @param world      An IWorld instance
-     * @param searchPos  The BlockPos currently be searched at
+     * @param world An IWorld instance
+     * @param searchPos The BlockPos currently be searched at
      * @return true if the block at pos is replaceable
      */
     public static boolean canReplace(BlockState stateAtPos, IWorld world, BlockPos searchPos) {
@@ -49,17 +51,18 @@ public class Utils {
 
     /**
      * @param world an IWorld instance
-     * @param pos   A BlockPos to check in and around
+     * @param pos A BlockPos to check in and around
      * @return true if the block is water (since we can waterlog)
      */
     public static boolean isInWater(IWorld world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        return state.getBlock() == Blocks.WATER || state.hasProperty(BlockStateProperties.WATERLOGGED);
+        return state.getBlock() == Blocks.WATER
+                || state.hasProperty(BlockStateProperties.WATERLOGGED);
     }
 
     /**
      * @param world an IWorld instance
-     * @param pos   A BlockPos to check in and around
+     * @param pos A BlockPos to check in and around
      * @return true if the block is in a non-water fluid
      */
     public static boolean inNonWaterFluid(IWorld world, BlockPos pos) {
@@ -67,10 +70,10 @@ public class Utils {
     }
 
     /**
-     * @param world    an IWorld instance
+     * @param world an IWorld instance
      * @param chunkPos The chunkPos to place within
-     * @return A random BlockPos within the chunkPos that is valid. Can return null
-     *         if no valid location is found.
+     * @return A random BlockPos within the chunkPos that is valid. Can return null if no valid
+     *         location is found.
      */
     @Nullable
     public static BlockPos getPebblePos(IWorld world, ChunkPos chunkPos) {
@@ -110,7 +113,7 @@ public class Utils {
      * Determines if the sample can be placed on this block
      * 
      * @param world: an IWorld instance
-     * @param pos:   The current searching position that will be used to confirm
+     * @param pos: The current searching position that will be used to confirm
      * @return true if the block below is solid on top AND isn't in the blacklist
      */
     public static boolean canPlaceOn(IWorld world, BlockPos pos) {
@@ -119,7 +122,7 @@ public class Utils {
 
     /**
      * @param world an IWorld instance
-     * @param pos   A BlockPos to check in and around
+     * @param pos A BlockPos to check in and around
      * @return true if the block at pos is replaceable
      */
     public static boolean canReplace(IWorld world, BlockPos pos) {
@@ -130,15 +133,17 @@ public class Utils {
 
     public static String dimensionToString(IWorld world) {
         if (world instanceof World) {
-            return Objects.requireNonNull(((World) world).getDimensionKey().getLocation().toString());
-        } else if (world instanceof ServerWorld) {
-            return Objects.requireNonNull(((ServerWorld) world).getDimensionKey().getLocation().toString());
-        } else if (world instanceof WorldGenRegion) {
             return Objects
-                    .requireNonNull(((WorldGenRegion) world).getWorld().getDimensionKey().getLocation().toString());
+                    .requireNonNull(((World) world).getDimensionKey().getLocation().toString());
+        } else if (world instanceof ServerWorld) {
+            return Objects.requireNonNull(
+                    ((ServerWorld) world).getDimensionKey().getLocation().toString());
+        } else if (world instanceof WorldGenRegion) {
+            return Objects.requireNonNull(
+                    ((WorldGenRegion) world).getWorld().getDimensionKey().getLocation().toString());
         }
-        NaturalProgression.getInstance().LOGGER
-                .warn("Utils.dimensionToString called on IWorld object that couldn't be interpreted");
+        NaturalProgression.getInstance().LOGGER.warn(
+                "Utils.dimensionToString called on IWorld object that couldn't be interpreted");
         return "ERR";
     }
 }

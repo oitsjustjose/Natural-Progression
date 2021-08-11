@@ -27,9 +27,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "get_flint"
-    ]
-  ]
+  "requirements": [["get_flint"]]
 }

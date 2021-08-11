@@ -20,8 +20,7 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 /**
- * Special shapeless recipe that allows use of Tools, and damages the tool
- * properly
+ * Special shapeless recipe that allows use of Tools, and damages the tool properly
  *
  * @author Credit to Integral for the Enchantment Transpose Recipe as a guide
  */
@@ -30,7 +29,8 @@ public class DamageItemRecipe extends ShapelessRecipe {
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
 
-    private DamageItemRecipe(ResourceLocation id, String group, ItemStack output, NonNullList<Ingredient> inputs) {
+    private DamageItemRecipe(ResourceLocation id, String group, ItemStack output,
+            NonNullList<Ingredient> inputs) {
         super(id, group, output, inputs);
         this.inputs = inputs;
         this.output = output;
@@ -61,7 +61,8 @@ public class DamageItemRecipe extends ShapelessRecipe {
     @Override
     @Nonnull
     public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
-        NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+        NonNullList<ItemStack> nonnulllist =
+                NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
         for (int i = 0; i < nonnulllist.size(); ++i) {
             ItemStack stack = inv.getStackInSlot(i);
@@ -72,7 +73,8 @@ public class DamageItemRecipe extends ShapelessRecipe {
                 ItemStack savedStack = stack.copy();
                 boolean shouldAttemptDmg = true;
                 Random random = new Random();
-                int unbreakingLvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, savedStack);
+                int unbreakingLvl =
+                        EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, savedStack);
 
                 if (unbreakingLvl > 0) {
                     shouldAttemptDmg = (1 + random.nextInt(5)) <= unbreakingLvl;
@@ -104,7 +106,8 @@ public class DamageItemRecipe extends ShapelessRecipe {
         @Nonnull
         public DamageItemRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
             String s = JSONUtils.getString(json, "group", "");
-            NonNullList<Ingredient> nonnulllist = readIngredients(JSONUtils.getJsonArray(json, "ingredients"));
+            NonNullList<Ingredient> nonnulllist =
+                    readIngredients(JSONUtils.getJsonArray(json, "ingredients"));
 
             if (nonnulllist.isEmpty()) {
                 throw new JsonParseException("No ingredients for natural-progression:damage_tools");
@@ -127,7 +130,8 @@ public class DamageItemRecipe extends ShapelessRecipe {
         }
 
         @Override
-        public DamageItemRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer) {
+        public DamageItemRecipe read(@Nonnull ResourceLocation recipeId,
+                @Nonnull PacketBuffer buffer) {
             String s = buffer.readString(32767);
             int i = buffer.readVarInt();
             NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);

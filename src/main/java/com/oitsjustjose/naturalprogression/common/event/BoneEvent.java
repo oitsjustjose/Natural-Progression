@@ -26,15 +26,22 @@ public class BoneEvent {
     @SubscribeEvent
     public void onItemRightClick(PlayerInteractEvent.RightClickItem event) {
         if (playersLastRightClicked.containsKey(event.getPlayer().getUniqueID())) {
-            if ((System.currentTimeMillis() - playersLastRightClicked.get(event.getPlayer().getUniqueID())) < 200) {
+            if ((System.currentTimeMillis()
+                    - playersLastRightClicked.get(event.getPlayer().getUniqueID())) < 200) {
                 return;
             }
         }
 
-        Hand boneHand = event.getPlayer().getHeldItemMainhand().getItem() == Items.BONE ? Hand.MAIN_HAND
-                : event.getPlayer().getHeldItemOffhand().getItem() == Items.BONE ? Hand.OFF_HAND : null;
-        Hand flintHand = event.getPlayer().getHeldItemMainhand().getItem() == Items.FLINT ? Hand.MAIN_HAND
-                : event.getPlayer().getHeldItemOffhand().getItem() == Items.FLINT ? Hand.OFF_HAND : null;
+        Hand boneHand =
+                event.getPlayer().getHeldItemMainhand().getItem() == Items.BONE ? Hand.MAIN_HAND
+                        : event.getPlayer().getHeldItemOffhand().getItem() == Items.BONE
+                                ? Hand.OFF_HAND
+                                : null;
+        Hand flintHand =
+                event.getPlayer().getHeldItemMainhand().getItem() == Items.FLINT ? Hand.MAIN_HAND
+                        : event.getPlayer().getHeldItemOffhand().getItem() == Items.FLINT
+                                ? Hand.OFF_HAND
+                                : null;
 
         if (boneHand == null || flintHand == null) {
             return;
@@ -67,9 +74,9 @@ public class BoneEvent {
         CommonConfig.BONE_DROP_ENTITIES.get().forEach((name) -> {
             if (name.equals(loc.toString())) {
                 if (rand.nextInt(100) < CommonConfig.BONE_DROP_CHANCE.get()) {
-                    ItemEntity drop = new ItemEntity(event.getEntityLiving().world, event.getEntityLiving().getPosX(),
-                            event.getEntityLiving().getPosY(), event.getEntityLiving().getPosZ(),
-                            new ItemStack(Items.BONE));
+                    ItemEntity drop = new ItemEntity(event.getEntityLiving().world,
+                            event.getEntityLiving().getPosX(), event.getEntityLiving().getPosY(),
+                            event.getEntityLiving().getPosZ(), new ItemStack(Items.BONE));
                     event.getDrops().add(drop);
                 }
             }

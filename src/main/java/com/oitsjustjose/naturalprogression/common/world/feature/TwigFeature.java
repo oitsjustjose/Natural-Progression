@@ -38,7 +38,8 @@ public class TwigFeature extends Feature<NoFeatureConfig> {
             if (!(world.getBlockState(twigPos).getBlock() instanceof TwigBlock)) {
                 boolean isInWater = Utils.isInWater(world, twigPos);
                 BlockState stateToPlace = isInWater
-                        ? NaturalProgressionBlocks.twigs.getDefaultState().with(TwigBlock.WATERLOGGED, Boolean.TRUE)
+                        ? NaturalProgressionBlocks.twigs.getDefaultState()
+                                .with(TwigBlock.WATERLOGGED, Boolean.TRUE)
                         : NaturalProgressionBlocks.twigs.getDefaultState();
 
                 if (world.setBlockState(twigPos, stateToPlace, 2 | 16)) {

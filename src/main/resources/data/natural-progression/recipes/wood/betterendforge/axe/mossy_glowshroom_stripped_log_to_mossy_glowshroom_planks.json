@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "betterendforge"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "betterendforge:mossy_glowshroom_stripped_log"
-        },
-        {
-            "tag": "natural-progression:axe"
-        }
-    ],
-    "result": {
-        "item": "betterendforge:mossy_glowshroom_planks",
-        "count": 1
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "betterendforge"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "betterendforge:mossy_glowshroom_stripped_log"
+    },
+    {
+      "tag": "natural-progression:axe"
+    }
+  ],
+  "result": {
+    "item": "betterendforge:mossy_glowshroom_planks",
+    "count": 1
+  }
 }

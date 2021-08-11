@@ -1,5 +1,24 @@
 # Natural Progression Changelog (1.16)
 
+## 2.1.0
+
+### Added
+
+- Pebbles and Cobbles for Netherrack and End Stone
+- BetterEnd compatability for plank recipes
+- New BlockTag for ignoring the Tool Requirements (wood and stone)
+    - Stone Blocks use tag `natural-progression:ignored_stone_blocks`
+    - Wood Blocks use tag `natural-progression:ignored_wood_blocks`
+
+### Changed
+
+- Pebbles / Twigs now generate by default in the end and nether too
+
+### Fixed
+
+- Pebbles / Twigs generating on the roof of the nether
+- Wrong version number in the file 😆
+
 ## 2.0.0
 
 ### Added

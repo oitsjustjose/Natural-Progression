@@ -30,7 +30,8 @@ public class PebbleItem extends BlockItem {
     public ActionResultType onItemUse(ItemUseContext context) {
         if (context.getPlayer().getHeldItemOffhand().getItem() instanceof PebbleItem) {
             if (context.getPlayer().getHeldItemMainhand().getItem() instanceof PebbleItem) {
-                return onItemRightClick(context.getWorld(), context.getPlayer(), context.getHand()).getType();
+                return onItemRightClick(context.getWorld(), context.getPlayer(), context.getHand())
+                        .getType();
             }
         }
         return super.onItemUse(context);
@@ -38,11 +39,13 @@ public class PebbleItem extends BlockItem {
 
     @Override
     @Nonnull
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn,
+            @Nonnull Hand handIn) {
         ItemStack mainHand = playerIn.getHeldItemMainhand();
         ItemStack offHand = playerIn.getHeldItemOffhand();
         if (!mainHand.isEmpty() && !offHand.isEmpty()) {
-            if (mainHand.getItem() instanceof PebbleItem && offHand.getItem() instanceof PebbleItem) {
+            if (mainHand.getItem() instanceof PebbleItem
+                    && offHand.getItem() instanceof PebbleItem) {
                 Hand swingArm = playerIn.getRNG().nextBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND;
 
                 if (worldIn.isRemote()) {
@@ -53,12 +56,15 @@ public class PebbleItem extends BlockItem {
                         playerIn.getHeldItem(swingArm).shrink(1);
 
                         if (playerIn.getRNG().nextInt(100) < CommonConfig.FLINT_CHANCE.get()) {
-                            worldIn.playSound(null, playerIn.getPosition(), SoundEvents.ITEM_FLINTANDSTEEL_USE,
-                                    SoundCategory.PLAYERS, 1.0F, 0.5F);
-                            ItemHandlerHelper.giveItemToPlayer(playerIn, new ItemStack(Items.FLINT, 1));
+                            worldIn.playSound(null, playerIn.getPosition(),
+                                    SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 1.0F,
+                                    0.5F);
+                            ItemHandlerHelper.giveItemToPlayer(playerIn,
+                                    new ItemStack(Items.FLINT, 1));
                         } else {
-                            worldIn.playSound(null, playerIn.getPosition(), SoundEvents.ITEM_SHIELD_BREAK,
-                                    SoundCategory.PLAYERS, 0.5F, 0.75F);
+                            worldIn.playSound(null, playerIn.getPosition(),
+                                    SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 0.5F,
+                                    0.75F);
                         }
                     } else {
                         worldIn.playSound(null, playerIn.getPosition(), SoundEvents.BLOCK_STONE_HIT,

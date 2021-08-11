@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "betterendforge"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "betterendforge:lacugrove_bark"
-        },
-        {
-            "tag": "natural-progression:saw"
-        }
-    ],
-    "result": {
-        "item": "betterendforge:lacugrove_stripped_bark",
-        "count": 1
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "betterendforge"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "betterendforge:lacugrove_bark"
+    },
+    {
+      "tag": "natural-progression:saw"
+    }
+  ],
+  "result": {
+    "item": "betterendforge:lacugrove_stripped_bark",
+    "count": 1
+  }
 }

@@ -21,17 +21,19 @@ import net.minecraftforge.event.RegistryEvent;
 public class NaturalProgressionItems {
     private static ArrayList<Item> modItems = new ArrayList<>();
 
-    public static IItemTier flintTier = new DynamicItemTier().setMaxUses(16).setEfficiency(1.5F).setAttackDamage(1.0F)
-            .setHarvestLvl(0).setEnchantability(0).setRepairMats(Items.FLINT);
-    public static IItemTier boneTier = new DynamicItemTier().setMaxUses(128).setEfficiency(2.0F).setAttackDamage(2.0F)
-            .setHarvestLvl(1).setEnchantability(0).setRepairMats(Items.BONE);
+    public static IItemTier flintTier = new DynamicItemTier().setMaxUses(16).setEfficiency(1.5F)
+            .setAttackDamage(1.0F).setHarvestLvl(0).setEnchantability(0).setRepairMats(Items.FLINT);
+    public static IItemTier boneTier = new DynamicItemTier().setMaxUses(128).setEfficiency(2.0F)
+            .setAttackDamage(2.0F).setHarvestLvl(1).setEnchantability(0).setRepairMats(Items.BONE);
     public static IItemTier copperTier = new DynamicItemTier().setMaxUses(192).setEfficiency(1.65F)
             .setAttackDamage(1.5F).setHarvestLvl(0).setEnchantability(0)
             .setRepairMat(getTagOrNull("forge:ingots/copper"));
-    public static IItemTier bronzeTier = new DynamicItemTier().setMaxUses(442).setEfficiency(2.5F).setAttackDamage(2.5F)
-            .setHarvestLvl(2).setEnchantability(0).setRepairMat(getTagOrNull("forge:ingots/bronze"));
-    public static IItemTier steelTier = new DynamicItemTier().setMaxUses(914).setEfficiency(3.5F).setAttackDamage(3.5F)
-            .setHarvestLvl(3).setEnchantability(0).setRepairMat(getTagOrNull("forge:ingots/steel"));
+    public static IItemTier bronzeTier = new DynamicItemTier().setMaxUses(442).setEfficiency(2.5F)
+            .setAttackDamage(2.5F).setHarvestLvl(2).setEnchantability(0)
+            .setRepairMat(getTagOrNull("forge:ingots/bronze"));
+    public static IItemTier steelTier = new DynamicItemTier().setMaxUses(914).setEfficiency(3.5F)
+            .setAttackDamage(3.5F).setHarvestLvl(3).setEnchantability(0)
+            .setRepairMat(getTagOrNull("forge:ingots/steel"));
 
     public static Item flintHatchet;
     public static Item bonePickaxe;

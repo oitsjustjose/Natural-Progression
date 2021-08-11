@@ -1,21 +1,21 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "betterendforge"
-        }
-    ],
-    "type": "natural-progression:damage_tools",
-    "ingredients": [
-        {
-            "item": "betterendforge:end_lotus_stripped_log"
-        },
-        {
-            "tag": "natural-progression:axe"
-        }
-    ],
-    "result": {
-        "item": "betterendforge:end_lotus_planks",
-        "count": 1
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "betterendforge"
     }
+  ],
+  "type": "natural-progression:damage_tools",
+  "ingredients": [
+    {
+      "item": "betterendforge:end_lotus_stripped_log"
+    },
+    {
+      "tag": "natural-progression:axe"
+    }
+  ],
+  "result": {
+    "item": "betterendforge:end_lotus_planks",
+    "count": 1
+  }
 }

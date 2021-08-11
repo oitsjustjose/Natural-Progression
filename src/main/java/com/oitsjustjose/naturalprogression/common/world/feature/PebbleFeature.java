@@ -44,7 +44,8 @@ public class PebbleFeature extends Feature<NoFeatureConfig> {
                         : pebble.getDefaultState();
 
                 if (world.setBlockState(pebblePos, stateToPlace, 2 | 16)) {
-                    if (Utils.canReplace(world.getBlockState(pebblePos.up()), world, pebblePos.up())) {
+                    if (Utils.canReplace(world.getBlockState(pebblePos.up()), world,
+                            pebblePos.up())) {
                         world.destroyBlock(pos.up(), false);
                     }
                 }

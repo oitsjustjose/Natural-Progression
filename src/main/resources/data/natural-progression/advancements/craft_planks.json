@@ -27,9 +27,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "get_planks"
-    ]
-  ]
+  "requirements": [["get_planks"]]
 }

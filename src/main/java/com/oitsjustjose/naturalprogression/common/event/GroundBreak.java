@@ -10,7 +10,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class GroundBreak {
     @SubscribeEvent
     public void registerEvent(PlayerEvent.BreakSpeed event) {
-        if (event.getState().getMaterial() == Material.EARTH || event.getState().getMaterial() == Material.SAND
+        if (event.getState().getMaterial() == Material.EARTH
+                || event.getState().getMaterial() == Material.SAND
                 || event.getState().getMaterial() == Material.ORGANIC) {
             if (!CommonConfig.MAKE_GROUND_BLOCKS_HARDER.get()) {
                 return;

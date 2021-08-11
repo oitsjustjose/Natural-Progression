@@ -1,9 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "PP",
-    "PP"
-  ],
+  "pattern": ["PP", "PP"],
   "key": {
     "P": {
       "item": "natural-progression:diorite_pebble"

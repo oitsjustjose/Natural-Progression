@@ -27,9 +27,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "get_basic_saw"
-    ]
-  ]
+  "requirements": [["get_basic_saw"]]
 }

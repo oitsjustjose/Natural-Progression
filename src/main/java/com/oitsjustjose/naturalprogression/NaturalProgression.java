@@ -46,9 +46,11 @@ public class NaturalProgression {
 
     public Logger LOGGER = LogManager.getLogger();
 
-    public static CommonProxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    public static CommonProxy proxy =
+            DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
-    public static final IRecipeSerializer<DamageItemRecipe> DAMAGE_ITEM_RECIPE = new DamageItemRecipe.Serializer();
+    public static final IRecipeSerializer<DamageItemRecipe> DAMAGE_ITEM_RECIPE =
+            new DamageItemRecipe.Serializer();
 
     public NaturalProgression() {
         instance = this;
@@ -96,7 +98,8 @@ public class NaturalProgression {
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
         @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
+        public static void onBlocksRegistry(
+                final RegistryEvent.Register<Block> blockRegistryEvent) {
             NaturalProgressionBlocks.registerBlocks(blockRegistryEvent);
         }
 
@@ -107,9 +110,10 @@ public class NaturalProgression {
         }
 
         @SubscribeEvent
-        public static void onRegisterSerializers(final RegistryEvent.Register<IRecipeSerializer<?>> event) {
-            event.getRegistry().register(
-                    DAMAGE_ITEM_RECIPE.setRegistryName(new ResourceLocation(Constants.MODID, "damage_tools")));
+        public static void onRegisterSerializers(
+                final RegistryEvent.Register<IRecipeSerializer<?>> event) {
+            event.getRegistry().register(DAMAGE_ITEM_RECIPE
+                    .setRegistryName(new ResourceLocation(Constants.MODID, "damage_tools")));
         }
     }
 }

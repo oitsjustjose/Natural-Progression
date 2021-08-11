@@ -23,14 +23,16 @@ public class ToolNeutering {
             ToolItem tool = (ToolItem) heldItem.getItem();
             if (tool.getTier() == ItemTier.WOOD && CommonConfig.REMOVE_WOODEN_TOOL_RECIPES.get()) {
                 event.setCanceled(true);
-            } else if (tool.getTier() == ItemTier.STONE && CommonConfig.REMOVE_STONE_TOOL_RECIPES.get()) {
+            } else if (tool.getTier() == ItemTier.STONE
+                    && CommonConfig.REMOVE_STONE_TOOL_RECIPES.get()) {
                 event.setCanceled(true);
             }
         } else if (heldItem.getItem() instanceof SwordItem) {
             SwordItem tool = (SwordItem) heldItem.getItem();
             if (tool.getTier() == ItemTier.WOOD && CommonConfig.REMOVE_WOODEN_TOOL_RECIPES.get()) {
                 event.setCanceled(true);
-            } else if (tool.getTier() == ItemTier.STONE && CommonConfig.REMOVE_STONE_TOOL_RECIPES.get()) {
+            } else if (tool.getTier() == ItemTier.STONE
+                    && CommonConfig.REMOVE_STONE_TOOL_RECIPES.get()) {
                 event.setCanceled(true);
             }
         }
@@ -50,7 +52,8 @@ public class ToolNeutering {
                 if (event.isCancelable()) {
                     event.setCanceled(true);
                 }
-            } else if (tool.getTier() == ItemTier.STONE && CommonConfig.REMOVE_STONE_TOOL_RECIPES.get()) {
+            } else if (tool.getTier() == ItemTier.STONE
+                    && CommonConfig.REMOVE_STONE_TOOL_RECIPES.get()) {
                 if (event.isCancelable()) {
                     event.setCanceled(true);
                 }

@@ -27,9 +27,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "get_bone_knife"
-    ]
-  ]
+  "requirements": [["get_bone_knife"]]
 }

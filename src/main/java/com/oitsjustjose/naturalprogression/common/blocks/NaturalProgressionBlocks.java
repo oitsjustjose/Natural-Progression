@@ -35,8 +35,8 @@ public class NaturalProgressionBlocks {
             modBlocks.add(pebble);
             blocksToPebbles.put(b, pebble);
         } else {
-            NaturalProgression.getInstance().LOGGER.warn("{}:{} could not be found. No pebble will be created", modid,
-                    path);
+            NaturalProgression.getInstance().LOGGER
+                    .warn("{}:{} could not be found. No pebble will be created", modid, path);
         }
     }
 
@@ -47,15 +47,15 @@ public class NaturalProgressionBlocks {
                 (modid.toLowerCase() == "minecraft" ? "" : (modid + "_")) + "cobbled_" + path);
         Block b = ForgeRegistries.BLOCKS.getValue(rl);
 
-        Block.Properties cobbleProps = Block.Properties.create(Material.ROCK).hardnessAndResistance(2.0F, 6.0F)
-                .sound(b.getDefaultState().getSoundType());
+        Block.Properties cobbleProps = Block.Properties.create(Material.ROCK)
+                .hardnessAndResistance(2.0F, 6.0F).sound(b.getDefaultState().getSoundType());
 
         if (b != null && b != Blocks.AIR) {
             Block cobble = new Block(cobbleProps).setRegistryName(cobbleRl);
             modBlocks.add(cobble);
         } else {
-            NaturalProgression.getInstance().LOGGER.warn("{}:{} could not be found. No cobble will be created", modid,
-                    path);
+            NaturalProgression.getInstance().LOGGER
+                    .warn("{}:{} could not be found. No cobble will be created", modid, path);
         }
     }
 
@@ -109,11 +109,13 @@ public class NaturalProgressionBlocks {
         for (Block block : modBlocks) {
             // Ignore pebble blocks - pebble item will represent them
             if (block instanceof PebbleBlock) {
-                Item iBlock = new PebbleItem(block).setRegistryName(Objects.requireNonNull(block.getRegistryName()));
+                Item iBlock = new PebbleItem(block)
+                        .setRegistryName(Objects.requireNonNull(block.getRegistryName()));
                 itemRegistryEvent.getRegistry().register(iBlock);
             } else {
-                Item iBlock = new BlockItem(block, new Item.Properties().group(NaturalProgressionGroup.getInstance()))
-                        .setRegistryName(Objects.requireNonNull(block.getRegistryName()));
+                Item iBlock = new BlockItem(block,
+                        new Item.Properties().group(NaturalProgressionGroup.getInstance()))
+                                .setRegistryName(Objects.requireNonNull(block.getRegistryName()));
                 itemRegistryEvent.getRegistry().register(iBlock);
             }
         }

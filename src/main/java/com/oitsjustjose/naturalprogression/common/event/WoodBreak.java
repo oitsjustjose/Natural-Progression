@@ -24,7 +24,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class WoodBreak {
     final SplinterSource splinterSource = new SplinterSource();
     final ResourceLocation OVERRIDE_RL = new ResourceLocation(Constants.MODID, "override_axes");
-    final ResourceLocation IGNORE_BLOCKS_RL = new ResourceLocation(Constants.MODID, "ignored_wood_blocks");
+    final ResourceLocation IGNORE_BLOCKS_RL =
+            new ResourceLocation(Constants.MODID, "ignored_wood_blocks");
 
     @SubscribeEvent
     public void registerEvent(PlayerEvent.BreakSpeed event) {
@@ -44,8 +45,8 @@ public class WoodBreak {
             return;
         }
 
-        if (BlockTags.getCollection().get(IGNORE_BLOCKS_RL) != null
-                && BlockTags.getCollection().get(IGNORE_BLOCKS_RL).contains(event.getState().getBlock())) {
+        if (BlockTags.getCollection().get(IGNORE_BLOCKS_RL) != null && BlockTags.getCollection()
+                .get(IGNORE_BLOCKS_RL).contains(event.getState().getBlock())) {
             return;
         }
 
@@ -53,12 +54,13 @@ public class WoodBreak {
             event.setCanceled(true);
 
             if (CommonConfig.SHOW_BREAKING_HELP.get()) {
-                event.getPlayer().sendStatusMessage(new TranslationTextComponent("natural-progression.wood.warning"),
-                        true);
+                event.getPlayer().sendStatusMessage(
+                        new TranslationTextComponent("natural-progression.wood.warning"), true);
             }
 
             // Random chance to even perform the hurt anim if the player is empty-handed
-            if (event.getPlayer().getHeldItemMainhand().isEmpty() && event.getPlayer().getRNG().nextInt(25) == 1) {
+            if (event.getPlayer().getHeldItemMainhand().isEmpty()
+                    && event.getPlayer().getRNG().nextInt(25) == 1) {
                 // And when it's shown, random chance to actually hurt from "splintering"
                 if (event.getPlayer().getRNG().nextInt(10) == 1) {
                     event.getPlayer().attackEntityFrom(splinterSource, 1F);

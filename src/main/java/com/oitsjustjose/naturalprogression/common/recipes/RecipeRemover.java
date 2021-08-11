@@ -29,12 +29,11 @@ import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
- * This code is written as a result to PlankRecipe#match() not catching plank
- * crafting consistently due to it being the *wrong* way to do it (via
- * https://bit.ly/2Ns6Vkv)
+ * This code is written as a result to PlankRecipe#match() not catching plank crafting consistently
+ * due to it being the *wrong* way to do it (via https://bit.ly/2Ns6Vkv)
  * <p>
- * Thanks to Choonster@github, this code is mostly theirs:
- * https://bit.ly/2BLB9t3 (Code used under their MIT license)
+ * Thanks to Choonster@github, this code is mostly theirs: https://bit.ly/2BLB9t3 (Code used under
+ * their MIT license)
  */
 
 public class RecipeRemover {
@@ -50,7 +49,8 @@ public class RecipeRemover {
     public void addReloadListener(final AddReloadListenerEvent evt) {
         evt.addListener(new ReloadListener<Void>() {
             @Override
-            protected void apply(Void objectIn, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+            protected void apply(Void objectIn, IResourceManager resourceManagerIn,
+                    IProfiler profilerIn) {
                 remove(evt.getDataPackRegistries().getRecipeManager());
             }
 
@@ -85,11 +85,10 @@ public class RecipeRemover {
     }
 
     /**
-     * Removes all crafting recipes with an output item contained in the specified
-     * tag.
+     * Removes all crafting recipes with an output item contained in the specified tag.
      *
      * @param recipeManager The recipe manager
-     * @param stack         The ItemStack output of the recipe to remove
+     * @param stack The ItemStack output of the recipe to remove
      */
     private static void removeRecipes(final RecipeManager recipeManager, final ItemStack stack) {
         final int recipesRemoved = removeRecipes(recipeManager, recipe -> {
@@ -103,13 +102,13 @@ public class RecipeRemover {
     }
 
     /**
-     * Removes all crafting recipes with an output item contained in the specified
-     * tag.
+     * Removes all crafting recipes with an output item contained in the specified tag.
      *
      * @param recipeManager The recipe manager
-     * @param tag           The tag
+     * @param tag The tag
      */
-    private static void removeRecipes(final RecipeManager recipeManager, final ITag.INamedTag<Item> tag) {
+    private static void removeRecipes(final RecipeManager recipeManager,
+            final ITag.INamedTag<Item> tag) {
         try {
             final int recipesRemoved = removeRecipes(recipeManager, recipe -> {
                 final ItemStack recipeOutput = recipe.getRecipeOutput();
@@ -117,8 +116,8 @@ public class RecipeRemover {
                         && !(recipe.getSerializer() instanceof DamageItemRecipe.Serializer);
             });
 
-            NaturalProgression.getInstance().LOGGER.info("Removed {} recipe(s) for tag {}", recipesRemoved,
-                    tag.getName());
+            NaturalProgression.getInstance().LOGGER.info("Removed {} recipe(s) for tag {}",
+                    recipesRemoved, tag.getName());
         } catch (IllegalStateException ex) {
             return;
         }
@@ -128,28 +127,31 @@ public class RecipeRemover {
      * Remove all crafting recipes that match the specified predicate.
      *
      * @param recipeManager The recipe manager
-     * @param predicate     The predicate
+     * @param predicate The predicate
      * @return The number of recipes removed
      */
-    private static int removeRecipes(final RecipeManager recipeManager, final Predicate<IRecipe> predicate) {
+    private static int removeRecipes(final RecipeManager recipeManager,
+            final Predicate<IRecipe> predicate) {
         final Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> existingRecipes;
         try {
             @SuppressWarnings("unchecked")
-            final Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> recipesMap = (Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>>) RECIPES
-                    .get(recipeManager);
+            final Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> recipesMap =
+                    (Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>>) RECIPES
+                            .get(recipeManager);
             existingRecipes = recipesMap;
         } catch (final IllegalAccessException e) {
             throw new RuntimeException("Couldn't get recipes map while removing recipes", e);
         }
 
         final Object2IntMap<IRecipeType<?>> removedCounts = new Object2IntOpenHashMap<>();
-        final ImmutableMap.Builder<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> newRecipes = ImmutableMap
-                .builder();
+        final ImmutableMap.Builder<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> newRecipes =
+                ImmutableMap.builder();
 
         existingRecipes.forEach((recipeType, existingRecipesForType) -> {
-            final ImmutableMap<ResourceLocation, IRecipe<?>> newRecipesForType = existingRecipesForType.entrySet()
-                    .stream().filter(entry -> !predicate.test(entry.getValue()))
-                    .collect(ImmutableMap.toImmutableMap(Map.Entry::getKey, Map.Entry::getValue));
+            final ImmutableMap<ResourceLocation, IRecipe<?>> newRecipesForType =
+                    existingRecipesForType.entrySet().stream()
+                            .filter(entry -> !predicate.test(entry.getValue())).collect(ImmutableMap
+                                    .toImmutableMap(Map.Entry::getKey, Map.Entry::getValue));
 
             removedCounts.put(recipeType, existingRecipesForType.size() - newRecipesForType.size());
             newRecipes.put(recipeType, newRecipesForType);

@@ -27,9 +27,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "get_ct"
-    ]
-  ]
+  "requirements": [["get_ct"]]
 }
