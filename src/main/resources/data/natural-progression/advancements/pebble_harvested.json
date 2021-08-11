@@ -16,75 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "get_stone_pebble": {
+    "get_pebble": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "natural-progression:stone_pebble"
-          }
-        ]
-      }
-    },
-    "get_andesite_pebble": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "natural-progression:andesite_pebble"
-          }
-        ]
-      }
-    },
-    "get_diorite_pebble": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "natural-progression:diorite_pebble"
-          }
-        ]
-      }
-    },
-    "get_granite_pebble": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "natural-progression:granite_pebble"
-          }
-        ]
-      }
-    },
-    "get_sandstone_pebble": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "natural-progression:sandstone_pebble"
-          }
-        ]
-      }
-    },
-    "get_red_sandstone_pebble": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "natural-progression:red_sandstone_pebble"
+            "tag": "forge:pebbles"
           }
         ]
       }
     }
   },
-  "requirements": [
-    [
-      "get_stone_pebble",
-      "get_andesite_pebble",
-      "get_diorite_pebble",
-      "get_granite_pebble",
-      "get_sandstone_pebble",
-      "get_red_sandstone_pebble"
-    ]
-  ]
+  "requirements": [["get_pebble"]]
 }

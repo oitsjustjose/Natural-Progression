@@ -27,59 +27,50 @@ public class TwigFeature extends Feature<NoFeatureConfig> {
         super(p_i231976_1_);
     }
 
-    private void doPlace(IWorld world, BlockPos pos) {
-        for (int i = 0; i < CommonConfig.MAX_TWIGS_PER_CHUNK.get(); i++) {
-            BlockPos twigPos = Utils.getPebblePos(world, new ChunkPos(pos));
-
-            if (twigPos == null || Utils.inNonWaterFluid(world, twigPos)) {
-                continue;
-            }
-
-            if (!(world.getBlockState(twigPos).getBlock() instanceof TwigBlock)) {
-                boolean isInWater = Utils.isInWater(world, twigPos);
-                BlockState stateToPlace = isInWater
-                        ? NaturalProgressionBlocks.twigs.getDefaultState()
-                                .with(TwigBlock.WATERLOGGED, Boolean.TRUE)
-                        : NaturalProgressionBlocks.twigs.getDefaultState();
-
-                if (world.setBlockState(twigPos, stateToPlace, 2 | 16)) {
-                    if (Utils.canReplace(world.getBlockState(twigPos.up()), world, twigPos.up())) {
-                        world.destroyBlock(pos.up(), false);
-                    }
-                }
-            }
-        }
-    }
+    // private void doPlace(IWorld world, BlockPos pos) {
+    // }
 
     @Override
     @ParametersAreNonnullByDefault
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos,
             NoFeatureConfig config) {
-
-        IWorld iworld = reader.getWorld();
-        if (!(iworld instanceof ServerWorld)) {
+        if (generator instanceof FlatChunkGenerator) {
             return false;
         }
 
-        ServerWorld world = (ServerWorld) iworld;
-        if (world.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator) {
-            return false;
-        }
-
-        if (!CommonConfig.DIMENSION_WHITELIST.get().contains(Utils.dimensionToString(world))) {
+        if (!CommonConfig.DIMENSION_WHITELIST.get().contains(Utils.dimensionToString(reader))) {
             return false;
         }
 
         try {
-            return func_207803_a(reader, rand, pos);
+            for (int i = 0; i < CommonConfig.MAX_TWIGS_PER_CHUNK.get(); i++) {
+                BlockPos twigPos = Utils.getPebblePos(reader, new ChunkPos(pos));
+
+                if (twigPos == null || Utils.inNonWaterFluid(reader, twigPos)) {
+                    continue;
+                }
+
+                if (!(reader.getBlockState(twigPos).getBlock() instanceof TwigBlock)) {
+                    boolean isInWater = Utils.isInWater(reader, twigPos);
+                    BlockState stateToPlace = isInWater
+                            ? NaturalProgressionBlocks.twigs.getDefaultState()
+                                    .with(TwigBlock.WATERLOGGED, Boolean.TRUE)
+                            : NaturalProgressionBlocks.twigs.getDefaultState();
+
+                    if (reader.setBlockState(twigPos, stateToPlace, 2 | 16)) {
+                        if (Utils.canReplace(reader.getBlockState(twigPos.up()), reader,
+                                twigPos.up())) {
+                            reader.destroyBlock(pos.up(), false);
+                            Utils.fixSnowyBlock(reader, twigPos);
+                        }
+                    }
+                }
+            }
+
+
         } catch (Exception e) {
             NaturalProgression.getInstance().LOGGER.error(e.getMessage());
         }
         return false;
-    }
-
-    protected boolean func_207803_a(IWorld world, Random rand, BlockPos pos) {
-        doPlace(world, pos);
-        return true;
     }
 }

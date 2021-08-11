@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "natural-progression:andesite_pebble",
+    "natural-progression:diorite_pebble",
+    "natural-progression:end_stone_pebble",
+    "natural-progression:granite_pebble",
+    "natural-progression:netherrack_pebble",
+    "natural-progression:red_sandstone_pebble",
+    "natural-progression:sandstone_pebble",
+    "natural-progression:stone_pebble"
+  ],
+  "optional": [
+    "natural-progression:create_dark_scoria_pebble",
+    "natural-progression:create_dolomite_pebble",
+    "natural-progression:create_gabbro_pebble",
+    "natural-progression:create_limestone_pebble",
+    "natural-progression:create_scoria_pebble",
+    "natural-progression:create_weathered_limestone_pebble",
+    "natural-progression:quark_basalt_pebble",
+    "natural-progression:quark_jasper_pebble",
+    "natural-progression:quark_limestone_pebble",
+    "natural-progression:quark_marble_pebble",
+    "natural-progression:quark_slate_pebble"
+  ]
+}
