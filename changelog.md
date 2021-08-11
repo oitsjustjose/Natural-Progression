@@ -1,5 +1,12 @@
 # Natural Progression Changelog (1.16)
 
+## 2.2.0
+
+- Pebbles are now part of a Forge tag (`forge:pebbles`)
+  - This tag is now used for the advancement for getting a pebble
+- Pebbles and Twigs now place on snowy grass correctly
+- Internal Refactor
+
 ## 2.1.0
 
 ### Added
@@ -7,8 +14,8 @@
 - Pebbles and Cobbles for Netherrack and End Stone
 - BetterEnd compatability for plank recipes
 - New BlockTag for ignoring the Tool Requirements (wood and stone)
-    - Stone Blocks use tag `natural-progression:ignored_stone_blocks`
-    - Wood Blocks use tag `natural-progression:ignored_wood_blocks`
+  - Stone Blocks use tag `natural-progression:ignored_stone_blocks`
+  - Wood Blocks use tag `natural-progression:ignored_wood_blocks`
 
 ### Changed
 
@@ -38,7 +45,7 @@
 - Renamed "Basic" Saw to Flint
 - Renamed "Improved" Saw to Iron
 - HUGE internal refactor for easily adding new pebbles in the future :)
-    - Same for saws really.. slightly different but pretty much the same
+  - Same for saws really.. slightly different but pretty much the same
 
 ## 1.4.0
 
