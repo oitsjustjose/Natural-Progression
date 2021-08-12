@@ -11,7 +11,6 @@ import com.oitsjustjose.naturalprogression.common.event.ToolNeutering;
 import com.oitsjustjose.naturalprogression.common.event.WoodBreak;
 import com.oitsjustjose.naturalprogression.common.items.NaturalProgressionItems;
 import com.oitsjustjose.naturalprogression.common.recipes.DamageItemRecipe;
-import com.oitsjustjose.naturalprogression.common.recipes.RecipeRemover;
 import com.oitsjustjose.naturalprogression.common.utils.Constants;
 import com.oitsjustjose.naturalprogression.common.world.feature.PebbleFeature;
 import com.oitsjustjose.naturalprogression.common.world.feature.TwigFeature;
@@ -58,7 +57,6 @@ public class NaturalProgression {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new RecipeRemover());
         MinecraftForge.EVENT_BUS.register(new WoodBreak());
         MinecraftForge.EVENT_BUS.register(new StoneBreak());
         MinecraftForge.EVENT_BUS.register(new GroundBreak());
