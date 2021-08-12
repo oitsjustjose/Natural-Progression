@@ -70,16 +70,15 @@ public class BoneEvent {
         }
 
         ResourceLocation loc = ForgeRegistries.ENTITIES.getKey(event.getEntityLiving().getType());
+        boolean exists = CommonConfig.BONE_DROP_ENTITIES.get().contains(loc.toString());
 
-        CommonConfig.BONE_DROP_ENTITIES.get().forEach((name) -> {
-            if (name.equals(loc.toString())) {
-                if (rand.nextInt(100) < CommonConfig.BONE_DROP_CHANCE.get()) {
-                    ItemEntity drop = new ItemEntity(event.getEntityLiving().world,
-                            event.getEntityLiving().getPosX(), event.getEntityLiving().getPosY(),
-                            event.getEntityLiving().getPosZ(), new ItemStack(Items.BONE));
-                    event.getDrops().add(drop);
-                }
+        if (exists || CommonConfig.ALL_ENTITIES_DROP_BONES.get()) {
+            if (rand.nextInt(100) < CommonConfig.BONE_DROP_CHANCE.get()) {
+                ItemEntity drop = new ItemEntity(event.getEntityLiving().world,
+                        event.getEntityLiving().getPosX(), event.getEntityLiving().getPosY(),
+                        event.getEntityLiving().getPosZ(), new ItemStack(Items.BONE));
+                event.getDrops().add(drop);
             }
-        });
+        }
     }
 }

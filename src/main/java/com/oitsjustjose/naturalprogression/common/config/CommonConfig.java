@@ -25,6 +25,7 @@ public class CommonConfig {
     public static ForgeConfigSpec.IntValue BONE_SHARD_CHANCE;
     public static ForgeConfigSpec.IntValue BONE_DROP_CHANCE;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> BONE_DROP_ENTITIES;
+    public static ForgeConfigSpec.BooleanValue ALL_ENTITIES_DROP_BONES;
     public static ForgeConfigSpec.BooleanValue SHOW_BREAKING_HELP;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_WHITELIST;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> PEBBLE_PLACEMENT_BLACKLIST;
@@ -87,6 +88,9 @@ public class CommonConfig {
                                 "minecraft:polar_bear", "minecraft:rabbit", "minecraft:sheep",
                                 "minecraft:trader_llama", "minecraft:wolf"}),
                         (itemRaw) -> itemRaw instanceof String);
+        ALL_ENTITIES_DROP_BONES = COMMON_BUILDER
+                .comment("Enabling this causes all entities to drop additional bones when killed")
+                .define("allEntitiesDropBones", false);
         SHOW_BREAKING_HELP = COMMON_BUILDER.comment(
                 "Setting this to true will let players know that they can't break certain blocks without a certain tool")
                 .define("showToolHelp", true);
