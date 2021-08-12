@@ -27,6 +27,8 @@ public class CommonConfig {
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> BONE_DROP_ENTITIES;
     public static ForgeConfigSpec.BooleanValue SHOW_BREAKING_HELP;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_WHITELIST;
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> PEBBLE_PLACEMENT_BLACKLIST;
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> TWIG_PLACEMENT_BLACKLIST;
 
     static {
         init();
@@ -93,6 +95,18 @@ public class CommonConfig {
                 .defineList(
                         "dimensionWhitelist", Lists.newArrayList("minecraft:overworld",
                                 "minecraft:the_nether", "minecraft:the_end"),
+                        (itemRaw) -> itemRaw instanceof String);
+        PEBBLE_PLACEMENT_BLACKLIST = COMMON_BUILDER.comment(
+                "A list of 'modid:block' that represent blocks that pebbles can be placed on.")
+                .defineList(
+                        "pebblePlacementBlacklist", Lists.newArrayList("minecraft:ice",
+                                "minecraft:packed_ice", "minecraft:bedrock"),
+                        (itemRaw) -> itemRaw instanceof String);
+        TWIG_PLACEMENT_BLACKLIST = COMMON_BUILDER.comment(
+                "A list of 'modid:block' that represent blocks that twigs can be placed on.")
+                .defineList(
+                        "twigPlacementBlacklist", Lists.newArrayList("minecraft:ice",
+                                "minecraft:packed_ice", "minecraft:bedrock"),
                         (itemRaw) -> itemRaw instanceof String);
         COMMON_BUILDER.pop();
     }

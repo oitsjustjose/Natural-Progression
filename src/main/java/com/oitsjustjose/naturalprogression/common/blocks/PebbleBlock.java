@@ -1,11 +1,8 @@
 package com.oitsjustjose.naturalprogression.common.blocks;
 
 import java.util.Random;
-
 import javax.annotation.Nonnull;
-
 import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -34,6 +31,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 public class PebbleBlock extends Block implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;

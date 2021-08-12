@@ -6,6 +6,7 @@ import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlock
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
@@ -32,25 +33,12 @@ public class Utils {
     }
 
     /**
-     * @param stateAtPos The BlockState at the the position
-     * @param reader An ISeedReader instance
-     * @param searchPos The BlockPos currently be searched at
-     * @return true if the block at pos is replaceable
-     */
-    public static boolean canReplace(BlockState stateAtPos, ISeedReader reader,
-            BlockPos searchPos) {
-        return stateAtPos.getMaterial().isLiquid() || stateAtPos.getMaterial() == Material.AIR;
-    }
-
-    /**
      * @param reader an ISeedReader instance
      * @param pos A BlockPos to check in and around
      * @return true if the block is water (since we can waterlog)
      */
     public static boolean isInWater(ISeedReader reader, BlockPos pos) {
-        BlockState state = reader.getBlockState(pos);
-        return state.getBlock() == Blocks.WATER
-                || state.hasProperty(BlockStateProperties.WATERLOGGED);
+        return reader.getBlockState(pos).getBlock() == Blocks.WATER;
     }
 
     /**
@@ -121,7 +109,8 @@ public class Utils {
     public static boolean canReplace(ISeedReader reader, BlockPos pos) {
         BlockState state = reader.getBlockState(pos);
         Material mat = state.getMaterial();
-        return BlockTags.LEAVES.contains(state.getBlock()) || mat.isReplaceable();
+        return mat.isLiquid() || mat == Material.AIR || BlockTags.LEAVES.contains(state.getBlock())
+                || mat.isReplaceable();
     }
 
     public static String dimensionToString(ISeedReader reader) {

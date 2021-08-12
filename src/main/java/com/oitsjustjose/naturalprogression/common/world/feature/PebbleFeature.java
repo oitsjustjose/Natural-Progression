@@ -38,25 +38,23 @@ public class PebbleFeature extends Feature<NoFeatureConfig> {
         try {
             for (int i = 0; i < CommonConfig.MAX_PEBBLES_PER_CHUNK.get(); i++) {
                 BlockPos pebblePos = Utils.getPebblePos(reader, new ChunkPos(pos));
-
                 if (pebblePos == null || Utils.inNonWaterFluid(reader, pebblePos)) {
                     continue;
                 }
 
+                if (!canPlaceOnBlock(reader, pebblePos)) {
+                    continue;
+                }
+
                 Block pebble = Utils.getPebbleForPos(reader, pebblePos);
-
-                if (!(reader.getBlockState(pebblePos).getBlock() instanceof PebbleBlock)) {
-                    boolean isInWater = Utils.isInWater(reader, pebblePos);
-                    BlockState stateToPlace = isInWater
-                            ? pebble.getDefaultState().with(PebbleBlock.WATERLOGGED, Boolean.TRUE)
-                            : pebble.getDefaultState();
-
-                    if (reader.setBlockState(pebblePos, stateToPlace, 2 | 16)) {
-                        if (Utils.canReplace(reader.getBlockState(pebblePos.up()), reader,
-                                pebblePos.up())) {
-                            reader.destroyBlock(pos.up(), false);
-                            Utils.fixSnowyBlock(reader, pebblePos);
-                        }
+                boolean isInWater = Utils.isInWater(reader, pebblePos);
+                BlockState stateToPlace =
+                        isInWater ? pebble.getDefaultState().with(PebbleBlock.WATERLOGGED,
+                                Boolean.valueOf(true)) : pebble.getDefaultState();
+                if (reader.setBlockState(pebblePos, stateToPlace, 2 | 16)) {
+                    if (Utils.canReplace(reader, pebblePos.up())) {
+                        reader.destroyBlock(pos.up(), false);
+                        Utils.fixSnowyBlock(reader, pebblePos);
                     }
                 }
             }
@@ -64,5 +62,10 @@ public class PebbleFeature extends Feature<NoFeatureConfig> {
             NaturalProgression.getInstance().LOGGER.error(e.getMessage());
         }
         return false;
+    }
+
+    private boolean canPlaceOnBlock(ISeedReader reader, BlockPos placePos) {
+        String rl = reader.getBlockState(placePos.down()).getBlock().getRegistryName().toString();
+        return CommonConfig.PEBBLE_PLACEMENT_BLACKLIST.get().contains(rl);
     }
 }
