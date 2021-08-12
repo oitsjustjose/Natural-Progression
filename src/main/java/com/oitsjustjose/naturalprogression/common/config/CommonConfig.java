@@ -17,8 +17,11 @@ public class CommonConfig {
 
     public static ForgeConfigSpec.IntValue MAX_PEBBLES_PER_CHUNK;
     public static ForgeConfigSpec.IntValue MAX_TWIGS_PER_CHUNK;
+<<<<<<< HEAD
     public static ForgeConfigSpec.BooleanValue REMOVE_WOODEN_TOOL_FUNC;
     public static ForgeConfigSpec.BooleanValue REMOVE_STONE_TOOL_FUNC;
+=======
+>>>>>>> 51e31dd9d81281422f8413c55b6a1174aa4994dc
     public static ForgeConfigSpec.BooleanValue MAKE_GROUND_BLOCKS_HARDER;
     public static ForgeConfigSpec.BooleanValue ARE_PEBBLES_REPLACEABLE;
     public static ForgeConfigSpec.IntValue FLINT_CHANCE;
