@@ -17,8 +17,6 @@ public class CommonConfig {
 
     public static ForgeConfigSpec.IntValue MAX_PEBBLES_PER_CHUNK;
     public static ForgeConfigSpec.IntValue MAX_TWIGS_PER_CHUNK;
-    public static ForgeConfigSpec.BooleanValue REMOVE_WOODEN_TOOL_RECIPES;
-    public static ForgeConfigSpec.BooleanValue REMOVE_STONE_TOOL_RECIPES;
     public static ForgeConfigSpec.BooleanValue MAKE_GROUND_BLOCKS_HARDER;
     public static ForgeConfigSpec.BooleanValue ARE_PEBBLES_REPLACEABLE;
     public static ForgeConfigSpec.IntValue FLINT_CHANCE;
@@ -53,12 +51,6 @@ public class CommonConfig {
         MAX_TWIGS_PER_CHUNK = COMMON_BUILDER
                 .comment("The maximum number of twigs that can be found in each chunk")
                 .defineInRange("maxTwigsPerChunk", 3, 0, 256);
-        REMOVE_WOODEN_TOOL_RECIPES = COMMON_BUILDER.comment(
-                "Setting this to true prevents the ability to craft wooden tools. This is totally unrealistic anyways.")
-                .define("removeWoodenToolRecipes", true);
-        REMOVE_STONE_TOOL_RECIPES = COMMON_BUILDER.comment(
-                "Setting this to true prevents the ability to craft stone tools. This is totally unrealistic anyways.")
-                .define("removeStoneToolRecipes", true);
         MAKE_GROUND_BLOCKS_HARDER = COMMON_BUILDER.comment(
                 "Setting this to true will make ground blocks (e.g. sand, dirt, gravel) harder to break without the correct tool.")
                 .define("makeGroundBlocksHarder", true);
