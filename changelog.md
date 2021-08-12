@@ -1,5 +1,22 @@
 # Natural Progression Changelog (1.16)
 
+## 2.3.0
+
+### Added
+
+- `twigPlacementBlacklist` and `pebblePlacementBlacklist` options in config
+- Config option for all mobs to have a chance to drop a bone
+
+### Fixed
+
+- Cobbled Netherrack and End Stone not dropping themselves
+- Netherite Saw not being in the `saws` tag.
+
+### Changed
+
+- **This mod no longer removes tool recipes**. Datapacks are easy and common - learn them!
+  - Instead, it only "nerfs" wooden and stone tools, with a handy tooltip to remind you :D
+
 ## 2.2.0
 
 - Pebbles are now part of a Forge tag (`forge:pebbles`)
