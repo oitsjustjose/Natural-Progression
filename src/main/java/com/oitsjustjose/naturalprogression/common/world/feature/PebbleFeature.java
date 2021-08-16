@@ -48,9 +48,9 @@ public class PebbleFeature extends Feature<NoFeatureConfig> {
 
                 Block pebble = Utils.getPebbleForPos(reader, pebblePos);
                 boolean isInWater = Utils.isInWater(reader, pebblePos);
-                BlockState stateToPlace =
-                        isInWater ? pebble.getDefaultState().with(PebbleBlock.WATERLOGGED,
-                                Boolean.valueOf(true)) : pebble.getDefaultState();
+                BlockState stateToPlace = isInWater
+                        ? pebble.getDefaultState().with(PebbleBlock.WATERLOGGED, Boolean.valueOf(true))
+                        : pebble.getDefaultState();
                 if (reader.setBlockState(pebblePos, stateToPlace, 2 | 16)) {
                     if (Utils.canReplace(reader, pebblePos.up())) {
                         reader.destroyBlock(pos.up(), false);
@@ -61,11 +61,11 @@ public class PebbleFeature extends Feature<NoFeatureConfig> {
         } catch (Exception e) {
             NaturalProgression.getInstance().LOGGER.error(e.getMessage());
         }
-        return false;
+        return true;
     }
 
     private boolean canPlaceOnBlock(ISeedReader reader, BlockPos placePos) {
         String rl = reader.getBlockState(placePos.down()).getBlock().getRegistryName().toString();
-        return CommonConfig.PEBBLE_PLACEMENT_BLACKLIST.get().contains(rl);
+        return !CommonConfig.PEBBLE_PLACEMENT_BLACKLIST.get().contains(rl);
     }
 }

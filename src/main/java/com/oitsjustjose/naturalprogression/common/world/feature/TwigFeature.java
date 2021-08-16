@@ -48,8 +48,7 @@ public class TwigFeature extends Feature<NoFeatureConfig> {
                 if (!(reader.getBlockState(twigPos).getBlock() instanceof TwigBlock)) {
                     boolean isInWater = Utils.isInWater(reader, twigPos);
                     BlockState stateToPlace = isInWater
-                            ? NaturalProgressionBlocks.twigs.getDefaultState()
-                                    .with(TwigBlock.WATERLOGGED, Boolean.TRUE)
+                            ? NaturalProgressionBlocks.twigs.getDefaultState().with(TwigBlock.WATERLOGGED, Boolean.TRUE)
                             : NaturalProgressionBlocks.twigs.getDefaultState();
 
                     if (reader.setBlockState(twigPos, stateToPlace, 2 | 16)) {
@@ -63,11 +62,11 @@ public class TwigFeature extends Feature<NoFeatureConfig> {
         } catch (Exception e) {
             NaturalProgression.getInstance().LOGGER.error(e.getMessage());
         }
-        return false;
+        return true;
     }
 
     private boolean canPlaceOnBlock(ISeedReader reader, BlockPos placePos) {
         String rl = reader.getBlockState(placePos.down()).getBlock().getRegistryName().toString();
-        return CommonConfig.TWIG_PLACEMENT_BLACKLIST.get().contains(rl);
+        return !CommonConfig.TWIG_PLACEMENT_BLACKLIST.get().contains(rl);
     }
 }
