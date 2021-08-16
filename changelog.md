@@ -1,5 +1,12 @@
 # Natural Progression Changelog (1.16)
 
+## 2.3.1
+
+### Fixed
+
+- Pebbles and Twigs not generating
+  - I essentially inverted the blacklist on accident
+
 ## 2.3.0
 
 ### Added
