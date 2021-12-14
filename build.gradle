@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
     dependencies {
         classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
@@ -19,12 +19,13 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.matthewprenger.cursegradle'
 
 group = 'com.oitsjustjose.naturalprogression' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "NaturalProgression-${game_version}"
+archivesBaseName = "NaturalProgression-${game_version}-${mod_version}"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
 minecraft {
-    mappings channel: "snapshot", version: "${mappings_version}"
+    mappings channel: 'official', version: "${game_version}"
     runs {
         client {
             workingDirectory project.file('run')
@@ -58,8 +59,8 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${game_version}-${forge_version}"
-    compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${game_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${game_version}:${jei_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
@@ -93,16 +94,6 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
-processResources {
-    version = "${mod_version}"
-    from(sourceSets.main.resources) {
-        include '**/mods.toml'
-        expand 'version': version
-    }
-}
-
-build.dependsOn processResources
-
 artifacts {
     archives deobfJar
     archives sourcesJar
@@ -114,12 +105,9 @@ curseforge {
     id = '349530'
     changelogType = 'markdown'
     changelog = file("./changelog.md")
-    releaseType = 'release'
-    addGameVersion "1.16.1"
-    addGameVersion "1.16.2"
-    addGameVersion "1.16.3"
-    addGameVersion "1.16.4"
-    addGameVersion "1.16.5"
+    releaseType = 'beta'
+    addGameVersion '1.18'
+    addGameVersion '1.18.1'
 
     mainArtifact(jar) {
         displayName = "NaturalProgression ${game_version} ${mod_version}"
