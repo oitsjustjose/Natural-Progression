@@ -1,5 +1,5 @@
 {
-  "parent": "natural-progression:craft_bone_pick",
+  "parent": "natprog:craft_bone_pick",
   "display": {
     "icon": {
       "item": "minecraft:iron_ingot"
@@ -27,5 +27,9 @@
       }
     }
   },
-  "requirements": [["iron"]]
+  "requirements": [
+    [
+      "iron"
+    ]
+  ]
 }

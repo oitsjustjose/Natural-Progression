@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PP",
+    "PP"
+  ],
+  "key": {
+    "P": {
+      "item": "natprog:tuff_pebble"
+    }
+  },
+  "result": {
+    "item": "natprog:cobbled_tuff"
+  }
+}

@@ -5,17 +5,18 @@
       "modid": "atmospheric"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "atmospheric:stripped_morado_log"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "atmospheric:morado_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

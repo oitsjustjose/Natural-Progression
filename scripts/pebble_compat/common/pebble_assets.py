@@ -3,9 +3,9 @@ import os
 
 from .mod_stone import ModStones
 
-BLOCK_STATES_ROOT = "./out/assets/natural-progression/blockstates"
-BLOCK_MODELS_ROOT = "./out/assets/natural-progression/models/block"
-ITEM_MODELS_ROOT = "./out/assets/natural-progression/models/item"
+BLOCK_STATES_ROOT = "./out/assets/natprog/blockstates"
+BLOCK_MODELS_ROOT = "./out/assets/natprog/models/block"
+ITEM_MODELS_ROOT = "./out/assets/natprog/models/item"
 
 
 class PebbleAssetGenerator:
@@ -19,16 +19,16 @@ class PebbleAssetGenerator:
             os.mkdir("./out")
         if not os.path.exists("./out/assets"):
             os.mkdir("./out/assets")
-        if not os.path.exists("./out/assets/natural-progression"):
-            os.mkdir("./out/assets/natural-progression")
-        if not os.path.exists("./out/assets/natural-progression/blockstates"):
-            os.mkdir("./out/assets/natural-progression/blockstates")
-        if not os.path.exists("./out/assets/natural-progression/models"):
-            os.mkdir("./out/assets/natural-progression/models")
-        if not os.path.exists("./out/assets/natural-progression/models/block"):
-            os.mkdir("./out/assets/natural-progression/models/block")
-        if not os.path.exists("./out/assets/natural-progression/models/item"):
-            os.mkdir("./out/assets/natural-progression/models/item")
+        if not os.path.exists("./out/assets/natprog"):
+            os.mkdir("./out/assets/natprog")
+        if not os.path.exists("./out/assets/natprog/blockstates"):
+            os.mkdir("./out/assets/natprog/blockstates")
+        if not os.path.exists("./out/assets/natprog/models"):
+            os.mkdir("./out/assets/natprog/models")
+        if not os.path.exists("./out/assets/natprog/models/block"):
+            os.mkdir("./out/assets/natprog/models/block")
+        if not os.path.exists("./out/assets/natprog/models/item"):
+            os.mkdir("./out/assets/natprog/models/item")
 
     def generate_blockstates(self) -> None:
         bst = None
@@ -40,7 +40,7 @@ class PebbleAssetGenerator:
             with open(f"{BLOCK_STATES_ROOT}/{fn}", "w+") as output:
                 bst["variants"][""][
                     "model"
-                ] = f"natural-progression:block/{self._modid}_{stone}_pebble"
+                ] = f"natprog:block/{self._modid}_{stone}_pebble"
                 output.write(json.dumps(bst))
 
     def generate_block_models(self) -> None:
@@ -61,7 +61,5 @@ class PebbleAssetGenerator:
         for stone in self._stones._stones:
             fn = f"{self._modid}_{stone}_pebble.json"
             with open(f"{ITEM_MODELS_ROOT}/{fn}", "w") as output:
-                model[
-                    "parent"
-                ] = f"natural-progression:block/{self._modid}_{stone}_pebble"
+                model["parent"] = f"natprog:block/{self._modid}_{stone}_pebble"
                 output.write(json.dumps(model))

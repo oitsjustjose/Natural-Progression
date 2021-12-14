@@ -1,0 +1,7 @@
+{
+  "parent": "natprog:block/pebble",
+  "textures": {
+    "particle": "minecraft:block/andesite",
+    "stone": "minecraft:block/andesite"
+  }
+}

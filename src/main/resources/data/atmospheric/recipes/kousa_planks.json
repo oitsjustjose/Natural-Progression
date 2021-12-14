@@ -5,17 +5,18 @@
       "modid": "atmospheric"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "atmospheric:stripped_kousa_log"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "atmospheric:kousa_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

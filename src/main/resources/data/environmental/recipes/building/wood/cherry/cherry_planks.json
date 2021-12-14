@@ -5,17 +5,18 @@
       "modid": "environmental"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "environmental:stripped_cherry_log"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "environmental:cherry_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

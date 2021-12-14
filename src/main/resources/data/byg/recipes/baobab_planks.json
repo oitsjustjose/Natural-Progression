@@ -5,17 +5,18 @@
       "modid": "byg"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "byg:stripped_baobab_log"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "byg:baobab_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

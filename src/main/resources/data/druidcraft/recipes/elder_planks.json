@@ -5,17 +5,18 @@
       "modid": "druidcraft"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "druidcraft:stripped_elder_log"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "druidcraft:elder_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

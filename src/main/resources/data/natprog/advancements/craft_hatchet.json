@@ -1,0 +1,35 @@
+{
+  "parent": "natprog:knap_flint",
+  "display": {
+    "icon": {
+      "item": "natprog:flint_hatchet"
+    },
+    "title": {
+      "translate": "advancements.story.get_flint_hatchet.title"
+    },
+    "description": {
+      "translate": "advancements.story.get_flint_hatchet.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_hatchet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "natprog:flint_hatchet"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_hatchet"
+    ]
+  ]
+}

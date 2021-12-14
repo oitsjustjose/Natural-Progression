@@ -5,17 +5,18 @@
       "modid": "biomesoplenty"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "biomesoplenty:stripped_umbran_log"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "biomesoplenty:umbran_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

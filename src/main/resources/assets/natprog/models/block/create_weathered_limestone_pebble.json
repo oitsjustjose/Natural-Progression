@@ -1,0 +1,7 @@
+{
+  "parent": "natprog:block/pebble",
+  "textures": {
+    "particle": "create:block/palettes/weathered_limestone/plain",
+    "stone": "create:block/palettes/weathered_limestone/plain"
+  }
+}

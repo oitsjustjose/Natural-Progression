@@ -1,0 +1,35 @@
+{
+  "parent": "natprog:craft_crafting_table",
+  "display": {
+    "icon": {
+      "item": "natprog:basic_saw"
+    },
+    "title": {
+      "translate": "advancements.story.get_basic_saw.title"
+    },
+    "description": {
+      "translate": "advancements.story.get_basic_saw.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_basic_saw": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "natprog:basic_saw"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_basic_saw"
+    ]
+  ]
+}

@@ -5,17 +5,18 @@
       "modid": "swampexpansion"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "swampexpansion:stripped_willow_log"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "swampexpansion:willow_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

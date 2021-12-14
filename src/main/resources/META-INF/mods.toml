@@ -1,11 +1,11 @@
 modLoader="javafml" #mandatory
-loaderVersion="[32,)" #mandatory
+loaderVersion="[38,)" #mandatory
 issueTrackerURL="https://github.com/oitsjustjose/Natural-Progression/issues"
 license="GNU GPLv3"
 
 [[mods]]
-modId="natural-progression"
-version="${version}"
+modId="natprog"
+version="${file.jarVersion}"
 displayName="Natural Progression"
 displayURL=""
 credits="Contributors on GitHub"
@@ -16,28 +16,28 @@ knapping, and preventing wood breaking with a bare hand.
 
 Support me on Patreon at https://patreon.com/oitsjustjose
 '''
-[[dependencies.natural-progression]] #optional
+[[dependencies.natprog]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[32,)" #mandatory
+    versionRange="[38,)" #mandatory
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.natural-progression]]
+[[dependencies.natprog]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16,)"
+    versionRange="[1.18,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.natural-progression]]
+[[dependencies.natprog]]
     modId="quark"
     mandatory=false
     versionRange="[0,)"
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.natural-progression]]
+[[dependencies.naturalprogression]]
     modId="create"
     mandatory=false
     versionRange="[0,)"

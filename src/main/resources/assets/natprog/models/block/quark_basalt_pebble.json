@@ -1,0 +1,7 @@
+{
+  "parent": "natprog:block/pebble",
+  "textures": {
+    "particle": "quark:block/basalt",
+    "stone": "quark:block/basalt"
+  }
+}

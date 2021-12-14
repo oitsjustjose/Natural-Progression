@@ -5,17 +5,18 @@
       "modid": "botania"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "botania:livingwood"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "botania:livingwood_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

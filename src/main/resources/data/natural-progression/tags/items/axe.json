@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "minecraft:stone_axe",
-    "minecraft:diamond_axe",
-    "minecraft:iron_axe",
-    "natural-progression:flint_hatchet"
-  ]
-}

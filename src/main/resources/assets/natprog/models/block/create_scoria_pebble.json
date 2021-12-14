@@ -1,0 +1,7 @@
+{
+  "parent": "natprog:block/pebble",
+  "textures": {
+    "particle": "create:block/palettes/scoria/plain",
+    "stone": "create:block/palettes/scoria/plain"
+  }
+}

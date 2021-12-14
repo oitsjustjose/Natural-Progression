@@ -5,17 +5,18 @@
       "modid": "minecraft"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "minecraft:stripped_dark_oak_log"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "minecraft:dark_oak_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

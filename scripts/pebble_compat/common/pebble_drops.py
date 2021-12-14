@@ -2,7 +2,7 @@ import json
 import os
 from .mod_stone import ModStones
 
-BLOCK_DROPS_ROOT = "./out/data/natural-progression/loot_tables/blocks"
+BLOCK_DROPS_ROOT = "./out/data/natprog/loot_tables/blocks"
 
 
 class PebbleDropGenerator:
@@ -16,12 +16,12 @@ class PebbleDropGenerator:
             os.mkdir("./out")
         if not os.path.exists("./out/data"):
             os.mkdir("./out/data")
-        if not os.path.exists("./out/data/natural-progression"):
-            os.mkdir("./out/data/natural-progression")
-        if not os.path.exists("./out/data/natural-progression/loot_tables"):
-            os.mkdir("./out/data/natural-progression/loot_tables")
-        if not os.path.exists("./out/data/natural-progression/loot_tables/blocks"):
-            os.mkdir("./out/data/natural-progression/loot_tables/blocks")
+        if not os.path.exists("./out/data/natprog"):
+            os.mkdir("./out/data/natprog")
+        if not os.path.exists("./out/data/natprog/loot_tables"):
+            os.mkdir("./out/data/natprog/loot_tables")
+        if not os.path.exists("./out/data/natprog/loot_tables/blocks"):
+            os.mkdir("./out/data/natprog/loot_tables/blocks")
 
     def generate(self) -> None:
         lt = None
@@ -33,5 +33,5 @@ class PebbleDropGenerator:
             with open(f"{BLOCK_DROPS_ROOT}/{fn}", "w+") as output:
                 lt["pools"][0]["entries"][0][
                     "name"
-                ] = f"natural-progression:{self._modid}_{stone}_pebble"
+                ] = f"natprog:{self._modid}_{stone}_pebble"
                 output.write(json.dumps(lt))

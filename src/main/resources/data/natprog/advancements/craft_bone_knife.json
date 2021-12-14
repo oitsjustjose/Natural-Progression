@@ -1,0 +1,35 @@
+{
+  "parent": "natprog:knap_bone_shard",
+  "display": {
+    "icon": {
+      "item": "natprog:bone_knife"
+    },
+    "title": {
+      "translate": "advancements.story.get_bone_knife.title"
+    },
+    "description": {
+      "translate": "advancements.story.get_bone_knife.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_bone_knife": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "natprog:bone_knife"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_bone_knife"
+    ]
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "natprog:get_bone",
+  "display": {
+    "icon": {
+      "item": "natprog:bone_shard"
+    },
+    "title": {
+      "translate": "advancements.story.knap_bone_shard.title"
+    },
+    "description": {
+      "translate": "advancements.story.knap_bone_shard.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_bone_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "natprog:bone_shard"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_bone_shard"
+    ]
+  ]
+}

@@ -5,17 +5,18 @@
       "modid": "byg"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "byg:stripped_blue_enchanted_log"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "byg:blue_enchanted_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

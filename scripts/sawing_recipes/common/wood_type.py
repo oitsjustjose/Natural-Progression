@@ -22,7 +22,7 @@ class WoodProgression(NamedTuple):
         else:
             original_name = self.original_item.split(":")[1]
             tool_name = self.tool_tag.split(":")[1]
-            base += "/data/natural-progression/recipes/wood"
+            base += "/data/natprog/recipes/wood"
             return (
                 f"{base}/{result_ns}/{tool_name}/{original_name}_to_{result_name}.json"
             )
@@ -38,7 +38,7 @@ class WoodProgression(NamedTuple):
                         "modid": self.result_item.split(":")[0],
                     }
                 ],
-                "type": "natural-progression:damage_tools",
+                "type": "natprog:damage_tools",
                 "ingredients": [{"item": self.original_item}, {"tag": self.tool_tag}],
                 "result": {"item": self.result_item, "count": self.result_count},
             },
@@ -58,7 +58,7 @@ class WoodType(NamedTuple):
         if self.stripped_log is not None:
             ret.append(
                 WoodProgression(
-                    tool_tag="natural-progression:saw",
+                    tool_tag="natprog:saw",
                     original_item=self.log,
                     result_count=1,
                     result_item=self.stripped_log,
@@ -67,7 +67,7 @@ class WoodType(NamedTuple):
         if self.wood is not None and self.stripped_wood is not None:
             ret.append(
                 WoodProgression(
-                    tool_tag="natural-progression:saw",
+                    tool_tag="natprog:saw",
                     original_item=self.wood,
                     result_count=1,
                     result_item=self.stripped_wood,
@@ -83,7 +83,7 @@ class WoodType(NamedTuple):
         if self.stripped_log is not None:
             ret.append(
                 WoodProgression(
-                    tool_tag=f"natural-progression:{tool}",
+                    tool_tag=f"natprog:{tool}",
                     original_item=self.stripped_log,
                     result_count=count,
                     result_item=self.planks,
@@ -93,7 +93,7 @@ class WoodType(NamedTuple):
         else:
             ret.append(
                 WoodProgression(
-                    tool_tag=f"natural-progression:{tool}",
+                    tool_tag=f"natprog:{tool}",
                     original_item=self.log,
                     result_count=count,
                     result_item=self.planks,
@@ -105,7 +105,7 @@ class WoodType(NamedTuple):
         if self.stripped_wood is not None:
             ret.append(
                 WoodProgression(
-                    tool_tag=f"natural-progression:{tool}",
+                    tool_tag=f"natprog:{tool}",
                     original_item=self.stripped_wood,
                     result_count=count,
                     result_item=self.planks,
@@ -114,7 +114,7 @@ class WoodType(NamedTuple):
         elif self.wood is not None:
             ret.append(
                 WoodProgression(
-                    tool_tag=f"natural-progression:{tool}",
+                    tool_tag=f"natprog:{tool}",
                     original_item=self.wood,
                     result_count=count,
                     result_item=self.planks,

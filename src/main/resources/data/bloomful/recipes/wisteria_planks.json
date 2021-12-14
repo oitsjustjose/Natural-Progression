@@ -5,17 +5,18 @@
       "modid": "bloomful"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "bloomful:stripped_wisteria_log"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "bloomful:wisteria_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

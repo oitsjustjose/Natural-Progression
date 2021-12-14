@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "natural-progression:item/diamond_saw"
-  }
-}

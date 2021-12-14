@@ -5,17 +5,18 @@
       "modid": "upgrade_aquatic"
     }
   ],
-  "type": "natural-progression:damage_tools",
+  "type": "natprog:damage_tools",
   "ingredients": [
     {
       "item": "upgrade_aquatic:stripped_driftwood_log"
     },
     {
-      "tag": "natural-progression:saw"
+      "tag": "natprog:saw"
     }
   ],
   "result": {
     "item": "upgrade_aquatic:driftwood_planks",
     "count": 4
-  }
+  },
+  "group": "planks"
 }

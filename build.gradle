@@ -18,7 +18,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'com.matthewprenger.cursegradle'
 
-group = 'com.oitsjustjose.naturalprogression' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'com.oitsjustjose.natprog' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "NaturalProgression-${game_version}-${mod_version}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -33,7 +33,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                "natural-progression" {
+                "natprog" {
                     source sourceSets.main
                 }
             }
@@ -45,7 +45,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                "natural-progression" {
+                "natprog" {
                     source sourceSets.main
                 }
             }
@@ -67,7 +67,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "natural-progression",
+            "Specification-Title": "Natural-Progression",
             "Specification-Vendor": "oitsjustjose.com",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,

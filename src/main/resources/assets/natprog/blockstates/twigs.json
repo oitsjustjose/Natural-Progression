@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "natprog:block/twigs"
+      },
+      {
+        "model": "natprog:block/twigs",
+        "y": 90
+      },
+      {
+        "model": "natprog:block/twigs",
+        "y": 180
+      },
+      {
+        "model": "natprog:block/twigs",
+        "y": 270
+      }
+    ]
+  }
+}
