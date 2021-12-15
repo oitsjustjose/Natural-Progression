@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "natprog:basic_saw"
+            "items": [
+              "natprog:basic_saw"
+            ]
           }
         ]
       }

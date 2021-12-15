@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "natprog:bone_pickaxe"
+            "items": [
+              "natprog:bone_pickaxe"
+            ]
           }
         ]
       }

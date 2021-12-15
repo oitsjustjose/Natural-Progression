@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "natprog:improved_saw"
+            "items": [
+              "natprog:improved_saw"
+            ]
           }
         ]
       }
