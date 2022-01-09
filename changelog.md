@@ -1,5 +1,13 @@
 # Natural Progression Changelog (1.16)
 
+## 2.3.2
+
+### Fixed
+
+- Pebble and Twig blocks not waterlogging correctly
+- 1 block of Bedrock at Y=1 every 16x16 being removed
+- Pebbles / Twigs leaving half of a plant atop them
+
 ## 2.3.1
 
 ### Fixed
