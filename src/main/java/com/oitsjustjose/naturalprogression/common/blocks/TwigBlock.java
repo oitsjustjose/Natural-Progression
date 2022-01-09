@@ -2,6 +2,9 @@ package com.oitsjustjose.naturalprogression.common.blocks;
 
 import javax.annotation.Nonnull;
 
+import com.oitsjustjose.naturalprogression.NaturalProgression;
+import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
+import com.oitsjustjose.naturalprogression.common.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -18,6 +21,7 @@ import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.Half;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -31,20 +35,26 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+
+import java.util.Random;
 
 public class TwigBlock extends Block implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty HAS_TICKED = BlockStateProperties.TRIGGERED;
 
     public TwigBlock() {
         super(Properties.create(Material.EARTH, MaterialColor.BROWN)
                 .hardnessAndResistance(0.125F, 2F).sound(SoundType.WOOD).doesNotBlockMovement()
-                .notSolid());
-        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.FALSE));
+                .notSolid().tickRandomly());
+        this.setDefaultState(this.stateContainer.getBaseState()
+                .with(WATERLOGGED, Boolean.FALSE)
+                .with(HAS_TICKED, !CommonConfig.DO_BLOCKS_TICK.get()));
     }
 
     @Override
     public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world,
-            BlockPos pos, PlayerEntity player) {
+                                  BlockPos pos, PlayerEntity player) {
         return new ItemStack(Items.STICK);
 
     }
@@ -60,7 +70,7 @@ public class TwigBlock extends Block implements IWaterLoggable {
     @Override
     @Nonnull
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos,
-            ISelectionContext context) {
+                               ISelectionContext context) {
         Vector3d offset = state.getOffset(worldIn, pos);
         return VoxelShapes.create(0.2D, 0.0D, 0.2D, 0.75D, 0.01D, 0.75D).withOffset(offset.x,
                 offset.y, offset.z);
@@ -68,7 +78,7 @@ public class TwigBlock extends Block implements IWaterLoggable {
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos,
-            PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+                                             PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (!player.isCrouching()) {
             worldIn.destroyBlock(pos, true);
             player.swingArm(handIn);
@@ -84,7 +94,7 @@ public class TwigBlock extends Block implements IWaterLoggable {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(WATERLOGGED);
+        builder.add(WATERLOGGED).add(HAS_TICKED);
     }
 
     @Override
@@ -104,7 +114,7 @@ public class TwigBlock extends Block implements IWaterLoggable {
     @Override
     @SuppressWarnings("deprecation")
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn,
-            BlockPos fromPos, boolean isMoving) {
+                                BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
         if (!this.isValidPosition(state, worldIn, pos)) {
             worldIn.destroyBlock(pos, true);
@@ -120,5 +130,47 @@ public class TwigBlock extends Block implements IWaterLoggable {
     @SuppressWarnings("deprecated")
     public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
         return true;
+    }
+
+
+    @Override
+    public boolean ticksRandomly(BlockState state) {
+        return CommonConfig.DO_BLOCKS_TICK.get() && !(state.hasProperty(HAS_TICKED) && state.get(HAS_TICKED));
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+        if (!worldIn.isAreaLoaded(pos, 1)) {
+            return;
+        }
+
+        if (state.hasProperty(HAS_TICKED) && state.get(HAS_TICKED)) {
+            NaturalProgression.getInstance().LOGGER.info("TwigBlock Ticked But HAS_TICKED == true");
+            return;
+        }
+
+        BlockState aboveBlock = worldIn.getBlockState(pos.up());
+        if (aboveBlock.hasProperty(BlockStateProperties.HALF) && aboveBlock.get(BlockStateProperties.HALF) == Half.TOP) {
+            worldIn.destroyBlock(pos.up(), false);
+        }
+
+        BlockState[] neighbors = new BlockState[]{worldIn.getBlockState(pos.add(1, 0, 0)),
+                worldIn.getBlockState(pos.add(-1, 0, 0)), worldIn.getBlockState(pos.add(0, 0, 1)),
+                worldIn.getBlockState(pos.add(0, 0, -1))};
+
+        int waterNeighbors = 0;
+        for (BlockState b : neighbors) {
+            if (Utils.isWaterLike(b)) {
+                waterNeighbors++;
+            }
+        }
+
+        BlockState newState = state.with(HAS_TICKED, Boolean.TRUE);
+
+        if (waterNeighbors > 1) {
+            worldIn.setBlockState(pos, newState.with(WATERLOGGED, Boolean.TRUE), 2 | 16);
+        }
+
+        worldIn.setBlockState(pos, newState, 2 | 16);
     }
 }

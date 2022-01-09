@@ -1,14 +1,10 @@
 package com.oitsjustjose.naturalprogression.common.utils;
 
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import com.oitsjustjose.naturalprogression.common.blocks.NaturalProgressionBlocks;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ILiquidContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
@@ -16,6 +12,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.ISeedReader;
+
+import javax.annotation.Nullable;
+import java.util.Random;
 
 public class Utils {
     public static Block getPebbleForPos(ISeedReader reader, BlockPos pos) {
@@ -38,7 +37,15 @@ public class Utils {
      * @return true if the block is water (since we can waterlog)
      */
     public static boolean isInWater(ISeedReader reader, BlockPos pos) {
-        return reader.getBlockState(pos).getBlock() == Blocks.WATER;
+        BlockState state = reader.getBlockState(pos);
+        return isWaterLike(state);
+    }
+
+    public static boolean isWaterLike(BlockState state) {
+        return state.getBlock() == Blocks.WATER
+                || (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.get(BlockStateProperties.WATERLOGGED))
+                // Seagrass, Kelp, etc. don't have waterlogged prop but are an ILiquidContainer
+                || (!state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getBlock() instanceof ILiquidContainer);
     }
 
     /**
@@ -54,7 +61,7 @@ public class Utils {
      * @param reader   an ISeedReader instance
      * @param chunkPos The chunkPos to place within
      * @return A random BlockPos within the chunkPos that is valid. Can return null
-     *         if no valid location is found.
+     * if no valid location is found.
      */
     @Nullable
     public static BlockPos getPebblePos(ISeedReader reader, ChunkPos chunkPos) {
@@ -92,7 +99,7 @@ public class Utils {
 
     /**
      * Determines if the sample can be placed on this block
-     * 
+     *
      * @param reader: an ISeedReader instance
      * @param pos:    The current searching position that will be used to confirm
      * @return true if the block below is solid on top AND isn't in the blacklist

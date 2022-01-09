@@ -2,6 +2,7 @@ package com.oitsjustjose.naturalprogression.common.world.feature;
 
 import java.util.Random;
 import javax.annotation.ParametersAreNonnullByDefault;
+
 import com.mojang.serialization.Codec;
 import com.oitsjustjose.naturalprogression.NaturalProgression;
 import com.oitsjustjose.naturalprogression.common.blocks.PebbleBlock;
@@ -9,6 +10,8 @@ import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.Half;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.ISeedReader;
@@ -25,7 +28,7 @@ public class PebbleFeature extends Feature<NoFeatureConfig> {
     @Override
     @ParametersAreNonnullByDefault
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos,
-            NoFeatureConfig config) {
+                            NoFeatureConfig config) {
 
         if (generator instanceof FlatChunkGenerator) {
             return false;
@@ -47,15 +50,15 @@ public class PebbleFeature extends Feature<NoFeatureConfig> {
                 }
 
                 Block pebble = Utils.getPebbleForPos(reader, pebblePos);
-                boolean isInWater = Utils.isInWater(reader, pebblePos);
-                BlockState stateToPlace = isInWater
-                        ? pebble.getDefaultState().with(PebbleBlock.WATERLOGGED, Boolean.valueOf(true))
-                        : pebble.getDefaultState();
+                BlockState stateToPlace = pebble.getDefaultState()
+                        .with(PebbleBlock.WATERLOGGED, Utils.isInWater(reader, pebblePos));
+
                 if (reader.setBlockState(pebblePos, stateToPlace, 2 | 16)) {
-                    if (Utils.canReplace(reader, pebblePos.up())) {
-                        reader.destroyBlock(pos.up(), false);
-                        Utils.fixSnowyBlock(reader, pebblePos);
+                    BlockState aboveBlock = reader.getBlockState(pebblePos.up());
+                    if (aboveBlock.hasProperty(BlockStateProperties.HALF) && aboveBlock.get(BlockStateProperties.HALF) == Half.TOP) {
+                        reader.destroyBlock(pebblePos.up(), false);
                     }
+                    Utils.fixSnowyBlock(reader, pebblePos);
                 }
             }
         } catch (Exception e) {
