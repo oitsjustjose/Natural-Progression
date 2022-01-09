@@ -10,7 +10,10 @@ import com.oitsjustjose.naturalprogression.common.config.CommonConfig;
 import com.oitsjustjose.naturalprogression.common.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.Half;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -54,9 +57,10 @@ public class PebbleFeature extends Feature<NoFeatureConfig> {
                         .with(PebbleBlock.WATERLOGGED, Utils.isInWater(reader, pebblePos));
 
                 if (reader.setBlockState(pebblePos, stateToPlace, 2 | 16)) {
-                    BlockState aboveBlock = reader.getBlockState(pebblePos.up());
-                    if (aboveBlock.hasProperty(BlockStateProperties.HALF) && aboveBlock.get(BlockStateProperties.HALF) == Half.TOP) {
-                        reader.destroyBlock(pebblePos.up(), false);
+                    BlockPos abovePos = pebblePos.up();
+                    BlockState aboveBlock = reader.getBlockState(abovePos);
+                    if (aboveBlock.hasProperty(DoublePlantBlock.HALF) && aboveBlock.get(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
+                        reader.setBlockState(abovePos, Utils.isInWater(reader, abovePos) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState(), 2 | 16);
                     }
                     Utils.fixSnowyBlock(reader, pebblePos);
                 }

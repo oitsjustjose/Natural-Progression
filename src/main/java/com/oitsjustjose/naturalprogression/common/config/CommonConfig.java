@@ -30,7 +30,6 @@ public class CommonConfig {
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_WHITELIST;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> PEBBLE_PLACEMENT_BLACKLIST;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> TWIG_PLACEMENT_BLACKLIST;
-    public static ForgeConfigSpec.BooleanValue DO_BLOCKS_TICK;
 
     static {
         init();
@@ -66,9 +65,6 @@ public class CommonConfig {
         ARE_PEBBLES_REPLACEABLE = COMMON_BUILDER.comment(
                 "Setting this to true will allow you to replace pebbles like tall grass (more convenient for building, but loses the block forever")
                 .define("arePebblesReplaceable", true);
-        DO_BLOCKS_TICK = COMMON_BUILDER.comment(
-                "Fixes some weird issues with Pebble/Twig placement such as not waterlogging or destroying the bottom half of a plant but not the top. Only ticks once then is done.")
-                .define("doBlocksTick", true);
         FLINT_CHANCE = COMMON_BUILDER
                 .comment("The chance (out of 100) for flint to be created via knapping.\n"
                         + "e.g.: Setting to 75 means there is a 75% chance knapping will provide flint.")

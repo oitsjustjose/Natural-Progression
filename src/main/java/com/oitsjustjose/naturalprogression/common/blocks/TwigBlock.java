@@ -41,15 +41,12 @@ import java.util.Random;
 
 public class TwigBlock extends Block implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final BooleanProperty HAS_TICKED = BlockStateProperties.TRIGGERED;
 
     public TwigBlock() {
         super(Properties.create(Material.EARTH, MaterialColor.BROWN)
                 .hardnessAndResistance(0.125F, 2F).sound(SoundType.WOOD).doesNotBlockMovement()
                 .notSolid().tickRandomly());
-        this.setDefaultState(this.stateContainer.getBaseState()
-                .with(WATERLOGGED, Boolean.FALSE)
-                .with(HAS_TICKED, !CommonConfig.DO_BLOCKS_TICK.get()));
+        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.FALSE));
     }
 
     @Override
@@ -94,7 +91,7 @@ public class TwigBlock extends Block implements IWaterLoggable {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(WATERLOGGED).add(HAS_TICKED);
+        builder.add(WATERLOGGED);
     }
 
     @Override
@@ -130,47 +127,5 @@ public class TwigBlock extends Block implements IWaterLoggable {
     @SuppressWarnings("deprecated")
     public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
         return true;
-    }
-
-
-    @Override
-    public boolean ticksRandomly(BlockState state) {
-        return CommonConfig.DO_BLOCKS_TICK.get() && !(state.hasProperty(HAS_TICKED) && state.get(HAS_TICKED));
-    }
-
-    @Override
-    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-        if (!worldIn.isAreaLoaded(pos, 1)) {
-            return;
-        }
-
-        if (state.hasProperty(HAS_TICKED) && state.get(HAS_TICKED)) {
-            NaturalProgression.getInstance().LOGGER.info("TwigBlock Ticked But HAS_TICKED == true");
-            return;
-        }
-
-        BlockState aboveBlock = worldIn.getBlockState(pos.up());
-        if (aboveBlock.hasProperty(BlockStateProperties.HALF) && aboveBlock.get(BlockStateProperties.HALF) == Half.TOP) {
-            worldIn.destroyBlock(pos.up(), false);
-        }
-
-        BlockState[] neighbors = new BlockState[]{worldIn.getBlockState(pos.add(1, 0, 0)),
-                worldIn.getBlockState(pos.add(-1, 0, 0)), worldIn.getBlockState(pos.add(0, 0, 1)),
-                worldIn.getBlockState(pos.add(0, 0, -1))};
-
-        int waterNeighbors = 0;
-        for (BlockState b : neighbors) {
-            if (Utils.isWaterLike(b)) {
-                waterNeighbors++;
-            }
-        }
-
-        BlockState newState = state.with(HAS_TICKED, Boolean.TRUE);
-
-        if (waterNeighbors > 1) {
-            worldIn.setBlockState(pos, newState.with(WATERLOGGED, Boolean.TRUE), 2 | 16);
-        }
-
-        worldIn.setBlockState(pos, newState, 2 | 16);
     }
 }
