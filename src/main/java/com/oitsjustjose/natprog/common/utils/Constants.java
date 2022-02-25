@@ -20,5 +20,6 @@ public class Constants {
             .getTagOrEmpty(new ResourceLocation(MODID, "override_axes"));
     public static final Tag<Block> IGNORED_WOOD_BLOCKS = BlockTags.getAllTags()
             .getTagOrEmpty(new ResourceLocation(MODID, "ignored_wood_blocks"));
-
+    public static final Tag<Block> GROUND = BlockTags.getAllTags()
+            .getTagOrEmpty(new ResourceLocation(MODID, "ground"));
 }

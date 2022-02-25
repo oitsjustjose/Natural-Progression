@@ -57,11 +57,10 @@ public class Utils {
     @Nullable
     public static BlockPos getTopLevelPlacePos(WorldGenLevel level, ChunkPos chunkPos, int spread) {
 
-        if (!(level instanceof WorldGenRegion)) {
+        if (!(level instanceof WorldGenRegion world)) {
             return null;
         }
 
-        WorldGenRegion world = (WorldGenRegion) level;
         int usedSpread = Math.max(8, spread);
         int xCenter = (chunkPos.getMinBlockX() + chunkPos.getMaxBlockX()) / 2;
         int zCenter = (chunkPos.getMinBlockZ() + chunkPos.getMaxBlockZ()) / 2;
@@ -81,9 +80,9 @@ public class Utils {
         // With worlds being so much deeper,
         // it makes most sense to take a top-down approach
         while (searchPos.getY() > world.getMinBuildHeight()) {
-            BlockState blockToPlaceOn = world.getBlockState(searchPos);
+//            BlockState blockToPlaceOn = world.getBlockState(searchPos);
             // Check if the location itself is solid
-            if (Block.isFaceFull(blockToPlaceOn.getShape(world, searchPos), Direction.UP)) {
+            if (canPlaceOn(level, searchPos)) {
                 // Then check if the block above it is either air, or replacable
                 BlockPos actualPlacePos = searchPos.above();
                 if (canReplace(world, actualPlacePos)) {
@@ -99,13 +98,13 @@ public class Utils {
     /**
      * Determines if the sample can be placed on this block
      * 
-     * @param reader: an ISeedReader instance
+     * @param level:  A WorldGenLevel instance
      * @param pos:    The current searching position that will be used to confirm
      * @return true if the block below is solid on top AND isn't in the blacklist
      */
     public static boolean canPlaceOn(WorldGenLevel level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        return Block.isShapeFullBlock(state.getShape(level, pos));
+        return Block.isShapeFullBlock(state.getShape(level, pos)) && Constants.GROUND.contains(state.getBlock());
     }
 
     /**
@@ -127,7 +126,7 @@ public class Utils {
     public static void fixSnowyBlock(WorldGenLevel level, BlockPos posPlaced) {
         BlockState below = level.getBlockState(posPlaced.below());
         if (below.hasProperty(BlockStateProperties.SNOWY)) {
-            level.setBlock(posPlaced.below(), below.setValue(BlockStateProperties.SNOWY, Boolean.valueOf(false)),
+            level.setBlock(posPlaced.below(), below.setValue(BlockStateProperties.SNOWY, Boolean.FALSE),
                     2 | 16);
         }
     }
