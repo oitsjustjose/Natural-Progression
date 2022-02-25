@@ -1,5 +1,21 @@
 # Natural Progression Changelog (1.18.x)
 
+## 2.3.3
+
+### Added:
+
+- New Block Tag to define where Pebbles & Twigs can be placed called `natprog:ground`. By adding blocks to this tag you
+  can control where pebbles and twigs are placed in your modpack.
+
+### Changed:
+
+- Create compatibility has been given some love, now supporting Create's new stone blocks to the best of my ability
+  given my time restrictions IRL.
+
+### Fixed:
+
+- Pebble and Twig placement being glitchy near / in water
+
 ## 2.3.2
 
 ### Initial Port to 1.18
