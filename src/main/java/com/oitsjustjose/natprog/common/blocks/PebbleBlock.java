@@ -36,7 +36,7 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
 
     public PebbleBlock() {
         super(Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.STONE)
-                .strength(0.125F, 2F).sound(SoundType.WOOD).dynamicShape().noCollission());
+                .strength(0.125F, 2F).sound(SoundType.STONE).dynamicShape().noCollission());
         this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, Boolean.FALSE));
 
     }
