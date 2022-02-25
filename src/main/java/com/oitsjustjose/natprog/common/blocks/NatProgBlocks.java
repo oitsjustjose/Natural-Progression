@@ -20,20 +20,20 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class NatProgBlocks {
     public static HashMap<Block, Block> blocksToPebbles = new HashMap<>();
-    private static ArrayList<Block> modBlocks = new ArrayList<>();
+    private static final ArrayList<Block> modBlocks = new ArrayList<>();
 
     public static Block twigs;
 
     private static void registerPebble(String modid, String path) {
         ResourceLocation rl = new ResourceLocation(modid, path);
         ResourceLocation pebbleRl = new ResourceLocation(Constants.MODID,
-                (modid.toLowerCase() == "minecraft" ? "" : (modid + "_")) + path + "_pebble");
-        Block b = ForgeRegistries.BLOCKS.getValue(rl);
+                (modid.equalsIgnoreCase("minecraft") ? "" : (modid + "_")) + path + "_pebble");
+        Block originBlock = ForgeRegistries.BLOCKS.getValue(rl);
         Block pebble = new PebbleBlock().setRegistryName(pebbleRl);
         modBlocks.add(pebble);
 
-        if (b != null && b != Blocks.AIR) {
-            blocksToPebbles.put(b, pebble);
+        if (originBlock != null && originBlock != Blocks.AIR) {
+            blocksToPebbles.put(originBlock, pebble);
         } else {
             NatProg.getInstance().LOGGER
                     .warn("{}:{} could not be found. No pebble will be created", modid, path);
@@ -44,7 +44,7 @@ public class NatProgBlocks {
         ResourceLocation rl = new ResourceLocation(modid, path);
         // Make it such that if there are two limestones, both can be registered.
         ResourceLocation cobbleRl = new ResourceLocation(Constants.MODID,
-                (modid.toLowerCase() == "minecraft" ? "" : (modid + "_")) + "cobbled_" + path);
+                (modid.equalsIgnoreCase("minecraft") ? "" : (modid + "_")) + "cobbled_" + path);
         Block b = ForgeRegistries.BLOCKS.getValue(rl);
 
         Block.Properties cobbleProps = Block.Properties.of(Material.STONE)
@@ -83,12 +83,14 @@ public class NatProgBlocks {
         registerPebble("quark", "basalt");
 
         /* Create Stones (NO cobble needed) */
+        registerPebble("create", "asurine");
+        registerPebble("create", "crimsite");
         registerPebble("create", "limestone");
-        registerPebble("create", "weathered_limestone");
-        registerPebble("create", "dolomite");
-        registerPebble("create", "gabbro");
+        registerPebble("create", "ochrum");
+        registerPebble("create", "scorchia");
         registerPebble("create", "scoria");
-        registerPebble("create", "dark_scoria");
+        registerPebble("create", "veridium");
+
 
         /* ------------ COBBLES ------------ */
         registerCobble("minecraft", "andesite");
@@ -115,15 +117,15 @@ public class NatProgBlocks {
     public static void registerBlockItems(final RegistryEvent.Register<Item> itemRegistryEvent) {
         for (Block block : modBlocks) {
             // Ignore pebble blocks - pebble item will represent them
+            Item iBlock;
             if (block instanceof PebbleBlock) {
-                Item iBlock = new PebbleItem(block)
+                iBlock = new PebbleItem(block)
                         .setRegistryName(Objects.requireNonNull(block.getRegistryName()));
-                itemRegistryEvent.getRegistry().register(iBlock);
             } else {
-                Item iBlock = new BlockItem(block, new Item.Properties().tab(NatProgGroup.getInstance()))
+                iBlock = new BlockItem(block, new Item.Properties().tab(NatProgGroup.getInstance()))
                         .setRegistryName(Objects.requireNonNull(block.getRegistryName()));
-                itemRegistryEvent.getRegistry().register(iBlock);
             }
+            itemRegistryEvent.getRegistry().register(iBlock);
         }
     }
 }

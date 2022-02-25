@@ -4,16 +4,9 @@
     {
       "rolls": 1,
       "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "natprog:create_scoria_pebble"
-        }
+        { "type": "minecraft:item", "name": "natprog:create_scoria_pebble" }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "conditions": [{ "condition": "minecraft:survives_explosion" }]
     }
   ]
 }

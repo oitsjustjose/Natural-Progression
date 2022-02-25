@@ -4,7 +4,7 @@
     {
       "rolls": 1,
       "entries": [
-        { "type": "minecraft:item", "name": "natprog:create_limestone_pebble" }
+        { "type": "minecraft:item", "name": "natprog:create_scorchia_pebble" }
       ],
       "conditions": [{ "condition": "minecraft:survives_explosion" }]
     }

@@ -1,7 +1,0 @@
-{
-  "parent": "natprog:block/pebble",
-  "textures": {
-    "particle": "create:block/palettes/gabbro/plain",
-    "stone": "create:block/palettes/gabbro/plain"
-  }
-}

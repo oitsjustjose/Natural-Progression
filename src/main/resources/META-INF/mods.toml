@@ -37,7 +37,7 @@ Support me on Patreon at https://patreon.com/oitsjustjose
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.naturalprogression]]
+[[dependencies.natprog]]
     modId="create"
     mandatory=false
     versionRange="[0,)"
