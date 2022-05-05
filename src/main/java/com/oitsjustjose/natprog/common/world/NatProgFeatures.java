@@ -1,40 +1,39 @@
 package com.oitsjustjose.natprog.common.world;
 
-import com.oitsjustjose.natprog.common.utils.Constants;
 import com.oitsjustjose.natprog.common.world.feature.PebbleFeature;
 import com.oitsjustjose.natprog.common.world.feature.TwigFeature;
 
+import net.minecraft.core.Holder;
+import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.event.RegistryEvent;
 
 public class NatProgFeatures {
     private static final Feature<NoneFeatureConfiguration> PEBBLE_FEATURE = new PebbleFeature(
-            NoneFeatureConfiguration.CODEC);
+            NoneFeatureConfiguration.CODEC).withRegistryName("pebbles");
     private static final Feature<NoneFeatureConfiguration> TWIG_FEATURE = new TwigFeature(
-            NoneFeatureConfiguration.CODEC);
+            NoneFeatureConfiguration.CODEC).withRegistryName("twigs");
 
-    public static final ConfiguredFeature<?, ?> PEBBLES_ALL = PEBBLE_FEATURE
-            .configured(NoneFeatureConfiguration.NONE);
-    public static final ConfiguredFeature<?, ?> TWIGS_ALL = TWIG_FEATURE
-            .configured(NoneFeatureConfiguration.NONE);
+    public static Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> PEBBLES_ALL = FeatureUtils
+            .register(PEBBLE_FEATURE.getRegistryName().toString(), PEBBLE_FEATURE);
+    public static Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> TWIGS_ALL = FeatureUtils
+            .register(TWIG_FEATURE.getRegistryName().toString(), TWIG_FEATURE);
 
-    public static PlacedFeature PEBBLES_ALL_PLACED = PEBBLES_ALL.placed(
-            HeightRangePlacement.uniform(VerticalAnchor.absolute(-64),
-                    VerticalAnchor.absolute(320)));
-    public static PlacedFeature TWIGS_ALL_PLACED = TWIGS_ALL.placed(
-            HeightRangePlacement.uniform(VerticalAnchor.absolute(-64),
-                    VerticalAnchor.absolute(320)));
+    public static Holder<PlacedFeature> PEBBLES_PLACED = PlacementUtils.register(
+            PEBBLE_FEATURE.getRegistryName().toString(), PEBBLES_ALL,
+            HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(320)));
+    public static Holder<PlacedFeature> TWIGS_PLACED = PlacementUtils.register(
+            TWIG_FEATURE.getRegistryName().toString(), TWIGS_ALL,
+            HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(320)));
 
-    public static DeferredRegister<Feature<?>> createRegistry() {
-        DeferredRegister<Feature<?>> registry = DeferredRegister.create(ForgeRegistries.FEATURES, Constants.MODID);
-        registry.register("pebbles", () -> PEBBLE_FEATURE);
-        registry.register("twigs", () -> TWIG_FEATURE);
-        return registry;
+    public static void register(final RegistryEvent.Register<Feature<?>> featureRegistryEvent) {
+        featureRegistryEvent.getRegistry().register(PEBBLE_FEATURE);
+        featureRegistryEvent.getRegistry().register(TWIG_FEATURE);
     }
 }

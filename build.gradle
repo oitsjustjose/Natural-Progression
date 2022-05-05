@@ -59,8 +59,6 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${game_version}-${forge_version}"
-    compileOnly fg.deobf("mezz.jei:jei-${game_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${game_version}:${jei_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
@@ -105,14 +103,12 @@ curseforge {
     id = '349530'
     changelogType = 'markdown'
     changelog = file("./changelog.md")
-    releaseType = 'beta'
-    addGameVersion '1.18'
-    addGameVersion '1.18.1'
+    releaseType = 'release'
+    addGameVersion '1.18.2'
 
     mainArtifact(jar) {
         displayName = "NaturalProgression ${game_version} ${mod_version}"
     }
-
 
     addArtifact(deobfJar) {
         displayName = "NaturalProgression ${game_version} ${mod_version} Deobf"

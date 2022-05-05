@@ -1,15 +1,18 @@
 package com.oitsjustjose.natprog.common.items;
 
+import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.oitsjustjose.natprog.NatProg;
 
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class DynamicItemTier implements Tier {
     private int uses;
@@ -30,7 +33,7 @@ public class DynamicItemTier implements Tier {
     }
 
     public DynamicItemTier(int maxUses, float eff, float dmg, int harv, int ench,
-            Tag<Item> repairMatTag) {
+            TagKey<Item> repairMatTag) {
         this.uses = maxUses;
         this.speed = eff;
         this.attackDamageBonus = dmg;
@@ -78,8 +81,12 @@ public class DynamicItemTier implements Tier {
         return this;
     }
 
-    public DynamicItemTier setRepairMat(@Nullable Tag<Item> tag) {
-        if (tag == null || tag.getValues().isEmpty()) {
+    public DynamicItemTier setRepairMat(@Nullable TagKey<Item> tag) {
+        if (tag == null)
+            return this;
+
+        List<Item> tagItems = ForgeRegistries.ITEMS.tags().getTag(tag).stream().toList();
+        if (tagItems.size() == 0) {
             this.repairIngredient = Ingredient.of(Items.BARRIER);
             NatProg.getInstance().LOGGER.warn(
                     "Dynamic saw repair material {} could not be found. Defaulting to Bedrock",

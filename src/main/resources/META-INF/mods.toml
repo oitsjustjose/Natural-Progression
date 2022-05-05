@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[38,)" #mandatory
+loaderVersion="[40,)" #mandatory
 issueTrackerURL="https://github.com/oitsjustjose/Natural-Progression/issues"
 license="GNU GPLv3"
 
@@ -19,14 +19,14 @@ Support me on Patreon at https://patreon.com/oitsjustjose
 [[dependencies.natprog]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[38,)" #mandatory
+    versionRange="[40,)" #mandatory
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.natprog]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18,)"
+    versionRange="[1.18.2,)"
     ordering="NONE"
     side="BOTH"
 

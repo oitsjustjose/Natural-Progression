@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 import com.oitsjustjose.natprog.common.blocks.NatProgBlocks;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.ChunkPos;
@@ -80,7 +79,7 @@ public class Utils {
         // With worlds being so much deeper,
         // it makes most sense to take a top-down approach
         while (searchPos.getY() > world.getMinBuildHeight()) {
-//            BlockState blockToPlaceOn = world.getBlockState(searchPos);
+            // BlockState blockToPlaceOn = world.getBlockState(searchPos);
             // Check if the location itself is solid
             if (canPlaceOn(level, searchPos)) {
                 // Then check if the block above it is either air, or replacable
@@ -98,13 +97,13 @@ public class Utils {
     /**
      * Determines if the sample can be placed on this block
      * 
-     * @param level:  A WorldGenLevel instance
-     * @param pos:    The current searching position that will be used to confirm
+     * @param level: A WorldGenLevel instance
+     * @param pos:   The current searching position that will be used to confirm
      * @return true if the block below is solid on top AND isn't in the blacklist
      */
     public static boolean canPlaceOn(WorldGenLevel level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        return Block.isShapeFullBlock(state.getShape(level, pos)) && Constants.GROUND.contains(state.getBlock());
+        return Block.isShapeFullBlock(state.getShape(level, pos)) && state.is(Constants.GROUND);
     }
 
     /**
@@ -115,7 +114,7 @@ public class Utils {
     public static boolean canReplace(WorldGenLevel level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         Material mat = state.getMaterial();
-        return mat.isLiquid() || mat == Material.AIR || BlockTags.LEAVES.contains(state.getBlock())
+        return mat.isLiquid() || mat == Material.AIR || state.is(BlockTags.LEAVES)
                 || mat.isReplaceable();
     }
 

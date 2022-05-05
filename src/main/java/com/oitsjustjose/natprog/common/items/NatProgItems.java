@@ -2,14 +2,11 @@ package com.oitsjustjose.natprog.common.items;
 
 import java.util.ArrayList;
 
-import javax.annotation.Nullable;
-
 import com.oitsjustjose.natprog.common.utils.Constants;
 import com.oitsjustjose.natprog.common.utils.NatProgGroup;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PickaxeItem;
@@ -27,13 +24,13 @@ public class NatProgItems {
             .setAttackDamage(2.0F).setHarvestLvl(1).setEnchantability(0).setRepairMats(Items.BONE);
     public static Tier copperTier = new DynamicItemTier().setMaxUses(192).setEfficiency(1.65F)
             .setAttackDamage(1.5F).setHarvestLvl(0).setEnchantability(0)
-            .setRepairMat(getTagOrNull("forge:ingots/copper"));
+            .setRepairMat(ItemTags.create(new ResourceLocation("forge:ingots/copper")));
     public static Tier bronzeTier = new DynamicItemTier().setMaxUses(442).setEfficiency(2.5F)
             .setAttackDamage(2.5F).setHarvestLvl(2).setEnchantability(0)
-            .setRepairMat(getTagOrNull("forge:ingots/bronze"));
+            .setRepairMat(ItemTags.create(new ResourceLocation("forge:ingots/bronze")));
     public static Tier steelTier = new DynamicItemTier().setMaxUses(914).setEfficiency(3.5F)
             .setAttackDamage(3.5F).setHarvestLvl(3).setEnchantability(0)
-            .setRepairMat(getTagOrNull("forge:ingots/steel"));
+            .setRepairMat(ItemTags.create(new ResourceLocation("forge:ingots/steel")));
 
     public static Item flintHatchet;
     public static Item bonePickaxe;
@@ -103,14 +100,5 @@ public class NatProgItems {
         for (Item item : modItems) {
             itemRegistryEvent.getRegistry().register(item);
         }
-    }
-
-    @Nullable
-    public static Tag<Item> getTagOrNull(String tagName) {
-        ResourceLocation resLoc = new ResourceLocation(tagName);
-        if (ItemTags.getAllTags().getAvailableTags().contains(resLoc)) {
-            return ItemTags.getAllTags().getTag(resLoc);
-        }
-        return null;
     }
 }

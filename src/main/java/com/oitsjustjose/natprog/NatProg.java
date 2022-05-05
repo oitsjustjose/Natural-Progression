@@ -23,6 +23,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.RegistryEvent;
@@ -33,7 +34,6 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 
@@ -50,7 +50,6 @@ public class NatProg {
     public NatProg() {
         instance = this;
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -76,12 +75,8 @@ public class NatProg {
     @SubscribeEvent
     public void onBiomesLoaded(BiomeLoadingEvent evt) {
         BiomeGenerationSettingsBuilder gen = evt.getGeneration();
-        gen.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, NatProgFeatures.PEBBLES_ALL_PLACED);
-        gen.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, NatProgFeatures.TWIGS_ALL_PLACED);
-    }
-
-    public void setup(final FMLCommonSetupEvent event) {
-        NatProgFeatures.createRegistry().register(FMLJavaModLoadingContext.get().getModEventBus());
+        gen.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, NatProgFeatures.PEBBLES_PLACED);
+        gen.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, NatProgFeatures.TWIGS_PLACED);
     }
 
     public void setupClient(final FMLClientSetupEvent event) {
@@ -90,6 +85,11 @@ public class NatProg {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+        @SubscribeEvent
+        public static void onFeaturesRegistry(final RegistryEvent.Register<Feature<?>> featureRegistryEvent) {
+            NatProgFeatures.register(featureRegistryEvent);
+        }
+
         @SubscribeEvent
         public static void onBlocksRegistry(
                 final RegistryEvent.Register<Block> blockRegistryEvent) {

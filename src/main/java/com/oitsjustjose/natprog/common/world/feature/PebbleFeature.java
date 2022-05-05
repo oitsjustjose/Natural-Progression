@@ -1,11 +1,18 @@
 package com.oitsjustjose.natprog.common.world.feature;
 
+import java.util.Objects;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import com.mojang.serialization.Codec;
 import com.oitsjustjose.natprog.NatProg;
 import com.oitsjustjose.natprog.common.blocks.PebbleBlock;
 import com.oitsjustjose.natprog.common.config.CommonConfig;
+import com.oitsjustjose.natprog.common.utils.Constants;
 import com.oitsjustjose.natprog.common.utils.Utils;
+
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -18,12 +25,14 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Objects;
-
 public class PebbleFeature extends Feature<NoneFeatureConfiguration> {
     public PebbleFeature(Codec<NoneFeatureConfiguration> p_i231976_1_) {
         super(p_i231976_1_);
+    }
+
+    public PebbleFeature withRegistryName(String name) {
+        this.setRegistryName(new ResourceLocation(Constants.MODID, name));
+        return this;
     }
 
     @Override
@@ -58,8 +67,10 @@ public class PebbleFeature extends Feature<NoneFeatureConfiguration> {
                 if (level.setBlock(pebblePos, stateToPlace, 2 | 16)) {
                     BlockPos abovePos = pebblePos.above();
                     BlockState aboveBlock = level.getBlockState(abovePos);
-                    if (aboveBlock.hasProperty(DoublePlantBlock.HALF) && aboveBlock.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
-                        level.setBlock(abovePos, Utils.isInWater(level, abovePos) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 2 | 16);
+                    if (aboveBlock.hasProperty(DoublePlantBlock.HALF)
+                            && aboveBlock.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
+                        level.setBlock(abovePos, Utils.isInWater(level, abovePos) ? Blocks.WATER.defaultBlockState()
+                                : Blocks.AIR.defaultBlockState(), 2 | 16);
                     }
                     Utils.fixSnowyBlock(level, pebblePos);
                 }
@@ -71,7 +82,8 @@ public class PebbleFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     private boolean canPlaceOnBlock(WorldGenLevel level, BlockPos placePos) {
-        String rl = Objects.requireNonNull(level.getBlockState(placePos.below()).getBlock().getRegistryName()).toString();
+        String rl = Objects.requireNonNull(level.getBlockState(placePos.below()).getBlock().getRegistryName())
+                .toString();
         return !CommonConfig.PEBBLE_PLACEMENT_BLACKLIST.get().contains(rl);
     }
 }
