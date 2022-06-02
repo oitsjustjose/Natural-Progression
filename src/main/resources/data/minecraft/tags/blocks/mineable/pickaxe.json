@@ -1,0 +1,14 @@
+{
+  "replace": "false",
+  "values": [
+    "natprog:cobbled_andesite",
+    "natprog:cobbled_diorite",
+    "natprog:cobbled_end_stone",
+    "natprog:cobbled_granite",
+    "natprog:cobbled_netherrack",
+    "natprog:cobbled_red_sandstone",
+    "natprog:cobbled_sandstone",
+    "natprog:cobbled_dripstone_block",
+    "natprog:cobbled_tuff"
+  ]
+}
