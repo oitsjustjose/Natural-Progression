@@ -77,7 +77,7 @@ public class WoodBreak {
         @Override
         @Nonnull
         public Component getLocalizedDeathMessage(LivingEntity entityLivingBaseIn) {
-            return new TranslatableComponent("natural-progression.splintered.to.death",
+            return new TranslatableComponent("natprog.splintered.to.death",
                     entityLivingBaseIn.getDisplayName());
         }
     }

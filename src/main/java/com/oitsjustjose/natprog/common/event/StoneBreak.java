@@ -80,7 +80,7 @@ public class StoneBreak {
         @Override
         @Nonnull
         public Component getLocalizedDeathMessage(LivingEntity entityLivingBaseIn) {
-            return new TranslatableComponent("natural-progression.broken.bones",
+            return new TranslatableComponent("natprog.broken.bones",
                     entityLivingBaseIn.getDisplayName());
         }
     }
