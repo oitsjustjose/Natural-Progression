@@ -67,8 +67,8 @@
   "item.natprog.netherite_saw": "Netherite Saw",
   "item.natprog.steel_saw": "Steel Saw",
   "itemGroup.natprog.name": "Natural Progression",
-  "natprog.broken.bones": "%s broke too many bones punching stone",
+  "natprog.broken.bones": "%s broke their hands punching stone",
   "natprog.splintered.to.death": "%s was splintered to death",
-  "natprog.stone.warning": "§4You cannot break hard blocks without a pickaxe.§r",
-  "natprog.wood.warning": "§4You cannot break wooden blocks without an axe.§r"
+  "natprog.stone.warning": "§4You need the §rRight Tool§4 for this job.§r",
+  "natprog.wood.warning": "§4You need the §rRight Tool§4 for this job.§r"
 }
