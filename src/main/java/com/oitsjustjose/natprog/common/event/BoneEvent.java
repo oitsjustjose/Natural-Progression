@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.oitsjustjose.natprog.common.config.CommonConfig;
 import com.oitsjustjose.natprog.common.items.NatProgItems;
+import com.oitsjustjose.natprog.common.utils.Constants;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -69,8 +70,7 @@ public class BoneEvent {
             return;
         }
 
-        ResourceLocation loc = ForgeRegistries.ENTITIES.getKey(event.getEntityLiving().getType());
-        boolean exists = CommonConfig.BONE_DROP_ENTITIES.get().contains(loc.toString());
+        boolean exists = event.getEntity().getType().is(Constants.BONE_DROP);
 
         if (exists || CommonConfig.ALL_ENTITIES_DROP_BONES.get()) {
             if (rand.nextInt(100) < CommonConfig.BONE_DROP_CHANCE.get()) {

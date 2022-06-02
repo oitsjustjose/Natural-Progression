@@ -24,7 +24,6 @@ public class CommonConfig {
     public static ForgeConfigSpec.IntValue FLINT_CHANCE;
     public static ForgeConfigSpec.IntValue BONE_SHARD_CHANCE;
     public static ForgeConfigSpec.IntValue BONE_DROP_CHANCE;
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> BONE_DROP_ENTITIES;
     public static ForgeConfigSpec.BooleanValue ALL_ENTITIES_DROP_BONES;
     public static ForgeConfigSpec.BooleanValue SHOW_BREAKING_HELP;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_WHITELIST;
@@ -76,18 +75,6 @@ public class CommonConfig {
         BONE_DROP_CHANCE = COMMON_BUILDER.comment(
                 "The chance (out of 100) that a bone can drop from the entities in 'boneDropMobs'.\nSetting this to 0 disables this feature")
                 .defineInRange("boneDropFromMobsChance", 50, 0, 100);
-        BONE_DROP_ENTITIES = COMMON_BUILDER
-                .comment("The NEW (as of version 1.2.2) way to add bone drops to an entity.\n"
-                        + "Find this name by typing '/summon' in game, and hit TAB.")
-                .defineList("boneDropEntities",
-                        Lists.newArrayList(new String[] { "minecraft:bat", "minecraft:cat",
-                                "minecraft:chicken", "minecraft:cow", "minecraft:donkey",
-                                "minecraft:fox", "minecraft:horse", "minecraft:llama",
-                                "minecraft:mooshroom", "minecraft:mule", "minecraft:ocelot",
-                                "minecraft:panda", "minecraft:parrot", "minecraft:pig",
-                                "minecraft:polar_bear", "minecraft:rabbit", "minecraft:sheep",
-                                "minecraft:trader_llama", "minecraft:wolf" }),
-                        (itemRaw) -> itemRaw instanceof String);
         ALL_ENTITIES_DROP_BONES = COMMON_BUILDER
                 .comment("Enabling this causes all entities to drop additional bones when killed")
                 .define("allEntitiesDropBones", false);
