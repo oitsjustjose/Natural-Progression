@@ -69,7 +69,7 @@ public class NatProg {
     private void configSetup() {
         ModLoadingContext.get().registerConfig(Type.COMMON, CommonConfig.COMMON_CONFIG);
         CommonConfig.loadConfig(CommonConfig.COMMON_CONFIG,
-                FMLPaths.CONFIGDIR.get().resolve("natural-progression-common.toml"));
+                FMLPaths.CONFIGDIR.get().resolve(Constants.MODID + "-common.toml"));
     }
 
     @SubscribeEvent
