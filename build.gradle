@@ -107,15 +107,15 @@ curseforge {
     addGameVersion '1.18.2'
 
     mainArtifact(jar) {
-        displayName = "NaturalProgression ${game_version} ${mod_version}"
+        displayName = "natprog-${game_version}-${mod_version}"
     }
 
     addArtifact(deobfJar) {
-        displayName = "NaturalProgression ${game_version} ${mod_version} Deobf"
+        displayName = "natprog-${game_version}-${mod_version}-deobf"
     }
 
     addArtifact(sourcesJar){
-        displayName = "NaturalProgression ${game_version} ${mod_version} Sources"
+        displayName = "natprog-${game_version}-${mod_version}-sources"
     }
   }
 }

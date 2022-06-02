@@ -1,5 +1,19 @@
 # Natural Progression Changelog (1.18.x)
 
+## 2.3.4
+
+### Changed:
+
+- Reworded Custom Death messages and the messages that pop up when trying to break stone/wood w/o a tool (or the wrong tool)
+
+### Fixed:
+
+- Death messages for splintering not being localized
+- Duplicate configuration files showing up
+  - You need only keep `natprog-common.toml`
+  - `natural-progression-common.toml` is the old version
+- Cobbled Blocks Taking Ages to Break
+
 ## 2.3.3
 
 ### Added:
