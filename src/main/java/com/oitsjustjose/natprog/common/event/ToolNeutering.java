@@ -38,6 +38,8 @@ public class ToolNeutering {
 
     @SubscribeEvent
     public void registerEvent(PlayerEvent.BreakSpeed event) {
+        if (!CommonConfig.TOOL_NEUTERING.get()) return;
+
         if (event.getState() == null || event.getPlayer() == null) {
             return;
         }
