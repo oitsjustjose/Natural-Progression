@@ -17,6 +17,7 @@ public class CommonConfig {
 
     public static ForgeConfigSpec.IntValue MAX_PEBBLES_PER_CHUNK;
     public static ForgeConfigSpec.IntValue MAX_TWIGS_PER_CHUNK;
+    public static ForgeConfigSpec.BooleanValue TOOL_NEUTERING;
     public static ForgeConfigSpec.BooleanValue REMOVE_WOODEN_TOOL_FUNC;
     public static ForgeConfigSpec.BooleanValue REMOVE_STONE_TOOL_FUNC;
     public static ForgeConfigSpec.BooleanValue MAKE_GROUND_BLOCKS_HARDER;
@@ -52,6 +53,9 @@ public class CommonConfig {
         MAX_TWIGS_PER_CHUNK = COMMON_BUILDER
                 .comment("The maximum number of twigs that can be found in each chunk")
                 .defineInRange("maxTwigsPerChunk", 3, 0, 256);
+        TOOL_NEUTERING = COMMON_BUILDER
+                .comment("Make disabled tools completely useless - can't even break grass.")
+                .define("toolNeutering", false);
         REMOVE_WOODEN_TOOL_FUNC = COMMON_BUILDER.comment(
                 "Setting this to true prevents the ability to use wooden tools, though you can still craft them for compatibility.")
                 .define("removeWoodenToolFunctionality", true);
