@@ -1,4 +1,5 @@
 {
+  "render_type": "cutout",
   "textures": {
     "particle": "minecraft:item/stick",
     "texture": "minecraft:item/stick"

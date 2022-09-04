@@ -16,7 +16,7 @@ public class GroundBreak {
                 return;
             }
             // If NOT holding a shovel
-            if (!event.getPlayer().getMainHandItem().isCorrectToolForDrops(event.getState())) {
+            if (!event.getEntity().getMainHandItem().isCorrectToolForDrops(event.getState())) {
                 event.setNewSpeed(event.getOriginalSpeed() / 4);
             }
         }

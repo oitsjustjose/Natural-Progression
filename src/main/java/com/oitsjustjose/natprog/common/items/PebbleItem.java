@@ -1,11 +1,6 @@
 package com.oitsjustjose.natprog.common.items;
 
-import javax.annotation.Nonnull;
-
-import com.oitsjustjose.natprog.common.blocks.NatProgBlocks;
 import com.oitsjustjose.natprog.common.config.CommonConfig;
-import com.oitsjustjose.natprog.common.utils.NatProgGroup;
-
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -22,13 +17,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+import javax.annotation.Nonnull;
+
 public class PebbleItem extends BlockItem {
-    public PebbleItem(Block blockForm) {
-        super(blockForm,
-                /* If it's not mapped, it should be hidden.. */
-                NatProgBlocks.blocksToPebbles.containsValue(blockForm)
-                        ? new Item.Properties().tab(NatProgGroup.getInstance())
-                        : new Item.Properties());
+    public PebbleItem(Block blockForm, Item.Properties props) {
+        super(blockForm, props);
     }
 
     @Override

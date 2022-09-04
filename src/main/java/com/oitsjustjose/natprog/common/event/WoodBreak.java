@@ -1,14 +1,12 @@
 package com.oitsjustjose.natprog.common.event;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.oitsjustjose.natprog.NatProg;
 import com.oitsjustjose.natprog.common.config.CommonConfig;
 import com.oitsjustjose.natprog.common.utils.Constants;
-
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,16 +16,19 @@ import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class WoodBreak {
     final SplinterSource splinterSource = new SplinterSource();
 
     @SubscribeEvent
     public void registerEvent(PlayerEvent.BreakSpeed event) {
-        if (event.getState() == null || event.getPlayer() == null) {
+        if (event.getState() == null || event.getEntity() == null) {
             return;
         }
 
-        ItemStack heldItem = event.getPlayer().getMainHandItem();
+        ItemStack heldItem = event.getEntity().getMainHandItem();
 
         if (!(event.getState().getMaterial() == Material.WOOD
                 || event.getState().getMaterial() == Material.NETHER_WOOD)) {
@@ -46,18 +47,25 @@ public class WoodBreak {
             event.setCanceled(true);
 
             if (CommonConfig.SHOW_BREAKING_HELP.get()) {
-                event.getPlayer().displayClientMessage(
-                        new TranslatableComponent("natprog.wood.warning"), true);
+                TranslatableContents contents = new TranslatableContents("natprog.wood.warning");
+                MutableComponent comp;
+                try {
+                    comp = contents.resolve(null, null, 0);
+                } catch (CommandSyntaxException ex) {
+                    NatProg.getInstance().LOGGER.info(ex.getMessage());
+                    comp = Component.empty().append("Failed to resolve translation");
+                }
+                event.getEntity().displayClientMessage(comp, true);
             }
 
             // Random chance to even perform the hurt anim if the player is empty-handed
-            if (event.getPlayer().getMainHandItem().isEmpty()
-                    && event.getPlayer().getRandom().nextInt(25) == 1) {
+            if (event.getEntity().getMainHandItem().isEmpty()
+                    && event.getEntity().getRandom().nextInt(25) == 1) {
                 // And when it's shown, random chance to actually hurt from "splintering"
-                if (event.getPlayer().getRandom().nextInt(10) == 1) {
-                    event.getPlayer().hurt(splinterSource, 1F);
+                if (event.getEntity().getRandom().nextInt(10) == 1) {
+                    event.getEntity().hurt(splinterSource, 1F);
                 } else {
-                    NatProg.proxy.doHurtAnimation(event.getPlayer());
+                    NatProg.proxy.doHurtAnimation(event.getEntity());
                 }
             }
         }
@@ -77,8 +85,13 @@ public class WoodBreak {
         @Override
         @Nonnull
         public Component getLocalizedDeathMessage(LivingEntity entityLivingBaseIn) {
-            return new TranslatableComponent("natprog.splintered.to.death",
-                    entityLivingBaseIn.getDisplayName());
+            TranslatableContents contents = new TranslatableContents("natprog.splintered.to.death", entityLivingBaseIn.getDisplayName());
+            try {
+                return contents.resolve(null, null, 0);
+            } catch (CommandSyntaxException ex) {
+                NatProg.getInstance().LOGGER.info(ex.getMessage());
+                return Component.empty().append("Failed to resolve translation");
+            }
         }
     }
 }

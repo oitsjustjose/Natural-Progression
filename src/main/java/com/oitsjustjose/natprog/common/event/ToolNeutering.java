@@ -1,8 +1,8 @@
 package com.oitsjustjose.natprog.common.event;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.oitsjustjose.natprog.common.config.CommonConfig;
-
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.Tiers;
@@ -18,20 +18,22 @@ public class ToolNeutering {
     @OnlyIn(Dist.CLIENT)
     public void onHover(ItemTooltipEvent event) {
         Item item = event.getItemStack().getItem();
-        if (!(item instanceof TieredItem)) {
+        if (!(item instanceof TieredItem tiered)) {
             return;
         }
 
-        TieredItem tiered = (TieredItem) item;
-
         if ((tiered.getTier() == Tiers.WOOD) && CommonConfig.REMOVE_WOODEN_TOOL_FUNC.get()) {
-            event.getToolTip().add(new TextComponent(
-                    "\u00A74" + "This tool is too brittle to use." + "\u00A7r"));
+            try {
+                TranslatableContents content = new TranslatableContents("natprog.too.brittle");
+                event.getToolTip().add(content.resolve(null, null, 0));
+            } catch (CommandSyntaxException ex) { /*NOOP*/ }
             return;
         }
         if ((tiered.getTier() == Tiers.STONE) && CommonConfig.REMOVE_STONE_TOOL_FUNC.get()) {
-            event.getToolTip().add(new TextComponent(
-                    "\u00A74" + "This tool is too blunt to use" + "\u00A7r"));
+            try {
+                TranslatableContents content = new TranslatableContents("natprog.too.blunt");
+                event.getToolTip().add(content.resolve(null, null, 0));
+            } catch (CommandSyntaxException ex) { /*NOOP*/ }
             return;
         }
     }
@@ -40,16 +42,15 @@ public class ToolNeutering {
     public void registerEvent(PlayerEvent.BreakSpeed event) {
         if (!CommonConfig.TOOL_NEUTERING.get()) return;
 
-        if (event.getState() == null || event.getPlayer() == null) {
+        if (event.getState() == null || event.getEntity() == null) {
             return;
         }
 
-        Item heldItem = event.getPlayer().getMainHandItem().getItem();
-        if (!(heldItem instanceof TieredItem)) {
+        Item heldItem = event.getEntity().getMainHandItem().getItem();
+        if (!(heldItem instanceof TieredItem tiered)) {
             return;
         }
 
-        TieredItem tiered = (TieredItem) heldItem;
         boolean cancelWood = (tiered.getTier() == Tiers.WOOD) && CommonConfig.REMOVE_WOODEN_TOOL_FUNC.get();
         boolean cancelStone = (tiered.getTier() == Tiers.STONE) && CommonConfig.REMOVE_STONE_TOOL_FUNC.get();
 
@@ -60,16 +61,15 @@ public class ToolNeutering {
 
     @SubscribeEvent
     public void registerEvent(AttackEntityEvent event) {
-        if (event.getPlayer() == null) {
+        if (event.getEntity() == null) {
             return;
         }
 
-        Item heldItem = event.getPlayer().getMainHandItem().getItem();
-        if (!(heldItem instanceof TieredItem)) {
+        Item heldItem = event.getEntity().getMainHandItem().getItem();
+        if (!(heldItem instanceof TieredItem tiered)) {
             return;
         }
 
-        TieredItem tiered = (TieredItem) heldItem;
         boolean cancelWood = (tiered.getTier() == Tiers.WOOD) && CommonConfig.REMOVE_WOODEN_TOOL_FUNC.get();
         boolean cancelStone = (tiered.getTier() == Tiers.STONE) && CommonConfig.REMOVE_STONE_TOOL_FUNC.get();
 

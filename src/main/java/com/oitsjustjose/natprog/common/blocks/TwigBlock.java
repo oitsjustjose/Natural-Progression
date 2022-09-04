@@ -1,7 +1,5 @@
 package com.oitsjustjose.natprog.common.blocks;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,6 +29,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nonnull;
+
 public class TwigBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -42,7 +42,7 @@ public class TwigBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos,
-            Player player) {
+                                       Player player) {
         return new ItemStack(Items.STICK);
     }
 
@@ -64,7 +64,7 @@ public class TwigBlock extends Block implements SimpleWaterloggedBlock {
 
     @Nonnull
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn,
-            BlockHitResult hit) {
+                                 BlockHitResult hit) {
         if (!player.isCrouching()) {
             worldIn.destroyBlock(pos, true);
             player.swing(handIn);
@@ -84,11 +84,6 @@ public class TwigBlock extends Block implements SimpleWaterloggedBlock {
         builder.add(WATERLOGGED);
     }
 
-    @Override
-    @Nonnull
-    public Block.OffsetType getOffsetType() {
-        return Block.OffsetType.XZ;
-    }
 
     @Override
     @SuppressWarnings("deprecation")
@@ -99,7 +94,7 @@ public class TwigBlock extends Block implements SimpleWaterloggedBlock {
     @Override
     @SuppressWarnings("deprecation")
     public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-            boolean isMoving) {
+                                boolean isMoving) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
         if (!this.canSurvive(state, worldIn, pos)) {
             worldIn.destroyBlock(pos, true);

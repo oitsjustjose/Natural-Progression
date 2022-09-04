@@ -1,17 +1,11 @@
 package com.oitsjustjose.natprog.common.world.feature;
 
-import java.util.Objects;
-
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import com.mojang.serialization.Codec;
 import com.oitsjustjose.natprog.NatProg;
-import com.oitsjustjose.natprog.common.blocks.NatProgBlocks;
 import com.oitsjustjose.natprog.common.blocks.TwigBlock;
 import com.oitsjustjose.natprog.common.config.CommonConfig;
 import com.oitsjustjose.natprog.common.utils.Constants;
 import com.oitsjustjose.natprog.common.utils.Utils;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
@@ -25,15 +19,14 @@ import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Objects;
 
 public class TwigFeature extends Feature<NoneFeatureConfiguration> {
     public TwigFeature(Codec<NoneFeatureConfiguration> p_i231976_1_) {
         super(p_i231976_1_);
-    }
-
-    public TwigFeature withRegistryName(String name) {
-        this.setRegistryName(new ResourceLocation(Constants.MODID, name));
-        return this;
     }
 
     @Override
@@ -60,8 +53,11 @@ public class TwigFeature extends Feature<NoneFeatureConfiguration> {
                 if (!canPlaceOnBlock(level, twigPos)) {
                     continue;
                 }
-
-                Block twig = NatProgBlocks.twigs;
+                Block twig = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Constants.MODID, "twigs"));
+                if (twig == null) {
+                    NatProg.getInstance().LOGGER.error("Twig from {} came back null >:|", new ResourceLocation(Constants.MODID, "twigs"));
+                    return false;
+                }
                 BlockState stateToPlace = twig.defaultBlockState()
                         .setValue(TwigBlock.WATERLOGGED, Utils.isInWater(level, twigPos));
 
@@ -83,8 +79,7 @@ public class TwigFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     private boolean canPlaceOnBlock(WorldGenLevel level, BlockPos placePos) {
-        String rl = Objects.requireNonNull(level.getBlockState(placePos.below()).getBlock().getRegistryName())
-                .toString();
-        return !CommonConfig.TWIG_PLACEMENT_BLACKLIST.get().contains(rl);
+        ResourceLocation rl = ForgeRegistries.BLOCKS.getKey(level.getBlockState(placePos.below()).getBlock());
+        return !CommonConfig.PEBBLE_PLACEMENT_BLACKLIST.get().contains(Objects.requireNonNull(rl).toString());
     }
 }

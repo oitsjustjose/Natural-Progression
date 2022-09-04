@@ -1,9 +1,7 @@
 package com.oitsjustjose.natprog.common.utils;
 
-import javax.annotation.Nullable;
-
-import com.oitsjustjose.natprog.common.blocks.NatProgBlocks;
-
+import com.oitsjustjose.natprog.NatProg;
+import com.oitsjustjose.natprog.common.blocks.PebbleBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.tags.BlockTags;
@@ -14,20 +12,38 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import javax.annotation.Nullable;
+import java.util.HashMap;
 
 public class Utils {
+
+    private static HashMap<Block, Block> blockToPebbles = null;
+
     public static Block getPebbleForPos(WorldGenLevel level, BlockPos pos) {
+        // Build the cache if it isn't already built
+        if (blockToPebbles == null) {
+            blockToPebbles = new HashMap<>();
+            NatProg.getInstance().REGISTRY.AllPebbles.forEach(rl -> {
+                PebbleBlock pebble = (PebbleBlock) ForgeRegistries.BLOCKS.getValue(rl);
+                if (pebble != null && pebble.getParentBlock() != null) {
+                    blockToPebbles.put(pebble.getParentBlock(), pebble);
+                }
+            });
+        }
+
         BlockPos search = new BlockPos(pos.getX(), level.getHeight(), pos.getZ());
         for (int y = 0; y < search.getY(); y++) {
             if (level.getBlockState(search.below(y)).getMaterial() == Material.AIR) {
                 continue;
             }
 
-            if (NatProgBlocks.blocksToPebbles.containsKey(level.getBlockState(search.below(y)).getBlock())) {
-                return NatProgBlocks.blocksToPebbles.get(level.getBlockState(search.below(y)).getBlock());
+            if (blockToPebbles.containsKey(level.getBlockState(search.below(y)).getBlock())) {
+                return blockToPebbles.get(level.getBlockState(search.below(y)).getBlock());
             }
         }
-        return NatProgBlocks.blocksToPebbles.get(Blocks.STONE);
+        return blockToPebbles.get(Blocks.STONE);
     }
 
     /**
@@ -96,7 +112,7 @@ public class Utils {
 
     /**
      * Determines if the sample can be placed on this block
-     * 
+     *
      * @param level: A WorldGenLevel instance
      * @param pos:   The current searching position that will be used to confirm
      * @return true if the block below is solid on top AND isn't in the blacklist

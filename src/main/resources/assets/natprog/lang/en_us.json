@@ -70,5 +70,7 @@
   "natprog.broken.bones": "%s broke their hands punching stone",
   "natprog.splintered.to.death": "%s was splintered to death",
   "natprog.stone.warning": "§4You need the §rRight Tool§4 for this job.§r",
-  "natprog.wood.warning": "§4You need the §rRight Tool§4 for this job.§r"
+  "natprog.wood.warning": "§4You need the §rRight Tool§4 for this job.§r",
+  "natprog.too.brittle": "§4This tool is too brittle to use.§r",
+  "natprog.too.blunt": "§4This tool is too blunt to use.§r"
 }

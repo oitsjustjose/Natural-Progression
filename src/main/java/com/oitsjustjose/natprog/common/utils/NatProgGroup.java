@@ -1,11 +1,12 @@
 package com.oitsjustjose.natprog.common.utils;
 
-import javax.annotation.Nonnull;
-
-import com.oitsjustjose.natprog.common.items.NatProgItems;
-
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import javax.annotation.Nonnull;
 
 public class NatProgGroup extends CreativeModeTab {
     private static NatProgGroup instance;
@@ -24,6 +25,7 @@ public class NatProgGroup extends CreativeModeTab {
     @Override
     @Nonnull
     public ItemStack makeIcon() {
-        return new ItemStack(NatProgItems.flintSaw);
+        Item i = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Constants.MODID, "iron_saw"));
+        return i == null ? ItemStack.EMPTY : new ItemStack(i);
     }
 }

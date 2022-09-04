@@ -1,6 +1,7 @@
 package com.oitsjustjose.natprog.common.items;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -22,8 +23,7 @@ public class DynamicItemTier implements Tier {
     private int enchantability;
     private Ingredient repairIngredient;
 
-    public DynamicItemTier(int maxUses, float eff, float dmg, int harv, int ench,
-            Ingredient repairMat) {
+    public DynamicItemTier(int maxUses, float eff, float dmg, int harv, int ench, Ingredient repairMat) {
         this.uses = maxUses;
         this.speed = eff;
         this.attackDamageBonus = dmg;
@@ -32,8 +32,7 @@ public class DynamicItemTier implements Tier {
         this.repairIngredient = repairMat;
     }
 
-    public DynamicItemTier(int maxUses, float eff, float dmg, int harv, int ench,
-            TagKey<Item> repairMatTag) {
+    public DynamicItemTier(int maxUses, float eff, float dmg, int harv, int ench, TagKey<Item> repairMatTag) {
         this.uses = maxUses;
         this.speed = eff;
         this.attackDamageBonus = dmg;
@@ -82,15 +81,12 @@ public class DynamicItemTier implements Tier {
     }
 
     public DynamicItemTier setRepairMat(@Nullable TagKey<Item> tag) {
-        if (tag == null)
-            return this;
+        if (tag == null) return this;
 
-        List<Item> tagItems = ForgeRegistries.ITEMS.tags().getTag(tag).stream().toList();
+        List<Item> tagItems = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tag).stream().toList();
         if (tagItems.size() == 0) {
             this.repairIngredient = Ingredient.of(Items.BARRIER);
-            NatProg.getInstance().LOGGER.warn(
-                    "Dynamic saw repair material {} could not be found. Defaulting to Bedrock",
-                    tag == null ? "" : tag.toString());
+            NatProg.getInstance().LOGGER.warn("Dynamic saw repair material {} could not be found. Defaulting to Bedrock", tag.toString());
         } else {
             this.repairIngredient = Ingredient.of(tag);
         }
