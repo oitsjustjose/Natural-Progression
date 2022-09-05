@@ -27,7 +27,6 @@ public class CommonConfig {
     public static ForgeConfigSpec.IntValue BONE_DROP_CHANCE;
     public static ForgeConfigSpec.BooleanValue ALL_ENTITIES_DROP_BONES;
     public static ForgeConfigSpec.BooleanValue SHOW_BREAKING_HELP;
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_WHITELIST;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> PEBBLE_PLACEMENT_BLACKLIST;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> TWIG_PLACEMENT_BLACKLIST;
 
@@ -85,12 +84,6 @@ public class CommonConfig {
         SHOW_BREAKING_HELP = COMMON_BUILDER.comment(
                 "Setting this to true will let players know that they can't break certain blocks without a certain tool")
                 .define("showToolHelp", true);
-        DIMENSION_WHITELIST = COMMON_BUILDER.comment(
-                "A string of dimensions in which pebbles should spawn. See the defaults for the format.")
-                .defineList(
-                        "dimensionWhitelist", Lists.newArrayList("minecraft:overworld",
-                                "minecraft:the_nether", "minecraft:the_end"),
-                        (itemRaw) -> itemRaw instanceof String);
         PEBBLE_PLACEMENT_BLACKLIST = COMMON_BUILDER.comment(
                 "A list of 'modid:block' that represent blocks that pebbles can be placed on.")
                 .defineList(

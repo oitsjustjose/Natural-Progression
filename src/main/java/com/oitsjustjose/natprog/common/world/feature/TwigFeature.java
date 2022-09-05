@@ -39,10 +39,6 @@ public class TwigFeature extends Feature<NoneFeatureConfiguration> {
         WorldGenLevel level = f.level();
         BlockPos pos = f.origin();
 
-        if (!CommonConfig.DIMENSION_WHITELIST.get().contains(Utils.dimensionToString(level))) {
-            return false;
-        }
-
         try {
             for (int i = 0; i < CommonConfig.MAX_TWIGS_PER_CHUNK.get(); i++) {
                 BlockPos twigPos = Utils.getTopLevelPlacePos(level, new ChunkPos(pos));

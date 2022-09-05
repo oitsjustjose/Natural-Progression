@@ -19,26 +19,37 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 
 public class Utils {
+    private static HashMap<Block, Block> blockToPebbleMap;
 
     public static Block getPebbleForPos(WorldGenLevel level, BlockPos pos) {
+        if (blockToPebbleMap == null) {
+            blockToPebbleMap = new HashMap<>();
+            for (var rl : NatProg.getInstance().REGISTRY.PebbleMaterials) {
+                String generated = (rl.getNamespace().equals("minecraft") ? "" : rl.getNamespace() + "_") + rl.getPath() + "_pebble";
+                Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Constants.MODID, generated));
+                if (block instanceof PebbleBlock pebble) {
+                    Block parent = pebble.getParentBlock();
+                    if (parent != Blocks.STONE) {
+                        blockToPebbleMap.put(parent, pebble);
+                    }
+                }
+            }
+        }
+
+
         BlockPos search = new BlockPos(pos.getX(), level.getHeight(), pos.getZ());
         for (int y = 0; y < search.getY(); y++) {
             if (level.getBlockState(search.below(y)).getMaterial() == Material.AIR) {
                 continue;
             }
 
-            for (var rl : NatProg.getInstance().REGISTRY.PebbleMaterials) {
-                String generated = (rl.getNamespace().equals("minecraft") ? "" : rl.getNamespace() + "_") + rl.getPath() + "_pebble";
-
-                PebbleBlock b = (PebbleBlock) ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Constants.MODID, generated));
-                Block parent = b.getParentBlock();
-                if (parent != null && parent == level.getBlockState(search.below(y)).getBlock()) {
-                    return b;
-                }
+            Block key = level.getBlockState(search.below(y)).getBlock();
+            if (blockToPebbleMap.containsKey(key)) {
+                return blockToPebbleMap.get(key);
             }
         }
 
-        return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Constants.MODID, "stone_pebble"));
+        return blockToPebbleMap.get(Blocks.STONE);
     }
 
     /**

@@ -6,6 +6,7 @@ import com.oitsjustjose.natprog.common.blocks.PebbleBlock;
 import com.oitsjustjose.natprog.common.config.CommonConfig;
 import com.oitsjustjose.natprog.common.utils.Utils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
@@ -37,10 +38,6 @@ public class PebbleFeature extends Feature<NoneFeatureConfiguration> {
 
         WorldGenLevel level = f.level();
         BlockPos pos = f.origin();
-
-        if (!CommonConfig.DIMENSION_WHITELIST.get().contains(Utils.dimensionToString(level))) {
-            return false;
-        }
 
         try {
             for (int i = 0; i < CommonConfig.MAX_PEBBLES_PER_CHUNK.get(); i++) {
