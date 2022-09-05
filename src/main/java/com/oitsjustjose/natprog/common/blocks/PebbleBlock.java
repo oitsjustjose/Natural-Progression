@@ -1,6 +1,7 @@
 package com.oitsjustjose.natprog.common.blocks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -26,6 +27,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,7 +37,7 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     @Nullable
-    private final Block parentBlock;
+    private final ResourceLocation parentBlockRl;
 
     /**
      * @param parent the block which this pebble is made of
@@ -43,14 +45,15 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
      *               isn't loaded / doesn't exist due to the
      *               mod owning the block not being present
      */
-    public PebbleBlock(@Nullable Block parent) {
+    public PebbleBlock(@Nullable ResourceLocation parent) {
         super(Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.STONE).strength(0.125F, 2F).sound(SoundType.STONE).dynamicShape().noCollission().offsetType(OffsetType.XZ));
         this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, Boolean.FALSE));
-        this.parentBlock = parent;
+        this.parentBlockRl = parent;
     }
 
     public @Nullable Block getParentBlock() {
-        return this.parentBlock;
+        Block block = ForgeRegistries.BLOCKS.getValue(this.parentBlockRl);
+        return block == Blocks.AIR ? null : block;
     }
 
     @Override

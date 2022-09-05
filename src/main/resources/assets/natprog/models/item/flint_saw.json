@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "natprog:item/improved_saw"
+    "layer0": "natprog:item/flint_saw"
   }
 }

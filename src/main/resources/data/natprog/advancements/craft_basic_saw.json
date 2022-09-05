@@ -2,13 +2,13 @@
   "parent": "natprog:craft_crafting_table",
   "display": {
     "icon": {
-      "item": "natprog:basic_saw"
+      "item": "natprog:flint_saw"
     },
     "title": {
-      "translate": "advancements.story.get_basic_saw.title"
+      "translate": "advancements.story.get_flint_saw.title"
     },
     "description": {
-      "translate": "advancements.story.get_basic_saw.description"
+      "translate": "advancements.story.get_flint_saw.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,13 +16,13 @@
     "hidden": false
   },
   "criteria": {
-    "get_basic_saw": {
+    "get_flint_saw": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "natprog:basic_saw"
+              "natprog:flint_saw"
             ]
           }
         ]
@@ -31,7 +31,7 @@
   },
   "requirements": [
     [
-      "get_basic_saw"
+      "get_flint_saw"
     ]
   ]
 }

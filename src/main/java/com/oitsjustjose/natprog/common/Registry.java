@@ -7,16 +7,12 @@ import com.oitsjustjose.natprog.common.blocks.TwigBlock;
 import com.oitsjustjose.natprog.common.data.damageitem.DamageItemRecipeSerializer;
 import com.oitsjustjose.natprog.common.data.damageitem.DamageItemRecipeType;
 import com.oitsjustjose.natprog.common.items.DynamicItemTier;
-import com.oitsjustjose.natprog.common.items.HatchetItem;
 import com.oitsjustjose.natprog.common.items.PebbleItem;
 import com.oitsjustjose.natprog.common.items.SawItem;
 import com.oitsjustjose.natprog.common.utils.Constants;
 import com.oitsjustjose.natprog.common.utils.NatProgGroup;
 import com.oitsjustjose.natprog.common.world.feature.PebbleFeature;
 import com.oitsjustjose.natprog.common.world.feature.TwigFeature;
-import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.features.FeatureUtils;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.*;
@@ -25,10 +21,12 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -42,50 +40,44 @@ public class Registry {
     public final DeferredRegister<Item> ItemRegistry = DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MODID);
     public final DeferredRegister<RecipeType<?>> RecipeTypeRegistry = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, Constants.MODID);
     public final DeferredRegister<RecipeSerializer<?>> SerializerRegistry = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Constants.MODID);
-    public final DeferredRegister<Feature<?>> FeatureRegistry = DeferredRegister.create(ForgeRegistries.FEATURES, Constants.MODID);
 
-    public Holder<PlacedFeature> PlacedPebbleFeature;
-    public Holder<PlacedFeature> PlacedTwigFeature;
+    public final DeferredRegister<Feature<?>> FeatureRegistry = DeferredRegister.create(net.minecraft.core.Registry.FEATURE_REGISTRY, Constants.MODID);
+    public final DeferredRegister<ConfiguredFeature<?, ?>> ConfiguredFeatureRegistry = DeferredRegister.create(net.minecraft.core.Registry.CONFIGURED_FEATURE_REGISTRY, Constants.MODID);
+    public final DeferredRegister<PlacedFeature> PlacedFeatureRegistry = DeferredRegister.create(net.minecraft.core.Registry.PLACED_FEATURE_REGISTRY, Constants.MODID);
 
     public static Tier flintTier = new DynamicItemTier().setMaxUses(16).setEfficiency(1.5F).setAttackDamage(1.0F).setHarvestLvl(0).setEnchantability(0).setRepairMats(Items.FLINT);
     public static Tier boneTier = new DynamicItemTier().setMaxUses(128).setEfficiency(2.0F).setAttackDamage(2.0F).setHarvestLvl(1).setEnchantability(0).setRepairMats(Items.BONE);
     public static Tier copperTier = new DynamicItemTier().setMaxUses(192).setEfficiency(1.65F).setAttackDamage(1.5F).setHarvestLvl(0).setEnchantability(0).setRepairMat(ItemTags.create(new ResourceLocation("forge:ingots/copper")));
     public static Tier bronzeTier = new DynamicItemTier().setMaxUses(442).setEfficiency(2.5F).setAttackDamage(2.5F).setHarvestLvl(2).setEnchantability(0).setRepairMat(ItemTags.create(new ResourceLocation("forge:ingots/bronze")));
     public static Tier steelTier = new DynamicItemTier().setMaxUses(914).setEfficiency(3.5F).setAttackDamage(3.5F).setHarvestLvl(3).setEnchantability(0).setRepairMat(ItemTags.create(new ResourceLocation("forge:ingots/steel")));
-    public List<ResourceLocation> AllPebbles = Lists.newArrayList(new ResourceLocation("minecraft", "stone"), new ResourceLocation("minecraft", "andesite"), new ResourceLocation("minecraft", "diorite"), new ResourceLocation("minecraft", "granite"), new ResourceLocation("minecraft", "sandstone"), new ResourceLocation("minecraft", "red_sandstone"), new ResourceLocation("minecraft", "tuff"), new ResourceLocation("minecraft", "deepslate"), new ResourceLocation("minecraft", "dripstone_block"), new ResourceLocation("minecraft", "netherrack"), new ResourceLocation("minecraft", "end_stone"), new ResourceLocation("quark", "marble"), new ResourceLocation("quark", "limestone"), new ResourceLocation("quark", "jasper"), new ResourceLocation("quark", "slate"), new ResourceLocation("quark", "basalt"), new ResourceLocation("create", "asurine"), new ResourceLocation("create", "crimsite"), new ResourceLocation("create", "limestone"), new ResourceLocation("create", "ochrum"), new ResourceLocation("create", "scorchia"), new ResourceLocation("create", "scoria"), new ResourceLocation("create", "veridium"));
+    public List<ResourceLocation> PebbleMaterials = Lists.newArrayList(new ResourceLocation("minecraft", "stone"), new ResourceLocation("minecraft", "andesite"), new ResourceLocation("minecraft", "diorite"), new ResourceLocation("minecraft", "granite"), new ResourceLocation("minecraft", "sandstone"), new ResourceLocation("minecraft", "red_sandstone"), new ResourceLocation("minecraft", "tuff"), new ResourceLocation("minecraft", "deepslate"), new ResourceLocation("minecraft", "dripstone_block"), new ResourceLocation("minecraft", "netherrack"), new ResourceLocation("minecraft", "end_stone"), new ResourceLocation("quark", "marble"), new ResourceLocation("quark", "limestone"), new ResourceLocation("quark", "jasper"), new ResourceLocation("quark", "slate"), new ResourceLocation("quark", "basalt"), new ResourceLocation("create", "asurine"), new ResourceLocation("create", "crimsite"), new ResourceLocation("create", "limestone"), new ResourceLocation("create", "ochrum"), new ResourceLocation("create", "scorchia"), new ResourceLocation("create", "scoria"), new ResourceLocation("create", "veridium"));
 
     private final List<RegistryObject<Block>> NeedItemBlocks = Lists.newArrayList();
 
     public Registry() {
         RegisterBlocks();
-        BlockRegistry.register(FMLJavaModLoadingContext.get().getModEventBus());
         RegisterItems();
-        ItemRegistry.register(FMLJavaModLoadingContext.get().getModEventBus());
-
         RegisterRecipeStuff();
-        RecipeTypeRegistry.register(FMLJavaModLoadingContext.get().getModEventBus());
-
         RegisterWorldGen();
-        SerializerRegistry.register(FMLJavaModLoadingContext.get().getModEventBus());
-        FeatureRegistry.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public void RegisterAll(FMLJavaModLoadingContext ctx) {
-//        BlockRegistry.register(ctx.getModEventBus());
-//        ItemRegistry.register(ctx.getModEventBus());
-//        RecipeTypeRegistry.register(ctx.getModEventBus());
-//        SerializerRegistry.register(ctx.getModEventBus());
-//        FeatureRegistry.register(ctx.getModEventBus());
+        BlockRegistry.register(ctx.getModEventBus());
+        ItemRegistry.register(ctx.getModEventBus());
+        RecipeTypeRegistry.register(ctx.getModEventBus());
+        SerializerRegistry.register(ctx.getModEventBus());
+        FeatureRegistry.register(ctx.getModEventBus());
+        ConfiguredFeatureRegistry.register(ctx.getModEventBus());
+        PlacedFeatureRegistry.register(ctx.getModEventBus());
     }
 
     private void RegisterBlocks() {
         BlockRegistry.register("twigs", TwigBlock::new);
 
         // Register all pebbles for each mod
-        AllPebbles.forEach(rl -> {
-            Block block = ForgeRegistries.BLOCKS.getValue(rl);
+        PebbleMaterials.forEach(rl -> {
             String generated = (rl.getNamespace().equals("minecraft") ? "" : rl.getNamespace() + "_") + rl.getPath() + "_pebble";
-            NeedItemBlocks.add(BlockRegistry.register(generated, () -> new PebbleBlock(block)));
+            NeedItemBlocks.add(BlockRegistry.register(generated, () -> new PebbleBlock(rl)));
         });
 
         // Register Cobblestones
@@ -106,28 +98,26 @@ public class Registry {
         NatProgGroup tab = NatProgGroup.getInstance();
         // Register Item Block References
         NeedItemBlocks.forEach(x -> {
-            Block block = x.get();
-            ResourceLocation rn = x.getId();
             Item.Properties props = new Item.Properties();
+            ResourceLocation rn = x.getId();
 
-            if (block instanceof PebbleBlock pebble) {
-                // If there *is* a parent block, add it to a creative tab
-                if (pebble.getParentBlock() != null) {
-                    ItemRegistry.register(rn.getPath(), () -> new PebbleItem(block, props.tab(tab)));
+            ItemRegistry.register(rn.getPath(), () -> {
+                // WAIT to resolve x.get() until the registry has been called (i.e. within the supp)
+                Block block = x.get();
+                if (block instanceof PebbleBlock pebble) {
+                    return new PebbleItem(block, pebble.getParentBlock() == null ? props : props.tab(tab));
                 } else {
-                    ItemRegistry.register(rn.getPath(), () -> new PebbleItem(block, props));
+                    return new BlockItem(block, props.tab(tab));
                 }
-            } else {
-                ItemRegistry.register(rn.getPath(), () -> new BlockItem(block, props.tab(tab)));
-            }
+            });
         });
 
         Item.Properties props = new Item.Properties().tab(tab);
 
         // Register all other items
-        ItemRegistry.register("flint_hatchet", HatchetItem::new);
-        ItemRegistry.register("bone_pickaxe", () -> new PickaxeItem(boneTier, 1, -2.8F, props.stacksTo(1)));
-        ItemRegistry.register("bone_knife", () -> new SwordItem(boneTier, 1, -1.4F, props.stacksTo(1)));
+        ItemRegistry.register("flint_hatchet", () -> new AxeItem(flintTier, 1.8F, 0F, props));
+        ItemRegistry.register("bone_pickaxe", () -> new PickaxeItem(boneTier, 1, -2.8F, props));
+        ItemRegistry.register("bone_knife", () -> new SwordItem(boneTier, 1, -1.4F, props));
         ItemRegistry.register("bone_shard", () -> new Item(props));
         // Saws all in bulk, y'know
         ItemRegistry.register("flint_saw", () -> new SawItem(flintTier));
@@ -146,13 +136,14 @@ public class Registry {
     }
 
     public void RegisterWorldGen() {
-        // Pebbles
-        Feature<NoneFeatureConfiguration> pebbles = new PebbleFeature(NoneFeatureConfiguration.CODEC);
-        FeatureRegistry.register("pebbles", () -> pebbles);
-        PlacedPebbleFeature = PlacementUtils.register("pebbles", FeatureUtils.register("pebbles", pebbles), HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(320)));
-        // Twigs
-        Feature<NoneFeatureConfiguration> twigs = new TwigFeature(NoneFeatureConfiguration.CODEC);
-        FeatureRegistry.register("twigs", () -> twigs);
-        PlacedTwigFeature = PlacementUtils.register("twigs", FeatureUtils.register("twigs", twigs), HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(320)));
+        List<PlacementModifier> placement = Lists.newArrayList(HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(320)));
+
+        RegistryObject<Feature<NoneFeatureConfiguration>> pebbles = FeatureRegistry.register("pebbles", () -> new PebbleFeature(NoneFeatureConfiguration.CODEC));
+        RegistryObject<ConfiguredFeature<?, ?>> configuredPebbles = ConfiguredFeatureRegistry.register("pebbles_configured", () -> new ConfiguredFeature<>(pebbles.get(), NoneFeatureConfiguration.INSTANCE));
+        PlacedFeatureRegistry.register("pebbles_placed", () -> new PlacedFeature(configuredPebbles.getHolder().get(), placement));
+
+        RegistryObject<Feature<NoneFeatureConfiguration>> twigs = FeatureRegistry.register("twigs", () -> new TwigFeature(NoneFeatureConfiguration.CODEC));
+        RegistryObject<ConfiguredFeature<?, ?>> configuredTwigs = ConfiguredFeatureRegistry.register("twigs_configured", () -> new ConfiguredFeature<>(twigs.get(), NoneFeatureConfiguration.INSTANCE));
+        PlacedFeatureRegistry.register("twigs_placed", () -> new PlacedFeature(configuredTwigs.getHolder().get(), placement));
     }
 }

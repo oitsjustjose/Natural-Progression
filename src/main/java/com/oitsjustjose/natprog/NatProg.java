@@ -29,7 +29,6 @@ public class NatProg {
         REGISTRY = new Registry();
         REGISTRY.RegisterAll(FMLJavaModLoadingContext.get());
 
-        MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new WoodBreak());
         MinecraftForge.EVENT_BUS.register(new StoneBreak());
         MinecraftForge.EVENT_BUS.register(new GroundBreak());

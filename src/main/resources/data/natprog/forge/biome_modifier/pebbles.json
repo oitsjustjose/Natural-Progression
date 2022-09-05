@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "natprog:pebbles",
+  "features": "natprog:pebbles_placed",
   "step": "vegetal_decoration"
 }

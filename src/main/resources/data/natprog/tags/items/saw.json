@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "natprog:basic_saw",
-    "natprog:improved_saw",
-    "natprog:golden_saw",
+    "natprog:flint_saw",
+    "natprog:iron_saw",
+    "natprog:gold_saw",
     "natprog:diamond_saw",
     "natprog:netherite_saw",
     "natprog:copper_saw",
