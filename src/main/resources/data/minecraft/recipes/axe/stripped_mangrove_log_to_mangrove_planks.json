@@ -1,0 +1,21 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "minecraft"
+    }
+  ],
+  "type": "natprog:damage_tools",
+  "ingredients": [
+    {
+      "item": "minecraft:stripped_mangrove_log"
+    },
+    {
+      "tag": "natprog:axe"
+    }
+  ],
+  "result": {
+    "item": "minecraft:mangrove_planks",
+    "count": 1
+  }
+}

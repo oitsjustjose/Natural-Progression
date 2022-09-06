@@ -4,9 +4,16 @@
     {
       "rolls": 1,
       "entries": [
-        { "type": "minecraft:item", "name": "natprog:create_asurine_pebble" }
+        {
+          "type": "minecraft:item",
+          "name": "natprog:create_asurine_pebble"
+        }
       ],
-      "conditions": [{ "condition": "minecraft:survives_explosion" }]
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
     }
   ]
 }

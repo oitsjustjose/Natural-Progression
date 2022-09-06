@@ -2,13 +2,13 @@
   "parent": "minecraft:story/smelt_iron",
   "display": {
     "icon": {
-      "item": "natprog:iron_saw"
+      "item": "natprog:copper_saw"
     },
     "title": {
-      "translate": "advancements.story.get_iron_saw.title"
+      "translate": "advancements.story.get_better_saw.title"
     },
     "description": {
-      "translate": "advancements.story.get_iron_saw.description"
+      "translate": "advancements.story.get_better_saw.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,12 +16,13 @@
     "hidden": false
   },
   "criteria": {
-    "get_iron_saw": {
+    "get_better_saw": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
+              "natprog:copper_saw",
               "natprog:iron_saw"
             ]
           }
@@ -31,7 +32,7 @@
   },
   "requirements": [
     [
-      "get_iron_saw"
+      "get_better_saw"
     ]
   ]
 }
