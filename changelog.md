@@ -1,5 +1,12 @@
 # Natural Progression Changelog (1.19.x)
 
+## 2.3.4.1
+
+### Fixed
+
+- Mangrove recipes not being included (Definitely didn't forget all about em!)
+- Log spam for Create Pebble -> Block recipes - forgot to add Forge conditions there!
+
 ## 2.3.4
 
 Initial port from 1.18. This comes with a pretty big world gen change:
@@ -21,7 +28,7 @@ Pebbles & Twigs generate in a given biome using Biome Tags. You can see the tags
 ```json5
 {
   ...
-  "biomes": "#natprog:can_have_twigs", // ⬅️⬅️ This is what you're looking for
+  "biomes": "#natprog:can_have_twigs", // ←-- This is what you're looking for
   ...
 }
 ```
