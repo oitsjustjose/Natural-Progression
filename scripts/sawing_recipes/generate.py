@@ -2,9 +2,7 @@
 
 from common.wood_type import WoodType
 
-WOODS = [
-    WoodType.default_wood("biomesoplenty", "fir")
-]
+WOODS = [WoodType.default_wood("minecraft", "mangrove")]
 
 
 def main():

@@ -19,13 +19,11 @@ class WoodProgression(NamedTuple):
         result_name = self.result_item.split(":")[1]
         if self.should_override:
             return f"{base}/data/{result_ns}/recipes/{result_name}.json"
-        else:
-            original_name = self.original_item.split(":")[1]
-            tool_name = self.tool_tag.split(":")[1]
-            base += "/data/natprog/recipes/wood"
-            return (
-                f"{base}/{result_ns}/{tool_name}/{original_name}_to_{result_name}.json"
-            )
+
+        original_name = self.original_item.split(":")[1]
+        tool_name = self.tool_tag.split(":")[1]
+        base += f"/data/{result_ns}/recipes/"
+        return f"{base}/{tool_name}/{original_name}_to_{result_name}.json"
 
     @property
     def recipe(self) -> DataJsonFile:
