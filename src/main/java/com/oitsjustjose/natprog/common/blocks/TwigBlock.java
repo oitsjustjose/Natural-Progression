@@ -36,7 +36,7 @@ public class TwigBlock extends Block implements SimpleWaterloggedBlock {
 
     public TwigBlock() {
         super(Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.WOOD)
-                .strength(0.125F, 2F).sound(SoundType.WOOD).dynamicShape().noCollission());
+                .strength(0.125F, 2F).sound(SoundType.WOOD).dynamicShape().noCollission().offsetType(OffsetType.XZ));
         this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, Boolean.FALSE));
     }
 

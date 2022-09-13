@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -19,37 +20,21 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 
 public class Utils {
-    private static HashMap<Block, Block> blockToPebbleMap;
 
     public static Block getPebbleForPos(WorldGenLevel level, BlockPos pos) {
-        if (blockToPebbleMap == null) {
-            blockToPebbleMap = new HashMap<>();
-            for (var rl : NatProg.getInstance().REGISTRY.PebbleMaterials) {
-                String generated = (rl.getNamespace().equals("minecraft") ? "" : rl.getNamespace() + "_") + rl.getPath() + "_pebble";
-                Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Constants.MODID, generated));
-                if (block instanceof PebbleBlock pebble) {
-                    Block parent = pebble.getParentBlock();
-                    if (parent != Blocks.STONE) {
-                        blockToPebbleMap.put(parent, pebble);
-                    }
-                }
-            }
-        }
-
-
         BlockPos search = new BlockPos(pos.getX(), level.getHeight(), pos.getZ());
-        for (int y = 0; y < search.getY(); y++) {
-            if (level.getBlockState(search.below(y)).getMaterial() == Material.AIR) {
+        for (int y = level.getHeight() / 2; y < search.getY(); y++) {
+            BlockState at = level.getBlockState(search.below(y));
+            if (at.getBlock() == Blocks.STONE || at.getBlock() == Blocks.DEEPSLATE || at.getMaterial() == Material.AIR) {
                 continue;
             }
 
-            Block key = level.getBlockState(search.below(y)).getBlock();
-            if (blockToPebbleMap.containsKey(key)) {
-                return blockToPebbleMap.get(key);
+            if (Mapper.getInstance().getBlockToPebbleMap().containsKey(at.getBlock())) {
+                return Mapper.getInstance().getBlockToPebbleMap().get(at.getBlock());
             }
         }
 
-        return blockToPebbleMap.get(Blocks.STONE);
+        return Mapper.getInstance().pickDefault(level.getRandom());
     }
 
     /**
@@ -87,10 +72,8 @@ public class Utils {
         int zCenter = (chunkPos.getMinBlockZ() + chunkPos.getMaxBlockZ()) / 2;
 
         // Only put things in the negative X|Z if the spread is provided.
-        int blockPosX = xCenter
-                + (level.getRandom().nextInt(usedSpread) * ((level.getRandom().nextBoolean()) ? 1 : -1));
-        int blockPosZ = zCenter
-                + (level.getRandom().nextInt(usedSpread) * ((level.getRandom().nextBoolean()) ? 1 : -1));
+        int blockPosX = xCenter + (level.getRandom().nextInt(usedSpread) * ((level.getRandom().nextBoolean()) ? 1 : -1));
+        int blockPosZ = zCenter + (level.getRandom().nextInt(usedSpread) * ((level.getRandom().nextBoolean()) ? 1 : -1));
 
         if (!world.hasChunk(chunkPos.x, chunkPos.z)) {
             return null;
@@ -136,8 +119,7 @@ public class Utils {
     public static boolean canReplace(WorldGenLevel level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         Material mat = state.getMaterial();
-        return mat.isLiquid() || mat == Material.AIR || state.is(BlockTags.LEAVES)
-                || mat.isReplaceable();
+        return mat.isLiquid() || mat == Material.AIR || state.is(BlockTags.LEAVES) || mat.isReplaceable();
     }
 
     public static String dimensionToString(WorldGenLevel level) {
@@ -147,8 +129,39 @@ public class Utils {
     public static void fixSnowyBlock(WorldGenLevel level, BlockPos posPlaced) {
         BlockState below = level.getBlockState(posPlaced.below());
         if (below.hasProperty(BlockStateProperties.SNOWY)) {
-            level.setBlock(posPlaced.below(), below.setValue(BlockStateProperties.SNOWY, Boolean.FALSE),
-                    2 | 16);
+            level.setBlock(posPlaced.below(), below.setValue(BlockStateProperties.SNOWY, Boolean.FALSE), 2 | 16);
+        }
+    }
+
+    private static class Mapper {
+        private static Mapper instance;
+        private final HashMap<Block, Block> blockToPebbleMap;
+
+        public Mapper() {
+            this.blockToPebbleMap = new HashMap<>();
+            for (var rl : NatProg.getInstance().REGISTRY.PebbleMaterials) {
+                String generated = (rl.getNamespace().equals("minecraft") ? "" : rl.getNamespace() + "_") + rl.getPath() + "_pebble";
+                Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Constants.MODID, generated));
+                if (block instanceof PebbleBlock pebble) {
+                    this.blockToPebbleMap.put(pebble.getParentBlock(), pebble);
+                }
+            }
+        }
+
+        @SuppressWarnings("unchecked")
+        public HashMap<Block, Block> getBlockToPebbleMap() {
+            return (HashMap<Block, Block>) blockToPebbleMap.clone();
+        }
+
+        public Block pickDefault(RandomSource rand) {
+            return this.blockToPebbleMap.get(rand.nextBoolean() ? Blocks.STONE : Blocks.DEEPSLATE);
+        }
+
+        public static Mapper getInstance() {
+            if (instance == null) {
+                instance = new Mapper();
+            }
+            return instance;
         }
     }
 }
