@@ -1,5 +1,6 @@
 package com.oitsjustjose.natprog.common.blocks;
 
+import com.oitsjustjose.natprog.common.config.CommonConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -41,8 +42,7 @@ public class TwigBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos,
-                                       Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
         return new ItemStack(Items.STICK);
     }
 
@@ -83,7 +83,6 @@ public class TwigBlock extends Block implements SimpleWaterloggedBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
     }
-
 
     @Override
     @SuppressWarnings("deprecation")

@@ -34,6 +34,7 @@ public class NatProg {
         MinecraftForge.EVENT_BUS.register(new GroundBreak());
         MinecraftForge.EVENT_BUS.register(new ToolNeutering());
         MinecraftForge.EVENT_BUS.register(new BoneEvent());
+        MinecraftForge.EVENT_BUS.register(new TwigPlacement());
 
         this.configSetup();
     }

@@ -22,6 +22,7 @@ public class CommonConfig {
     public static ForgeConfigSpec.BooleanValue REMOVE_STONE_TOOL_FUNC;
     public static ForgeConfigSpec.BooleanValue MAKE_GROUND_BLOCKS_HARDER;
     public static ForgeConfigSpec.BooleanValue ARE_PEBBLES_REPLACEABLE;
+    public static ForgeConfigSpec.BooleanValue ARE_TWIGS_PLACEABLE;
     public static ForgeConfigSpec.IntValue FLINT_CHANCE;
     public static ForgeConfigSpec.IntValue BONE_SHARD_CHANCE;
     public static ForgeConfigSpec.IntValue BONE_DROP_CHANCE;
@@ -36,8 +37,7 @@ public class CommonConfig {
     }
 
     public static void loadConfig(ForgeConfigSpec spec, Path path) {
-        final CommentedFileConfig configData = CommentedFileConfig.builder(path).sync().autosave()
-                .writingMode(WritingMode.REPLACE).build();
+        final CommentedFileConfig configData = CommentedFileConfig.builder(path).sync().autosave().writingMode(WritingMode.REPLACE).build();
         configData.load();
         spec.setConfig(configData);
     }
@@ -46,56 +46,21 @@ public class CommonConfig {
         String CATEGORY_GENERAL = "general";
         COMMON_BUILDER.comment("Miscellaneous").push(CATEGORY_GENERAL);
 
-        MAX_PEBBLES_PER_CHUNK = COMMON_BUILDER
-                .comment("The maximum number of pebbles that can be found in each chunk")
-                .defineInRange("maxPebblesPerChunk", 5, 0, 256);
-        MAX_TWIGS_PER_CHUNK = COMMON_BUILDER
-                .comment("The maximum number of twigs that can be found in each chunk")
-                .defineInRange("maxTwigsPerChunk", 3, 0, 256);
-        TOOL_NEUTERING = COMMON_BUILDER
-                .comment("Make disabled tools completely useless - can't even break grass.")
-                .define("toolNeutering", false);
-        REMOVE_WOODEN_TOOL_FUNC = COMMON_BUILDER.comment(
-                "Setting this to true prevents the ability to use wooden tools, though you can still craft them for compatibility.")
-                .define("removeWoodenToolFunctionality", true);
-        REMOVE_STONE_TOOL_FUNC = COMMON_BUILDER.comment(
-                "Setting this to true prevents the ability to use stone tools, though you can still craft them for compatibility.")
-                .define("removeStoneToolFunctionality", true);
-        MAKE_GROUND_BLOCKS_HARDER = COMMON_BUILDER.comment(
-                "Setting this to true will make ground blocks (e.g. sand, dirt, gravel) harder to break without the correct tool.")
-                .define("makeGroundBlocksHarder", true);
-        ARE_PEBBLES_REPLACEABLE = COMMON_BUILDER.comment(
-                "Setting this to true will allow you to replace pebbles like tall grass (more convenient for building, but loses the block forever")
-                .define("arePebblesReplaceable", true);
-        FLINT_CHANCE = COMMON_BUILDER
-                .comment("The chance (out of 100) for flint to be created via knapping.\n"
-                        + "e.g.: Setting to 75 means there is a 75% chance knapping will provide flint.")
-                .defineInRange("flintKnappingChance", 75, 1, 100);
-        BONE_SHARD_CHANCE = COMMON_BUILDER
-                .comment("The chance (out of 100) for bone to be created via knapping.\n"
-                        + "e.g.: Setting to 75 means there is a 75% chance knapping will provide a bone shard.")
-                .defineInRange("boneShardKnappingChance", 75, 1, 100);
-        BONE_DROP_CHANCE = COMMON_BUILDER.comment(
-                "The chance (out of 100) that a bone can drop from the entities in 'boneDropMobs'.\nSetting this to 0 disables this feature")
-                .defineInRange("boneDropFromMobsChance", 50, 0, 100);
-        ALL_ENTITIES_DROP_BONES = COMMON_BUILDER
-                .comment("Enabling this causes all entities to drop additional bones when killed")
-                .define("allEntitiesDropBones", false);
-        SHOW_BREAKING_HELP = COMMON_BUILDER.comment(
-                "Setting this to true will let players know that they can't break certain blocks without a certain tool")
-                .define("showToolHelp", true);
-        PEBBLE_PLACEMENT_BLACKLIST = COMMON_BUILDER.comment(
-                "A list of 'modid:block' that represent blocks that pebbles can be placed on.")
-                .defineList(
-                        "pebblePlacementBlacklist", Lists.newArrayList("minecraft:ice",
-                                "minecraft:packed_ice", "minecraft:bedrock"),
-                        (itemRaw) -> itemRaw instanceof String);
-        TWIG_PLACEMENT_BLACKLIST = COMMON_BUILDER.comment(
-                "A list of 'modid:block' that represent blocks that twigs can be placed on.")
-                .defineList(
-                        "twigPlacementBlacklist", Lists.newArrayList("minecraft:ice",
-                                "minecraft:packed_ice", "minecraft:bedrock"),
-                        (itemRaw) -> itemRaw instanceof String);
+        MAX_PEBBLES_PER_CHUNK = COMMON_BUILDER.comment("The maximum number of pebbles that can be found in each chunk").defineInRange("maxPebblesPerChunk", 5, 0, 256);
+        MAX_TWIGS_PER_CHUNK = COMMON_BUILDER.comment("The maximum number of twigs that can be found in each chunk").defineInRange("maxTwigsPerChunk", 3, 0, 256);
+        TOOL_NEUTERING = COMMON_BUILDER.comment("Make disabled tools completely useless - can't even break grass.").define("toolNeutering", false);
+        REMOVE_WOODEN_TOOL_FUNC = COMMON_BUILDER.comment("Setting this to true prevents the ability to use wooden tools, though you can still craft them for compatibility.").define("removeWoodenToolFunctionality", true);
+        REMOVE_STONE_TOOL_FUNC = COMMON_BUILDER.comment("Setting this to true prevents the ability to use stone tools, though you can still craft them for compatibility.").define("removeStoneToolFunctionality", true);
+        MAKE_GROUND_BLOCKS_HARDER = COMMON_BUILDER.comment("Setting this to true will make ground blocks (e.g. sand, dirt, gravel) harder to break without the correct tool.").define("makeGroundBlocksHarder", true);
+        ARE_PEBBLES_REPLACEABLE = COMMON_BUILDER.comment("Setting this to true will allow you to replace pebbles like tall grass (more convenient for building, but loses the block forever").define("arePebblesReplaceable", true);
+        ARE_TWIGS_PLACEABLE = COMMON_BUILDER.comment("Setting this to true will allow players to place Twigs by Right-Clicking a Stick on a solid surface").define("areTwigsPlaceable", true);
+        FLINT_CHANCE = COMMON_BUILDER.comment("The chance (out of 100) for flint to be created via knapping.\n" + "e.g.: Setting to 75 means there is a 75% chance knapping will provide flint.").defineInRange("flintKnappingChance", 75, 1, 100);
+        BONE_SHARD_CHANCE = COMMON_BUILDER.comment("The chance (out of 100) for bone to be created via knapping.\n" + "e.g.: Setting to 75 means there is a 75% chance knapping will provide a bone shard.").defineInRange("boneShardKnappingChance", 75, 1, 100);
+        BONE_DROP_CHANCE = COMMON_BUILDER.comment("The chance (out of 100) that a bone can drop from the entities in 'boneDropMobs'.\nSetting this to 0 disables this feature").defineInRange("boneDropFromMobsChance", 50, 0, 100);
+        ALL_ENTITIES_DROP_BONES = COMMON_BUILDER.comment("Enabling this causes all entities to drop additional bones when killed").define("allEntitiesDropBones", false);
+        SHOW_BREAKING_HELP = COMMON_BUILDER.comment("Setting this to true will let players know that they can't break certain blocks without a certain tool").define("showToolHelp", true);
+        PEBBLE_PLACEMENT_BLACKLIST = COMMON_BUILDER.comment("A list of 'modid:block' that represent blocks that pebbles can be placed on.").defineList("pebblePlacementBlacklist", Lists.newArrayList("minecraft:ice", "minecraft:packed_ice", "minecraft:bedrock"), (itemRaw) -> itemRaw instanceof String);
+        TWIG_PLACEMENT_BLACKLIST = COMMON_BUILDER.comment("A list of 'modid:block' that represent blocks that twigs can be placed on.").defineList("twigPlacementBlacklist", Lists.newArrayList("minecraft:ice", "minecraft:packed_ice", "minecraft:bedrock"), (itemRaw) -> itemRaw instanceof String);
         COMMON_BUILDER.pop();
     }
 }
