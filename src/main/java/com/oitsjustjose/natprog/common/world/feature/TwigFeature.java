@@ -1,30 +1,29 @@
 package com.oitsjustjose.natprog.common.world.feature;
 
 import com.mojang.serialization.Codec;
+import com.oitsjustjose.natprog.Constants;
 import com.oitsjustjose.natprog.NatProg;
+import com.oitsjustjose.natprog.common.Utils;
 import com.oitsjustjose.natprog.common.blocks.TwigBlock;
 import com.oitsjustjose.natprog.common.config.CommonConfig;
-import com.oitsjustjose.natprog.common.utils.Constants;
-import com.oitsjustjose.natprog.common.utils.Utils;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Objects;
 
 public class TwigFeature extends Feature<NoneFeatureConfiguration> {
+    public static final TagKey<Block> WONT_SUPPORT_TWIG = BlockTags.create(new ResourceLocation(Constants.MOD_ID, "wont_support_twig"));
+
     public TwigFeature(Codec<NoneFeatureConfiguration> p_i231976_1_) {
         super(p_i231976_1_);
     }
@@ -32,38 +31,25 @@ public class TwigFeature extends Feature<NoneFeatureConfiguration> {
     @Override
     @ParametersAreNonnullByDefault
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> f) {
-        if (f.chunkGenerator() instanceof FlatLevelSource) {
-            return false;
-        }
+        if (f.chunkGenerator() instanceof FlatLevelSource) return false;
 
-        WorldGenLevel level = f.level();
-        BlockPos pos = f.origin();
+        var level = f.level();
+        var pos = f.origin();
 
         try {
             for (int i = 0; i < CommonConfig.MAX_TWIGS_PER_CHUNK.get(); i++) {
-                BlockPos twigPos = Utils.getTopLevelPlacePos(level, new ChunkPos(pos));
-                if (twigPos == null || Utils.inNonWaterFluid(level, twigPos)) {
-                    continue;
-                }
+                var twigPos = Utils.getTopLevelPlacePos(level, new ChunkPos(pos));
+                if (twigPos == null || Utils.inNonWaterFluid(level, twigPos)) continue;
+                if (level.getBlockState(twigPos).is(WONT_SUPPORT_TWIG)) continue;
 
-                if (!canPlaceOnBlock(level, twigPos)) {
-                    continue;
-                }
-                Block twig = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Constants.MODID, "twigs"));
-                if (twig == null) {
-                    NatProg.getInstance().LOGGER.error("Twig from {} came back null >:|", new ResourceLocation(Constants.MODID, "twigs"));
-                    return false;
-                }
-                BlockState stateToPlace = twig.defaultBlockState()
-                        .setValue(TwigBlock.WATERLOGGED, Utils.isInWater(level, twigPos));
+                var twig = NatProg.getInstance().REGISTRY.twigBlock.get();
+                var stateToPlace = twig.defaultBlockState().setValue(TwigBlock.WATERLOGGED, Utils.isInWater(level, twigPos));
 
                 if (level.setBlock(twigPos, stateToPlace, 2 | 16)) {
-                    BlockPos abovePos = twigPos.above();
-                    BlockState aboveBlock = level.getBlockState(abovePos);
-                    if (aboveBlock.hasProperty(DoublePlantBlock.HALF)
-                            && aboveBlock.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
-                        level.setBlock(abovePos, Utils.isInWater(level, abovePos) ? Blocks.WATER.defaultBlockState()
-                                : Blocks.AIR.defaultBlockState(), 2 | 16);
+                    var posAbove = twigPos.above();
+                    var blockAbove = level.getBlockState(posAbove);
+                    if (blockAbove.hasProperty(DoublePlantBlock.HALF) && blockAbove.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
+                        level.setBlock(posAbove, Utils.isInWater(level, posAbove) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 2 | 16);
                     }
                     Utils.fixSnowyBlock(level, twigPos);
                 }
@@ -72,10 +58,5 @@ public class TwigFeature extends Feature<NoneFeatureConfiguration> {
             NatProg.getInstance().LOGGER.error(e.getMessage());
         }
         return true;
-    }
-
-    private boolean canPlaceOnBlock(WorldGenLevel level, BlockPos placePos) {
-        ResourceLocation rl = ForgeRegistries.BLOCKS.getKey(level.getBlockState(placePos.below()).getBlock());
-        return !CommonConfig.PEBBLE_PLACEMENT_BLACKLIST.get().contains(Objects.requireNonNull(rl).toString());
     }
 }

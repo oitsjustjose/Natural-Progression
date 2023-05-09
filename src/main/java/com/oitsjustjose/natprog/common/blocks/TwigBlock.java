@@ -1,6 +1,5 @@
 package com.oitsjustjose.natprog.common.blocks;
 
-import com.oitsjustjose.natprog.common.config.CommonConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -25,19 +24,19 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("deprecation")
 public class TwigBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public TwigBlock() {
-        super(Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.WOOD)
-                .strength(0.125F, 2F).sound(SoundType.WOOD).dynamicShape().noCollission().offsetType(OffsetType.XZ));
+        super(Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.WOOD).strength(0.125F, 2F).sound(SoundType.WOOD).dynamicShape().noCollission().offsetType(OffsetType.XZ));
         this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, Boolean.FALSE));
     }
 
@@ -56,15 +55,13 @@ public class TwigBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     @Nonnull
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        Vec3 offset = state.getOffset(worldIn, pos);
-        return Shapes.create(0.2D, 0.0D, 0.2D, 0.75D, 0.01D, 0.75D).move(offset.x,
-                offset.y, offset.z);
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        var offset = state.getOffset(worldIn, pos);
+        return Shapes.create(0.2D, 0.0D, 0.2D, 0.75D, 0.01D, 0.75D).move(offset.x, offset.y, offset.z);
     }
 
     @Nonnull
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn,
-                                 BlockHitResult hit) {
+    public InteractionResult use(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, Player player, @NotNull InteractionHand handIn, @NotNull BlockHitResult hit) {
         if (!player.isCrouching()) {
             worldIn.destroyBlock(pos, true);
             player.swing(handIn);
@@ -74,8 +71,8 @@ public class TwigBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockState below = worldIn.getBlockState(pos.below());
+    public boolean canSurvive(@NotNull BlockState state, LevelReader worldIn, BlockPos pos) {
+        var below = worldIn.getBlockState(pos.below());
         return below.isSolidRender(worldIn, pos.below());
     }
 
@@ -85,15 +82,12 @@ public class TwigBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public FluidState getFluidState(BlockState state) {
+    public @NotNull FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-                                boolean isMoving) {
+    public void neighborChanged(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, @NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
         if (!this.canSurvive(state, worldIn, pos)) {
             worldIn.destroyBlock(pos, true);

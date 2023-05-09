@@ -2,13 +2,11 @@ package com.oitsjustjose.natprog.common.config;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
-import com.google.common.collect.Lists;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import net.minecraftforge.fml.common.Mod;
 
 import java.nio.file.Path;
-import java.util.List;
 
 @Mod.EventBusSubscriber
 public class CommonConfig {
@@ -28,8 +26,6 @@ public class CommonConfig {
     public static ForgeConfigSpec.IntValue BONE_DROP_CHANCE;
     public static ForgeConfigSpec.BooleanValue ALL_ENTITIES_DROP_BONES;
     public static ForgeConfigSpec.BooleanValue SHOW_BREAKING_HELP;
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> PEBBLE_PLACEMENT_BLACKLIST;
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> TWIG_PLACEMENT_BLACKLIST;
 
     static {
         init();
@@ -59,8 +55,6 @@ public class CommonConfig {
         BONE_DROP_CHANCE = COMMON_BUILDER.comment("The chance (out of 100) that a bone can drop from the entities in 'boneDropMobs'.\nSetting this to 0 disables this feature").defineInRange("boneDropFromMobsChance", 50, 0, 100);
         ALL_ENTITIES_DROP_BONES = COMMON_BUILDER.comment("Enabling this causes all entities to drop additional bones when killed").define("allEntitiesDropBones", false);
         SHOW_BREAKING_HELP = COMMON_BUILDER.comment("Setting this to true will let players know that they can't break certain blocks without a certain tool").define("showToolHelp", true);
-        PEBBLE_PLACEMENT_BLACKLIST = COMMON_BUILDER.comment("A list of 'modid:block' that represent blocks that pebbles can be placed on.").defineList("pebblePlacementBlacklist", Lists.newArrayList("minecraft:ice", "minecraft:packed_ice", "minecraft:bedrock"), (itemRaw) -> itemRaw instanceof String);
-        TWIG_PLACEMENT_BLACKLIST = COMMON_BUILDER.comment("A list of 'modid:block' that represent blocks that twigs can be placed on.").defineList("twigPlacementBlacklist", Lists.newArrayList("minecraft:ice", "minecraft:packed_ice", "minecraft:bedrock"), (itemRaw) -> itemRaw instanceof String);
         COMMON_BUILDER.pop();
     }
 }

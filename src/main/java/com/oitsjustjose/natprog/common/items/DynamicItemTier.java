@@ -1,19 +1,16 @@
 package com.oitsjustjose.natprog.common.items;
 
-import java.util.List;
-import java.util.Objects;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.oitsjustjose.natprog.NatProg;
-
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class DynamicItemTier implements Tier {
     private int uses;
@@ -22,24 +19,6 @@ public class DynamicItemTier implements Tier {
     private int harvestLvl;
     private int enchantability;
     private Ingredient repairIngredient;
-
-    public DynamicItemTier(int maxUses, float eff, float dmg, int harv, int ench, Ingredient repairMat) {
-        this.uses = maxUses;
-        this.speed = eff;
-        this.attackDamageBonus = dmg;
-        this.harvestLvl = harv;
-        this.enchantability = ench;
-        this.repairIngredient = repairMat;
-    }
-
-    public DynamicItemTier(int maxUses, float eff, float dmg, int harv, int ench, TagKey<Item> repairMatTag) {
-        this.uses = maxUses;
-        this.speed = eff;
-        this.attackDamageBonus = dmg;
-        this.harvestLvl = harv;
-        this.enchantability = ench;
-        this.repairIngredient = Ingredient.of(repairMatTag);
-    }
 
     public DynamicItemTier() {
         this.uses = 0;
@@ -75,15 +54,10 @@ public class DynamicItemTier implements Tier {
         return this;
     }
 
-    public DynamicItemTier setRepairMat(Ingredient mat) {
-        this.repairIngredient = mat;
-        return this;
-    }
-
     public DynamicItemTier setRepairMat(@Nullable TagKey<Item> tag) {
         if (tag == null) return this;
 
-        List<Item> tagItems = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tag).stream().toList();
+        var tagItems = Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(tag).stream().toList();
         if (tagItems.size() == 0) {
             this.repairIngredient = Ingredient.of(Items.BARRIER);
             NatProg.getInstance().LOGGER.warn("Dynamic saw repair material {} could not be found. Defaulting to Bedrock", tag.toString());

@@ -16,8 +16,10 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 
 public class PebbleItem extends BlockItem {
     public PebbleItem(Block blockForm, Item.Properties props) {
@@ -25,8 +27,8 @@ public class PebbleItem extends BlockItem {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
-        if (context.getPlayer().getOffhandItem().getItem() instanceof PebbleItem) {
+    public @NotNull InteractionResult useOn(UseOnContext context) {
+        if (Objects.requireNonNull(context.getPlayer()).getOffhandItem().getItem() instanceof PebbleItem) {
             if (context.getPlayer().getMainHandItem().getItem() instanceof PebbleItem) {
                 return use(context.getLevel(), context.getPlayer(), context.getHand()).getResult();
             }
@@ -36,14 +38,12 @@ public class PebbleItem extends BlockItem {
 
     @Override
     @Nonnull
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand hand) {
         ItemStack mainHand = playerIn.getMainHandItem();
         ItemStack offHand = playerIn.getOffhandItem();
         if (!mainHand.isEmpty() && !offHand.isEmpty()) {
-            if (mainHand.getItem() instanceof PebbleItem
-                    && offHand.getItem() instanceof PebbleItem) {
-                InteractionHand swingArm = playerIn.getRandom().nextBoolean() ? InteractionHand.MAIN_HAND
-                        : InteractionHand.OFF_HAND;
+            if (mainHand.getItem() instanceof PebbleItem && offHand.getItem() instanceof PebbleItem) {
+                InteractionHand swingArm = playerIn.getRandom().nextBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 
                 if (worldIn.isClientSide()) {
                     playerIn.swing(swingArm);
@@ -53,19 +53,13 @@ public class PebbleItem extends BlockItem {
                         playerIn.getItemInHand(swingArm).shrink(1);
 
                         if (playerIn.getRandom().nextInt(100) < CommonConfig.FLINT_CHANCE.get()) {
-                            worldIn.playSound(null, playerIn.getOnPos(),
-                                    SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1.0F,
-                                    0.5F);
-                            ItemHandlerHelper.giveItemToPlayer(playerIn,
-                                    new ItemStack(Items.FLINT, 1));
+                            worldIn.playSound(null, playerIn.getOnPos(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1.0F, 0.5F);
+                            ItemHandlerHelper.giveItemToPlayer(playerIn, new ItemStack(Items.FLINT, 1));
                         } else {
-                            worldIn.playSound(null, playerIn.getOnPos(),
-                                    SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F,
-                                    0.75F);
+                            worldIn.playSound(null, playerIn.getOnPos(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F, 0.75F);
                         }
                     } else {
-                        worldIn.playSound(null, playerIn.getOnPos(), SoundEvents.STONE_HIT,
-                                SoundSource.PLAYERS, 1.0F, 1.0F);
+                        worldIn.playSound(null, playerIn.getOnPos(), SoundEvents.STONE_HIT, SoundSource.PLAYERS, 1.0F, 1.0F);
                     }
                 }
             }
@@ -83,7 +77,7 @@ public class PebbleItem extends BlockItem {
         return false;
     }
 
-    public boolean isEnchantable(ItemStack p_41456_) {
+    public boolean isEnchantable(@NotNull ItemStack __) {
         return false;
     }
 }

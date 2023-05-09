@@ -23,16 +23,17 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -40,10 +41,9 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
     private final ResourceLocation parentBlockRl;
 
     /**
-     * @param parent the block which this pebble is made of
-     *               can be null in the case that the block
-     *               isn't loaded / doesn't exist due to the
-     *               mod owning the block not being present
+     * @param parent The block which this pebble is made of.
+     *               Can be null in the case that the block isn't loaded,
+     *               or doesn't exist due to the mod owning the block not being present
      */
     public PebbleBlock(@Nullable ResourceLocation parent) {
         super(Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.STONE).strength(0.125F, 2F).sound(SoundType.STONE).dynamicShape().noCollission().offsetType(OffsetType.XZ));
@@ -52,7 +52,7 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     public @Nullable Block getParentBlock() {
-        Block block = ForgeRegistries.BLOCKS.getValue(this.parentBlockRl);
+        var block = ForgeRegistries.BLOCKS.getValue(this.parentBlockRl);
         return block == Blocks.AIR ? null : block;
     }
 
@@ -64,18 +64,18 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
         return this.defaultBlockState();
     }
 
-    @Override
     @Nonnull
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        Vec3 offset = state.getOffset(worldIn, pos);
+    @Override
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        var offset = state.getOffset(worldIn, pos);
         return Shapes.create(0.37D, 0.0D, 0.37D, 0.69D, 0.065D, 0.69D).move(offset.x, offset.y, offset.z);
     }
 
     @Override
-    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+    public void fallOn(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, @NotNull Entity entity, float fallDistance) {
         super.fallOn(level, state, pos, entity, fallDistance);
         // One in ten chance for the sample to break when fallen on
-        Random random = new Random();
+        var random = new Random();
         if (((int) fallDistance) > 0) {
             if (random.nextInt((int) fallDistance) > 5) {
                 level.destroyBlock(pos, true);
@@ -84,7 +84,7 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Nonnull
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    public InteractionResult use(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, Player player, @NotNull InteractionHand handIn, @NotNull BlockHitResult hit) {
         if (!player.isCrouching()) {
             worldIn.destroyBlock(pos, true);
             player.swing(handIn);
@@ -94,8 +94,8 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockState below = worldIn.getBlockState(pos.below());
+    public boolean canSurvive(@NotNull BlockState state, LevelReader worldIn, BlockPos pos) {
+        var below = worldIn.getBlockState(pos.below());
         return below.isSolidRender(worldIn, pos.below());
     }
 
@@ -105,14 +105,12 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public FluidState getFluidState(BlockState state) {
+    public @NotNull FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, @NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
         if (!this.canSurvive(state, worldIn, pos)) {
             worldIn.destroyBlock(pos, true);
@@ -121,9 +119,5 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
         if (state.getValue(WATERLOGGED)) {
             worldIn.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         }
-    }
-
-    public BlockState asWaterlogged() {
-        return this.defaultBlockState().setValue(WATERLOGGED, Boolean.TRUE);
     }
 }

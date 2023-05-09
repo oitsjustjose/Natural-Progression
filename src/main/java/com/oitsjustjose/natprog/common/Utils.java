@@ -1,40 +1,43 @@
-package com.oitsjustjose.natprog.common.utils;
+package com.oitsjustjose.natprog.common;
 
+import com.oitsjustjose.natprog.Constants;
 import com.oitsjustjose.natprog.NatProg;
-import com.oitsjustjose.natprog.common.blocks.PebbleBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.RandomSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 
 public class Utils {
 
+    public static final TagKey<Block> GROUND = BlockTags.create(new ResourceLocation(Constants.MOD_ID, "ground"));
+
     public static Block getPebbleForPos(WorldGenLevel level, BlockPos pos) {
-        BlockPos search = new BlockPos(pos.getX(), level.getHeight(), pos.getZ());
-        for (int y = level.getHeight() / 2; y < search.getY(); y++) {
-            BlockState at = level.getBlockState(search.below(y));
+        var mapper = NatProg.getInstance().REGISTRY.Mapper;
+        var search = new BlockPos(pos.getX(), level.getHeight(), pos.getZ());
+        for (var y = level.getHeight() / 2; y < search.getY(); y++) {
+            var at = level.getBlockState(search.below(y));
             if (at.getBlock() == Blocks.STONE || at.getBlock() == Blocks.DEEPSLATE || at.getMaterial() == Material.AIR) {
                 continue;
             }
 
-            if (Mapper.getInstance().getBlockToPebbleMap().containsKey(at.getBlock())) {
-                return Mapper.getInstance().getBlockToPebbleMap().get(at.getBlock());
-            }
+            var resloc = ForgeRegistries.BLOCKS.getKey(at.getBlock());
+            if (mapper.containsKey(resloc)) return mapper.get(resloc).get();
         }
 
-        return Mapper.getInstance().pickDefault(level.getRandom());
+        // Fallback, a choice of Deepslate or Stone
+        var choice = level.getRandom().nextBoolean() ? Blocks.STONE : Blocks.DEEPSLATE;
+        var resloc = ForgeRegistries.BLOCKS.getKey(choice);
+        return mapper.get(resloc).get();
     }
 
     /**
@@ -67,19 +70,19 @@ public class Utils {
             return null;
         }
 
-        int usedSpread = Math.max(8, spread);
-        int xCenter = (chunkPos.getMinBlockX() + chunkPos.getMaxBlockX()) / 2;
-        int zCenter = (chunkPos.getMinBlockZ() + chunkPos.getMaxBlockZ()) / 2;
+        var usedSpread = Math.max(8, spread);
+        var xCenter = (chunkPos.getMinBlockX() + chunkPos.getMaxBlockX()) / 2;
+        var zCenter = (chunkPos.getMinBlockZ() + chunkPos.getMaxBlockZ()) / 2;
 
         // Only put things in the negative X|Z if the spread is provided.
-        int blockPosX = xCenter + (level.getRandom().nextInt(usedSpread) * ((level.getRandom().nextBoolean()) ? 1 : -1));
-        int blockPosZ = zCenter + (level.getRandom().nextInt(usedSpread) * ((level.getRandom().nextBoolean()) ? 1 : -1));
+        var blockPosX = xCenter + (level.getRandom().nextInt(usedSpread) * ((level.getRandom().nextBoolean()) ? 1 : -1));
+        var blockPosZ = zCenter + (level.getRandom().nextInt(usedSpread) * ((level.getRandom().nextBoolean()) ? 1 : -1));
 
         if (!world.hasChunk(chunkPos.x, chunkPos.z)) {
             return null;
         }
 
-        BlockPos searchPos = new BlockPos(blockPosX, world.getHeight(), blockPosZ);
+        var searchPos = new BlockPos(blockPosX, world.getHeight(), blockPosZ);
 
         // With worlds being so much deeper,
         // it makes most sense to take a top-down approach
@@ -88,7 +91,7 @@ public class Utils {
             // Check if the location itself is solid
             if (canPlaceOn(level, searchPos)) {
                 // Then check if the block above it is either air, or replacable
-                BlockPos actualPlacePos = searchPos.above();
+                var actualPlacePos = searchPos.above();
                 if (canReplace(world, actualPlacePos)) {
                     return actualPlacePos;
                 }
@@ -107,8 +110,8 @@ public class Utils {
      * @return true if the block below is solid on top AND isn't in the blacklist
      */
     public static boolean canPlaceOn(WorldGenLevel level, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        return Block.isShapeFullBlock(state.getShape(level, pos)) && state.is(Constants.GROUND);
+        var state = level.getBlockState(pos);
+        return Block.isShapeFullBlock(state.getShape(level, pos)) && state.is(GROUND);
     }
 
     /**
@@ -117,51 +120,15 @@ public class Utils {
      * @return true if the block at pos is replaceable
      */
     public static boolean canReplace(WorldGenLevel level, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        Material mat = state.getMaterial();
+        var state = level.getBlockState(pos);
+        var mat = state.getMaterial();
         return mat.isLiquid() || mat == Material.AIR || state.is(BlockTags.LEAVES) || mat.isReplaceable();
     }
 
-    public static String dimensionToString(WorldGenLevel level) {
-        return level.getLevel().dimension().location().toString();
-    }
-
     public static void fixSnowyBlock(WorldGenLevel level, BlockPos posPlaced) {
-        BlockState below = level.getBlockState(posPlaced.below());
+        var below = level.getBlockState(posPlaced.below());
         if (below.hasProperty(BlockStateProperties.SNOWY)) {
             level.setBlock(posPlaced.below(), below.setValue(BlockStateProperties.SNOWY, Boolean.FALSE), 2 | 16);
-        }
-    }
-
-    private static class Mapper {
-        private static Mapper instance;
-        private final HashMap<Block, Block> blockToPebbleMap;
-
-        public Mapper() {
-            this.blockToPebbleMap = new HashMap<>();
-            for (var rl : NatProg.getInstance().REGISTRY.PebbleMaterials) {
-                String generated = (rl.getNamespace().equals("minecraft") ? "" : rl.getNamespace() + "_") + rl.getPath() + "_pebble";
-                Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Constants.MODID, generated));
-                if (block instanceof PebbleBlock pebble) {
-                    this.blockToPebbleMap.put(pebble.getParentBlock(), pebble);
-                }
-            }
-        }
-
-        @SuppressWarnings("unchecked")
-        public HashMap<Block, Block> getBlockToPebbleMap() {
-            return (HashMap<Block, Block>) blockToPebbleMap.clone();
-        }
-
-        public Block pickDefault(RandomSource rand) {
-            return this.blockToPebbleMap.get(rand.nextBoolean() ? Blocks.STONE : Blocks.DEEPSLATE);
-        }
-
-        public static Mapper getInstance() {
-            if (instance == null) {
-                instance = new Mapper();
-            }
-            return instance;
         }
     }
 }
