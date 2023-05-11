@@ -3,7 +3,6 @@ package com.oitsjustjose.natprog.common;
 import com.google.common.collect.Lists;
 import com.oitsjustjose.natprog.Constants;
 import com.oitsjustjose.natprog.NatProg;
-import com.oitsjustjose.natprog.NatProgGroup;
 import com.oitsjustjose.natprog.common.blocks.PebbleBlock;
 import com.oitsjustjose.natprog.common.blocks.TwigBlock;
 import com.oitsjustjose.natprog.common.data.damageitem.DamageItemRecipeSerializer;
@@ -15,25 +14,13 @@ import com.oitsjustjose.natprog.common.world.feature.PebbleFeature;
 import com.oitsjustjose.natprog.common.world.feature.TwigFeature;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -49,9 +36,7 @@ public class Registry {
     public final DeferredRegister<Item> ItemRegistry = DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
     public final DeferredRegister<RecipeType<?>> RecipeTypeRegistry = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, Constants.MOD_ID);
     public final DeferredRegister<RecipeSerializer<?>> SerializerRegistry = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Constants.MOD_ID);
-    public final DeferredRegister<Feature<?>> FeatureRegistry = DeferredRegister.create(net.minecraft.core.Registry.FEATURE_REGISTRY, Constants.MOD_ID);
-    public final DeferredRegister<ConfiguredFeature<?, ?>> ConfiguredFeatureRegistry = DeferredRegister.create(net.minecraft.core.Registry.CONFIGURED_FEATURE_REGISTRY, Constants.MOD_ID);
-    public final DeferredRegister<PlacedFeature> PlacedFeatureRegistry = DeferredRegister.create(net.minecraft.core.Registry.PLACED_FEATURE_REGISTRY, Constants.MOD_ID);
+    public final DeferredRegister<Feature<?>> FeatureRegistry = DeferredRegister.create(ForgeRegistries.FEATURES, Constants.MOD_ID);
     // endregion DeferredRegisters
 
     // region TIERS
@@ -97,8 +82,6 @@ public class Registry {
         RecipeTypeRegistry.register(ctx.getModEventBus());
         SerializerRegistry.register(ctx.getModEventBus());
         FeatureRegistry.register(ctx.getModEventBus());
-        ConfiguredFeatureRegistry.register(ctx.getModEventBus());
-        PlacedFeatureRegistry.register(ctx.getModEventBus());
     }
 
     private void RegisterBlocks() {
@@ -127,7 +110,6 @@ public class Registry {
     }
 
     private void RegisterItems() {
-        var tab = NatProgGroup.getInstance();
         // Register Item Block References
         NeedItemBlocks.forEach(x -> {
             var props = new Item.Properties();
@@ -136,16 +118,15 @@ public class Registry {
             ItemRegistry.register(rn.getPath(), () -> {
                 // WAIT to resolve x.get() until the registry has been called (i.e. within the supp)
                 Block block = x.get();
-                if (block instanceof PebbleBlock pebble) {
-                    return new PebbleItem(block, pebble.getParentBlock() == null ? props : props.tab(tab));
+                if (block instanceof PebbleBlock) {
+                    return new PebbleItem(block, props);
                 } else {
-                    return new BlockItem(block, props.tab(tab));
+                    return new BlockItem(block, props);
                 }
             });
         });
 
-        var props = new Item.Properties().tab(tab);
-
+        var props = new Item.Properties();
         // Register all other items
         this.flintHatchet = ItemRegistry.register("flint_hatchet", () -> new AxeItem(flintTier, 1.8F, 0F, props));
         this.bonePickaxe = ItemRegistry.register("bone_pickaxe", () -> new PickaxeItem(boneTier, 1, -2.8F, props));
@@ -167,25 +148,8 @@ public class Registry {
         RecipeTypeRegistry.register("damage_tools", DamageItemRecipeType::new);
     }
 
-    public void RegisterWorldGen() { // no-use-var
-        List<PlacementModifier> placement = Lists.newArrayList(HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(320)));
-
-        RegistryObject<Feature<NoneFeatureConfiguration>> pebbles = FeatureRegistry.register("pebbles", () -> new PebbleFeature(NoneFeatureConfiguration.CODEC));
-        RegistryObject<ConfiguredFeature<?, ?>> configuredPebbles = ConfiguredFeatureRegistry.register("pebbles_configured", () -> new ConfiguredFeature<>(pebbles.get(), NoneFeatureConfiguration.INSTANCE));
-        PlacedFeatureRegistry.register("pebbles_placed", () -> {
-            if (configuredPebbles.getHolder().isEmpty()) {
-                throw new RuntimeException("Failed to get configured feature natprog:pebbles_configured from holder, something has seriously broken. Please report this to oitsjustjose via https://discord.oitsjustjose.com");
-            }
-            return new PlacedFeature(configuredPebbles.getHolder().get(), placement);
-        });
-
-        RegistryObject<Feature<NoneFeatureConfiguration>> twigs = FeatureRegistry.register("twigs", () -> new TwigFeature(NoneFeatureConfiguration.CODEC));
-        RegistryObject<ConfiguredFeature<?, ?>> configuredTwigs = ConfiguredFeatureRegistry.register("twigs_configured", () -> new ConfiguredFeature<>(twigs.get(), NoneFeatureConfiguration.INSTANCE));
-        PlacedFeatureRegistry.register("twigs_placed", () -> {
-            if (configuredTwigs.getHolder().isEmpty()) {
-                throw new RuntimeException("Failed to get configured feature natprog:twigs_configured from holder, something has seriously broken. Please report this to oitsjustjose via https://discord.oitsjustjose.com");
-            }
-            return new PlacedFeature(configuredTwigs.getHolder().get(), placement);
-        });
+    public void RegisterWorldGen() {
+        FeatureRegistry.register("pebbles", () -> new PebbleFeature(NoneFeatureConfiguration.CODEC));
+        FeatureRegistry.register("twigs", () -> new TwigFeature(NoneFeatureConfiguration.CODEC));
     }
 }

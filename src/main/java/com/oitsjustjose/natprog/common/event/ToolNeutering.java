@@ -1,9 +1,8 @@
 package com.oitsjustjose.natprog.common.event;
 
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.oitsjustjose.natprog.common.config.CommonConfig;
 import com.oitsjustjose.natprog.Constants;
-import net.minecraft.network.chat.contents.TranslatableContents;
+import com.oitsjustjose.natprog.common.config.CommonConfig;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -30,18 +29,11 @@ public class ToolNeutering {
 
         if (!(stack.getItem() instanceof TieredItem tiered)) return;
 
-        if ((tiered.getTier() != Tiers.WOOD) || !CommonConfig.REMOVE_WOODEN_TOOL_FUNC.get()) return;
-        try {
-            var content = new TranslatableContents("natprog.too.brittle");
-            evt.getToolTip().add(content.resolve(null, null, 0));
-        } catch (CommandSyntaxException ex) { /*NOOP*/ }
-
-
-        if ((tiered.getTier() != Tiers.STONE) || !CommonConfig.REMOVE_STONE_TOOL_FUNC.get()) return;
-        try {
-            var content = new TranslatableContents("natprog.too.blunt");
-            evt.getToolTip().add(content.resolve(null, null, 0));
-        } catch (CommandSyntaxException ex) { /*NOOP*/ }
+        if (tiered.getTier() == Tiers.WOOD && CommonConfig.REMOVE_WOODEN_TOOL_FUNC.get()) {
+            evt.getToolTip().add(Component.translatable("natprog.too.brittle"));
+        } else if (tiered.getTier() == Tiers.STONE && CommonConfig.REMOVE_STONE_TOOL_FUNC.get()) {
+            evt.getToolTip().add(Component.translatable("natprog.too.blunt"));
+        }
     }
 
     @SubscribeEvent

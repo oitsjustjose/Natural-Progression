@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#natprog:can_have_pebbles",
-  "features": "natprog:pebbles_placed",
+  "features": "natprog:placed_pebbles",
   "step": "vegetal_decoration"
 }

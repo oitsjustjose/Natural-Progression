@@ -3,7 +3,7 @@ package com.oitsjustjose.natprog.common.event;
 import com.oitsjustjose.natprog.Constants;
 import com.oitsjustjose.natprog.NatProg;
 import com.oitsjustjose.natprog.common.config.CommonConfig;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
@@ -23,7 +23,7 @@ import java.util.UUID;
 
 public class BoneEvent {
 
-    public static final TagKey<EntityType<?>> ENTITY_THAT_DROPS_BONE = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(Constants.MOD_ID, "drops_bone"));
+    public static final TagKey<EntityType<?>> ENTITY_THAT_DROPS_BONE = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(Constants.MOD_ID, "drops_bone"));
     private final HashMap<UUID, Long> playersLastRightClicked = new HashMap<>();
     private final Random rand = new Random();
 

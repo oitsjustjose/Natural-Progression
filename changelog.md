@@ -1,26 +1,21 @@
-# Natural Progression Changelog (1.19.x)
+# Natural Progression Changelog (1.19.4)
 
 ## 2.3.5
 
-### Added:
+### Initial Port to 1.19.4
 
-- New **Item** Tags for ignoring tool types:
+Woof, that was a pain in the butt. Nothing major, just lots of internal changes I had to make because of changes Mojang
+and/or Forge made to:
 
-  "Wooden" and "Stone" tools are determined by the tier of block they can break, not the material they're made of, so
-  these tags should hopefully help:
-    - `natprog:allowed_wooden_tools` is a list of tools which have the same tier as Wood that can still be used
-      when `toolNeutering` is enabled
-    - `natprog:allowed_stone_tools` is a list of tools which have the same tier as
-      Stone that can still be used when `toolNeutering` is enabled
+- Damage Sources (used for splintering & crushing damage when punching w/o the right tool)
+    - Requires a freaking access transformer to use. Come on Mojang, this is unacceptable.
+- Creative Tabs
+    - Not only was it pain to a custom tab at all, but now I'm required to sort things manually rather than sorting by
+      order it was added in code, which sucks. I hope you at least like the current creative tab sorting I implemented
+      🤞
+- World Gen
+    - I had done a lot of stuff with `DeferredRegistry<?>` which I could no longer use and had to manually port as a
+      datapack
 
-- New **Block** Tags for blacklisting which blocks twigs and pebbles can be placed on:
-    - `natprog:wont_support_pebble`
-    - `natprog:wont_support_twig`
-
-### Changed:
-
-- Renamed tag `natprog:override_axes` to `natprog:considered_as_axe` for clarity
-- Renamed tag `natprog:override_pickaxes` to `natprog:considered_as_pickaxe` for clarity
-- Config entry `pebblePlacementBlacklist` has been removed in favor of `natprog:wont_support_pebble`
-- Config entry `twigPlacementBlacklist` has been removed in favor of `natprog:wont_support_twig`
-- Internal refactor to match new dev style (Thanks UnrealEngine!). Should see no practical change.
+Overall, 0/10 would not recommend. I hope you enjoy though, and give me shout on
+the [bug tracker](https://github.com/oitsjustjose/natural-progression/issues) if you see anything not behaving!
