@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Player;
 public class ClientProxy extends CommonProxy {
     @Override
     public void doHurtAnimation(Player player) {
-        player.animateHurt(0.f);
+        player.animateHurt();
         player.playSound(SoundEvents.PLAYER_HURT, 0.5F, 1.0F);
     }
 }

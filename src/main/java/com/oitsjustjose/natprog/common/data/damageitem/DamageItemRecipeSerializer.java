@@ -26,7 +26,7 @@ public class DamageItemRecipeSerializer implements RecipeSerializer<DamageItemRe
         }
 
         ItemStack stack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(obj, "result"));
-        return new DamageItemRecipe(resloc, group, CraftingBookCategory.MISC, stack, ingredients);
+        return new DamageItemRecipe(resloc, group, stack, ingredients);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class DamageItemRecipeSerializer implements RecipeSerializer<DamageItemRe
         ingredients.replaceAll(ignored -> Ingredient.fromNetwork(buf));
 
         ItemStack stack = buf.readItem();
-        return new DamageItemRecipe(rl, s, CraftingBookCategory.MISC, stack, ingredients);
+        return new DamageItemRecipe(rl, s, stack, ingredients);
     }
 
     private static NonNullList<Ingredient> readIngredients(JsonArray jsonArray) {

@@ -1,7 +1,6 @@
 package com.oitsjustjose.natprog.common.data.damageitem;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -25,15 +24,15 @@ public class DamageItemRecipe extends ShapelessRecipe {
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
 
-    public DamageItemRecipe(ResourceLocation id, String group, CraftingBookCategory category, ItemStack output, NonNullList<Ingredient> inputs) {
-        super(id, group, category, output, inputs);
+    public DamageItemRecipe(ResourceLocation id, String group, ItemStack output, NonNullList<Ingredient> inputs) {
+        super(id, group, CraftingBookCategory.MISC, output, inputs);
         this.inputs = inputs;
         this.output = output;
     }
 
     @Override
     @Nonnull
-    public ItemStack assemble(@NotNull CraftingContainer container, @NotNull RegistryAccess access) {
+    public ItemStack assemble(@NotNull CraftingContainer p_44260_) {
         return this.output.copy();
     }
 
@@ -51,10 +50,6 @@ public class DamageItemRecipe extends ShapelessRecipe {
         }
 
         return i == this.inputs.size() && stackedcontents.canCraft(this, null);
-    }
-
-    public ItemStack getResultItem() {
-        return this.output.copy();
     }
 
     @Override
