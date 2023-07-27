@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -36,7 +36,7 @@ public class TwigBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public TwigBlock() {
-        super(Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.WOOD).strength(0.125F, 2F).sound(SoundType.WOOD).dynamicShape().noCollission().offsetType(OffsetType.XZ));
+        super(Properties.of().strength(0.125F, 2F).sound(SoundType.WOOD).dynamicShape().noCollission().offsetType(OffsetType.XZ).replaceable().mapColor(MapColor.WOOD).ignitedByLava().pushReaction(PushReaction.DESTROY));
         this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, Boolean.FALSE));
     }
 

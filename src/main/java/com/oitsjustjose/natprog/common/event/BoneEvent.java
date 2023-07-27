@@ -60,7 +60,7 @@ public class BoneEvent {
         if (CommonConfig.BONE_DROP_CHANCE.get() == 0) return;
         if (evt.getEntity().getType().is(ENTITY_THAT_DROPS_BONE) || CommonConfig.ALL_ENTITIES_DROP_BONES.get()) {
             if (rand.nextInt(100) < CommonConfig.BONE_DROP_CHANCE.get()) {
-                var drop = new ItemEntity(evt.getEntity().getLevel(), evt.getEntity().getX(), evt.getEntity().getY(), evt.getEntity().getZ(), new ItemStack(Items.BONE));
+                var drop = new ItemEntity(evt.getEntity().level(), evt.getEntity().getX(), evt.getEntity().getY(), evt.getEntity().getZ(), new ItemStack(Items.BONE));
                 evt.getDrops().add(drop);
             }
         }

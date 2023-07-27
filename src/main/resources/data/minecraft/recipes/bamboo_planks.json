@@ -1,0 +1,22 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "minecraft"
+    }
+  ],
+  "type": "natprog:damage_tools",
+  "ingredients": [
+    {
+      "item": "minecraft:stripped_bamboo_block"
+    },
+    {
+      "tag": "natprog:saw"
+    }
+  ],
+  "result": {
+    "item": "minecraft:bamboo_planks",
+    "count": 2
+  },
+  "group": "planks"
+}

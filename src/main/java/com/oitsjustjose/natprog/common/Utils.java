@@ -12,7 +12,6 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -26,7 +25,7 @@ public class Utils {
         var search = new BlockPos(pos.getX(), level.getHeight(), pos.getZ());
         for (var y = level.getHeight() / 2; y < search.getY(); y++) {
             var at = level.getBlockState(search.below(y));
-            if (at.getBlock() == Blocks.STONE || at.getBlock() == Blocks.DEEPSLATE || at.getMaterial() == Material.AIR) {
+            if (at.getBlock() == Blocks.STONE || at.getBlock() == Blocks.DEEPSLATE || at.isAir()) {
                 continue;
             }
 
@@ -55,7 +54,7 @@ public class Utils {
      * @return true if the block is in a non-water fluid
      */
     public static boolean inNonWaterFluid(WorldGenLevel level, BlockPos pos) {
-        return level.getBlockState(pos).getMaterial().isLiquid() && !isInWater(level, pos);
+        return (level.getBlockState(pos).liquid()) && !isInWater(level, pos);
     }
 
     @Nullable
@@ -121,8 +120,7 @@ public class Utils {
      */
     public static boolean canReplace(WorldGenLevel level, BlockPos pos) {
         var state = level.getBlockState(pos);
-        var mat = state.getMaterial();
-        return mat.isLiquid() || mat == Material.AIR || state.is(BlockTags.LEAVES) || mat.isReplaceable();
+        return state.liquid() || state.isAir() || state.is(BlockTags.LEAVES) || state.canBeReplaced();
     }
 
     public static void fixSnowyBlock(WorldGenLevel level, BlockPos posPlaced) {

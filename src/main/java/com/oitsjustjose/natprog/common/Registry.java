@@ -12,6 +12,8 @@ import com.oitsjustjose.natprog.common.items.PebbleItem;
 import com.oitsjustjose.natprog.common.items.SawItem;
 import com.oitsjustjose.natprog.common.world.feature.PebbleFeature;
 import com.oitsjustjose.natprog.common.world.feature.TwigFeature;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.*;
@@ -21,7 +23,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -37,6 +39,7 @@ public class Registry {
     public final DeferredRegister<RecipeType<?>> RecipeTypeRegistry = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, Constants.MOD_ID);
     public final DeferredRegister<RecipeSerializer<?>> SerializerRegistry = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Constants.MOD_ID);
     public final DeferredRegister<Feature<?>> FeatureRegistry = DeferredRegister.create(ForgeRegistries.FEATURES, Constants.MOD_ID);
+    public final DeferredRegister<CreativeModeTab> TabRegistry = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Constants.MOD_ID);
     // endregion DeferredRegisters
 
     // region TIERS
@@ -66,14 +69,16 @@ public class Registry {
     public RegistryObject<Block> twigBlock;
     private final List<RegistryObject<? extends Block>> NeedItemBlocks = Lists.newArrayList();
     public final HashMap<ResourceLocation, RegistryObject<? extends Block>> Mapper = new HashMap<>();
-
     // endregion BLOCKS
+
+    public RegistryObject<CreativeModeTab> CreativeTab;
 
     public Registry() {
         RegisterBlocks();
         RegisterItems();
         RegisterRecipeStuff();
         RegisterWorldGen();
+        RegisterCreativeTab();
     }
 
     public void RegisterAll(FMLJavaModLoadingContext ctx) {
@@ -82,6 +87,7 @@ public class Registry {
         RecipeTypeRegistry.register(ctx.getModEventBus());
         SerializerRegistry.register(ctx.getModEventBus());
         FeatureRegistry.register(ctx.getModEventBus());
+        TabRegistry.register(ctx.getModEventBus());
     }
 
     private void RegisterBlocks() {
@@ -96,7 +102,7 @@ public class Registry {
         });
 
         // Register Cobblestones
-        var properties = Block.Properties.of(Material.STONE).strength(2.0F, 6.0F).sound(SoundType.STONE);
+        var properties = Block.Properties.of().strength(2.0F, 6.0F).sound(SoundType.STONE).mapColor(MapColor.STONE);
         NeedItemBlocks.add(BlockRegistry.register("cobbled_andesite", () -> new Block(properties)));
         NeedItemBlocks.add(BlockRegistry.register("cobbled_diorite", () -> new Block(properties)));
         NeedItemBlocks.add(BlockRegistry.register("cobbled_granite", () -> new Block(properties)));
@@ -151,5 +157,49 @@ public class Registry {
     public void RegisterWorldGen() {
         FeatureRegistry.register("pebbles", () -> new PebbleFeature(NoneFeatureConfiguration.CODEC));
         FeatureRegistry.register("twigs", () -> new TwigFeature(NoneFeatureConfiguration.CODEC));
+    }
+
+    public void RegisterCreativeTab() {
+        CreativeTab = TabRegistry.register("items", () -> {
+            return CreativeModeTab.builder().icon(() -> new ItemStack(ironSaw.get())).title(Component.translatable("itemGroup." + Constants.MOD_ID + ".name")).displayItems((params, output) -> {
+                var npItems = ForgeRegistries.ITEMS.getKeys().stream().filter(x -> x.getNamespace().equals(Constants.MOD_ID));
+
+                npItems.sorted((a, b) -> {
+                    var x = ForgeRegistries.ITEMS.getValue(a);
+                    var y = ForgeRegistries.ITEMS.getValue(b);
+
+                    // Sort saws first, then alphabetically
+                    if (x instanceof SawItem && y instanceof SawItem) return a.compareTo(b);
+                    if (x instanceof SawItem) return -1;
+                    if (y instanceof SawItem) return 1;
+
+                    // Other tools next, alphabetically
+                    if (x instanceof TieredItem && y instanceof TieredItem) return a.compareTo(b);
+                    if (x instanceof TieredItem) return -1;
+                    if (y instanceof TieredItem) return 1;
+
+                    // Then pebbles, alphabetically
+                    if (x instanceof PebbleItem && y instanceof PebbleItem) return a.compareTo(b);
+                    if (x instanceof PebbleItem) return -1;
+                    if (y instanceof PebbleItem) return 1;
+
+                    // Then alphabetically
+                    return a.compareTo(b);
+                }).forEach(key -> { // Add to tab
+                    var item = ForgeRegistries.ITEMS.getValue(key);
+                    if (item instanceof PebbleItem pebble) {
+                        if (pebble.getBlock() instanceof PebbleBlock block) {
+                            if (block.getParentBlock() != null) {
+                                output.accept(new ItemStack(item));
+                            }
+                        }
+                    } else {
+                        if (item != null) {
+                            output.accept(new ItemStack(item));
+                        }
+                    }
+                });
+            }).build();
+        });
     }
 }

@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -46,7 +46,7 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
      *               or doesn't exist due to the mod owning the block not being present
      */
     public PebbleBlock(@Nullable ResourceLocation parent) {
-        super(Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.STONE).strength(0.125F, 2F).sound(SoundType.STONE).dynamicShape().noCollission().offsetType(OffsetType.XZ));
+        super(Properties.of().strength(0.125F, 2F).sound(SoundType.STONE).dynamicShape().noCollission().offsetType(OffsetType.XZ).replaceable().pushReaction(PushReaction.DESTROY).mapColor(MapColor.STONE));
         this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, Boolean.FALSE));
         this.parentBlockRl = parent;
     }
