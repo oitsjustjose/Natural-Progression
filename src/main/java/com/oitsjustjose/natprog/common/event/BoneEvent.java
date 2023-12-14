@@ -29,6 +29,7 @@ public class BoneEvent {
 
     @SubscribeEvent
     public void onItemRightClick(PlayerInteractEvent.RightClickItem evt) {
+        if (!CommonConfig.ENABLE_KNAPPING.get()) return;
         if (playersLastRightClicked.containsKey(evt.getEntity().getUUID())) {
             if ((System.currentTimeMillis() - playersLastRightClicked.get(evt.getEntity().getUUID())) < 200) {
                 return;

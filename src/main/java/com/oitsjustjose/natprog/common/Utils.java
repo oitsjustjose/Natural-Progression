@@ -66,7 +66,7 @@ public class Utils {
     @Nullable
     public static BlockPos getTopLevelPlacePos(WorldGenLevel level, ChunkPos chunkPos, int spread) {
 
-        if (!(level instanceof WorldGenRegion world)) {
+        if (!(level instanceof WorldGenRegion region)) {
             return null;
         }
 
@@ -78,21 +78,21 @@ public class Utils {
         var blockPosX = xCenter + (level.getRandom().nextInt(usedSpread) * ((level.getRandom().nextBoolean()) ? 1 : -1));
         var blockPosZ = zCenter + (level.getRandom().nextInt(usedSpread) * ((level.getRandom().nextBoolean()) ? 1 : -1));
 
-        if (!world.hasChunk(chunkPos.x, chunkPos.z)) {
+        if (!region.hasChunk(chunkPos.x, chunkPos.z)) {
             return null;
         }
 
-        var searchPos = new BlockPos(blockPosX, world.getHeight(), blockPosZ);
+        var searchPos = new BlockPos(blockPosX, region.getHeight(), blockPosZ);
 
         // With worlds being so much deeper,
         // it makes most sense to take a top-down approach
-        while (searchPos.getY() > world.getMinBuildHeight()) {
+        while (searchPos.getY() > region.getMinBuildHeight()) {
             // BlockState blockToPlaceOn = world.getBlockState(searchPos);
             // Check if the location itself is solid
             if (canPlaceOn(level, searchPos)) {
                 // Then check if the block above it is either air, or replacable
                 var actualPlacePos = searchPos.above();
-                if (canReplace(world, actualPlacePos)) {
+                if (canReplace(region, actualPlacePos)) {
                     return actualPlacePos;
                 }
             }

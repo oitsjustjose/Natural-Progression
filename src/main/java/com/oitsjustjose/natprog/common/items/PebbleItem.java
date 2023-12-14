@@ -38,33 +38,34 @@ public class PebbleItem extends BlockItem {
 
     @Override
     @Nonnull
-    public InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand hand) {
-        ItemStack mainHand = playerIn.getMainHandItem();
-        ItemStack offHand = playerIn.getOffhandItem();
+    public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
+        if (!CommonConfig.ENABLE_KNAPPING.get()) return super.use(level, player, hand);
+        ItemStack mainHand = player.getMainHandItem();
+        ItemStack offHand = player.getOffhandItem();
         if (!mainHand.isEmpty() && !offHand.isEmpty()) {
             if (mainHand.getItem() instanceof PebbleItem && offHand.getItem() instanceof PebbleItem) {
-                InteractionHand swingArm = playerIn.getRandom().nextBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+                InteractionHand swingArm = player.getRandom().nextBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 
-                if (worldIn.isClientSide()) {
-                    playerIn.swing(swingArm);
+                if (level.isClientSide()) {
+                    player.swing(swingArm);
                 } else {
                     // 5% chance of knapping actually working:
-                    if (playerIn.getRandom().nextInt(100) <= 5) {
-                        playerIn.getItemInHand(swingArm).shrink(1);
+                    if (player.getRandom().nextInt(100) <= 5) {
+                        player.getItemInHand(swingArm).shrink(1);
 
-                        if (playerIn.getRandom().nextInt(100) < CommonConfig.FLINT_CHANCE.get()) {
-                            worldIn.playSound(null, playerIn.getOnPos(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1.0F, 0.5F);
-                            ItemHandlerHelper.giveItemToPlayer(playerIn, new ItemStack(Items.FLINT, 1));
+                        if (player.getRandom().nextInt(100) < CommonConfig.FLINT_CHANCE.get()) {
+                            level.playSound(null, player.getOnPos(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 1.0F, 0.5F);
+                            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(Items.FLINT, 1));
                         } else {
-                            worldIn.playSound(null, playerIn.getOnPos(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F, 0.75F);
+                            level.playSound(null, player.getOnPos(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F, 0.75F);
                         }
                     } else {
-                        worldIn.playSound(null, playerIn.getOnPos(), SoundEvents.STONE_HIT, SoundSource.PLAYERS, 1.0F, 1.0F);
+                        level.playSound(null, player.getOnPos(), SoundEvents.STONE_HIT, SoundSource.PLAYERS, 1.0F, 1.0F);
                     }
                 }
             }
         }
-        return new InteractionResultHolder<>(InteractionResult.PASS, playerIn.getItemInHand(hand));
+        return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(hand));
     }
 
     @Override

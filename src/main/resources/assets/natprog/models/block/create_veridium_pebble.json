@@ -1,8 +1,8 @@
 {
   "source": "[120, -38, 99, 98, 18, -56, -51, -52, 75, 77, 46, 74, 76, 43, 81, 53, 118, 76, -52, 44, -78, 103, 80, 66, 22, 41, 46, -55, -49, 75, -75, 47, 75, 44, -54, 76, -52, 43, -79, 77, -52, 75, 73, 45, -50, 44, 73, 101, 56, -64, -40, -62, -56, -64, -64, -36, -64, -128, 7, 48, 55, -80, 31, -96, -91, 60, 72, 5, 0, 44, 61, 25, 103]",
   "textures": {
-    "1161658297": "create:block/palettes/stone_types/veridium",
-    "particle": "create:block/palettes/stone_types/veridium"
+    "1161658297": "create:block/palettes/stone_types/natural/veridium_0",
+    "particle": "create:block/palettes/stone_types/natural/veridium_0"
   },
   "elements": [
     {
