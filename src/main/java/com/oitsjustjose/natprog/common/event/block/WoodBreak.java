@@ -36,7 +36,7 @@ public class WoodBreak {
         evt.setCanceled(true);
 
         // Random chance to even perform the hurt anim if the player is empty-handed
-        if (evt.getEntity().getMainHandItem().isEmpty() && evt.getEntity().getRandom().nextInt(25) == 1) {
+        if (evt.getEntity().getMainHandItem().isEmpty() && evt.getEntity().getRandom().nextInt(25) == 1 && CommonConfig.INCORRECT_TOOL_DAMAGE.get()) {
             // And when it's shown, random chance to actually hurt from "splintering"
             if (evt.getEntity().getRandom().nextInt(10) == 1) {
                 evt.getEntity().hurt(DamageTypes.getDamageSource(level, DamageTypes.SPLINTERING), 1F);

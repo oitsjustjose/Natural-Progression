@@ -26,6 +26,7 @@ public class CommonConfig {
     public static ForgeConfigSpec.IntValue BONE_DROP_CHANCE;
     public static ForgeConfigSpec.BooleanValue ALL_ENTITIES_DROP_BONES;
     public static ForgeConfigSpec.BooleanValue SHOW_BREAKING_HELP;
+    public static ForgeConfigSpec.BooleanValue INCORRECT_TOOL_DAMAGE;
 
     static {
         init();
@@ -55,6 +56,7 @@ public class CommonConfig {
         BONE_DROP_CHANCE = COMMON_BUILDER.comment("The chance (out of 100) that a bone can drop from the entities in 'boneDropMobs'.\nSetting this to 0 disables this feature").defineInRange("boneDropFromMobsChance", 50, 0, 100);
         ALL_ENTITIES_DROP_BONES = COMMON_BUILDER.comment("Enabling this causes all entities to drop additional bones when killed").define("allEntitiesDropBones", false);
         SHOW_BREAKING_HELP = COMMON_BUILDER.comment("Setting this to true will let players know that they can't break certain blocks without a certain tool").define("showToolHelp", true);
+        INCORRECT_TOOL_DAMAGE = COMMON_BUILDER.comment("Setting this to true will damage players that attempt to break blocks with the incorrect tool").define("incorrectToolDamage", true);
         COMMON_BUILDER.pop();
     }
 }
