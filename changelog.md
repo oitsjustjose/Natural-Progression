@@ -1,5 +1,16 @@
 # Natural Progression Changelog (1.20.1)
 
+## 2.3.6
+
+### Added:
+
+- Ported over the config option for the "Incorrect Tool" damage - [thank you Saereth!](https://github.com/oitsjustjose/Natural-Progression/pull/83)
+- Config option to control the Knapping mechanic entirely
+
+### Fixed:
+
+- Some of the Create Pebbles having a Missing Texture
+
 ## 2.3.5
 
 ### Initial Port to 1.20.1 and Neo
