@@ -45,7 +45,7 @@ public class StoneBreak {
         evt.setCanceled(true);
 
         // Random chance to even perform the hurt anim if the player is empty-handed
-        if (evt.getEntity().getMainHandItem().isEmpty() && evt.getEntity().getRandom().nextInt(25) == 1) {
+        if (evt.getEntity().getMainHandItem().isEmpty() && evt.getEntity().getRandom().nextInt(25) == 1 && CommonConfig.INCORRECT_TOOL_DAMAGE.get() ) {
             // And when it's shown, random chance to actually hurt from breaking bones
             if (evt.getEntity().getRandom().nextInt(2) == 1) {
                 evt.getEntity().hurt(brokenHandSource, 1F);
