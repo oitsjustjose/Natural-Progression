@@ -27,6 +27,7 @@ public class CommonConfig {
     public static ForgeConfigSpec.BooleanValue ALL_ENTITIES_DROP_BONES;
     public static ForgeConfigSpec.BooleanValue SHOW_BREAKING_HELP;
     public static ForgeConfigSpec.BooleanValue INCORRECT_TOOL_DAMAGE;
+    public static ForgeConfigSpec.BooleanValue ENABLE_KNAPPING;
 
     static {
         init();
@@ -57,6 +58,7 @@ public class CommonConfig {
         ALL_ENTITIES_DROP_BONES = COMMON_BUILDER.comment("Enabling this causes all entities to drop additional bones when killed").define("allEntitiesDropBones", false);
         SHOW_BREAKING_HELP = COMMON_BUILDER.comment("Setting this to true will let players know that they can't break certain blocks without a certain tool").define("showToolHelp", true);
         INCORRECT_TOOL_DAMAGE = COMMON_BUILDER.comment("Setting this to true will damage players that attempt to break blocks with the incorrect tool").define("incorrectToolDamage", true);
+        ENABLE_KNAPPING = COMMON_BUILDER.comment("Setting this to false will disable the knapping mechanic entirely - a substitute mechanic for obtaining tools or flint will need to be added by the pack developer").define("enableKnapping", true);
         COMMON_BUILDER.pop();
     }
 }
