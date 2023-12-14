@@ -66,8 +66,8 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        var offset = state.getOffset(worldIn, pos);
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        var offset = state.getOffset(getter, pos);
         return Shapes.create(0.37D, 0.0D, 0.37D, 0.69D, 0.065D, 0.69D).move(offset.x, offset.y, offset.z);
     }
 
@@ -84,9 +84,9 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Nonnull
-    public InteractionResult use(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, Player player, @NotNull InteractionHand handIn, @NotNull BlockHitResult hit) {
+    public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand handIn, @NotNull BlockHitResult hit) {
         if (!player.isCrouching()) {
-            worldIn.destroyBlock(pos, true);
+            level.destroyBlock(pos, true);
             player.swing(handIn);
             return InteractionResult.SUCCESS;
         }
@@ -94,9 +94,9 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public boolean canSurvive(@NotNull BlockState state, LevelReader worldIn, BlockPos pos) {
-        var below = worldIn.getBlockState(pos.below());
-        return below.isSolidRender(worldIn, pos.below());
+    public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
+        var below = level.getBlockState(pos.below());
+        return below.isSolidRender(level, pos.below());
     }
 
     @Override
@@ -110,14 +110,14 @@ public class PebbleBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public void neighborChanged(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, @NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
-        super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
-        if (!this.canSurvive(state, worldIn, pos)) {
-            worldIn.destroyBlock(pos, true);
+    public void neighborChanged(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
+        super.neighborChanged(state, level, pos, blockIn, fromPos, isMoving);
+        if (!this.canSurvive(state, level, pos)) {
+            level.destroyBlock(pos, true);
         }
         // Update the water from flowing to still or vice-versa
         if (state.getValue(WATERLOGGED)) {
-            worldIn.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
     }
 }
